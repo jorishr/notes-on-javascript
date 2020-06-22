@@ -1,0 +1,209 @@
+###################################
+ELOQUENT JS, CHAPTER III: FUNCTIONS
+###################################
+I.	FUNCTION DECLARATION
+II.	DECLARATION vs EXPRESSION
+III.	PURE FUNCTIONS
+IV.	IMMEDIATELY INVOKED FUNCTIONS
+###################################
+
+
+##########################
+I.	FUNCTION DECLARATION
+##########################
+
+Functions are an essential building block of JS, let's you wrap lines of code into reusable packages.
+
+First, you DECLARE the function:
+
+function <name> (parameters){
+  <do smth>
+  ...
+}
+
+Then later in the code you can CALL or INVOKE the function:
+
+<name>();	//called with or without arguments
+
+
+ARGUMENTS/PARAMETERS can be added to take input:
+
+Parameters works as a regular binding towards the function, but the initial value (the argument) is given by the caller of the function, not the code inside the function.
+
+Parameters and arguments are used to indicate the same thing but there is a subtle difference. The parameter refers to the binding that is passed to the function and the argument would be the actual value that is used.
+
+function kwadraat(num) {
+  document.write(num * num);
+}
+
+kwadraat(10);	//-> 100
+
+Here the parameter is num and the argument is 10.
+
+If you define a function with two arguments or parameters but CALL the functions with more than two, the additional ones will be ignored by JS. 
+
+DEFAULT PARAMETER
+If you add '= <value>' to the (function power(base, exponent = 2)) then the second argument will be replaced by the <value> if you CALL the function with just one parameter. 
+
+	power(10)	//-> 10 to 2th or 10 x 10 = 100
+
+If you forget to to call with the enough parameters, the missing ones will get the value undefined.
+
+When a function is invokes with template string, this is considered to be an argument:
+
+myFn'str';	-> myFn('str'); 
+
+KEYWORD ARGUMENTS
+
+function anon(){
+	let arg = arguments;
+	return arg;
+}
+//-> returns the array of all ARGUMENTS passed to the function, independent of the number of parameters defined in the function declaration.
+
+anon(1,2,3)
+//-> Arguments(3) 
+	[1, 2, 3, callee: ƒ, Symbol(Symbol.iterator): ƒ]
+
+
+RETURN
+
+The result of a function by itself is not useful. You can print it, but is does not produce an output that you can capture into a variable. To do that we use the RETURN keyword.
+
+function kwadraat(x) {
+  return x*x;
+}
+	kwadraat(4)
+
+If you run this in the console, it'll produce A RETURN VALUE of 16, not a mere number that is undefined.
+
+You can reuse this return value now:
+console.log("4 kwadraat is: " + kwadraat(4));
+- of document.write("4 kwadraat is: " + kwadraat(4));
+- of steek het in een nieuwe variabele:
+    var uitkomst = kwadraat(x);
+
+NOTE: the return value ends the function, code that comes after it will not be executed.
+
+Some functions produce a value, others only produce a result that has a side effect (console.log("hello")). 
+
+Functions that don't have a return statement will return undefined, they are considered be VOID functions (leeg). 
+
+Also a return keyword without expression behind it will return undefined.
+
+RETURN MULTIPLE VARIABLES
+
+function(){return {var1: var1, var2: var2, var3:var3}}
+
+To return them in a string format:
+
+function(){return json.stringify({var1: var1, var2: var2}) 
+
+
+SEMI-COLON PROBLEM
+let x = function(){
+	return 
+		{key: value}
+}
+//-> returns undefined
+
+let x = function(){
+	return {
+		key: ''
+	}
+}
+//-> returns {key: ''}
+
+FUNCTION OBJECTS
+
+Note that function are objects in JS. The function object can be examined with console.dir(<fn-name>).
+
+This also means you can add properties to your own functions.
+
+Some native methods are also accessible. For example, get the name of the function.
+
+function doSomthing(){}	
+doSomething.name	 	//-> 'doSomething'
+(() => {}).name	 	//-> ''	
+(function(){}).name	//-> ''	
+Constructor functions are anonymous:
+(new Function).name;  // "anonymous"
+
+###############################
+II.	DECLARATION vs EXPRESSION
+###############################
+
+A function expression means you express it when defining a variable:
+
+function myFunc(){...}	//-> fn declaration
+
+const func = function(){}	//-> fn expression is an anonymous function stored in a variable.
+
+NOTE: A function binding or expression acts as a name for a specific piece of the program. The binding is defined and usually never changed again. If later you change the value of the variable, your function will be lost because a fn expression BEHAVES AS A VARIABLE. 
+
+You can pass on the value of the function (the right part, that contain the code) onto another binding. Or you CAN change the value of the binding from a function to another function or a number.
+
+DIFFERENCE BETWEEN EXPRESSION AND DECLARATION
+This also means that the function expression is NOT avaibable before it is declared. This is an important difference with a fn declaration. See hoisting doc.
+
+Also, a function expression is expected to resolve to a value, even if that value is undefined. A declaration or definition on the other hand is merely a reference.
+
+
+####################
+III.	PURE FUNCTIONS
+####################
+
+A pure function is a value producing function that has no side-effects and does not rely on side-effects from other code. It doesn't read global bindings whose value may change. 
+
+	let square = (x) => {x * x;};
+	square(4) //16
+
+
+###################################
+IV.	IMMEDIATELY INVOKED FUNCTIONS
+###################################
+
+You can store a function inside a variable and then call that function at a later stage.
+
+const myFunc = function(num){...}
+
+myFunc(4);
+
+If you only going to use a function ONCE, then you can call it while writing it:
+
+(function(i){})(j)
+
+This is an anonymous function with an inner argument i and outer arg j. Also called an IIFE.
+
+If the function returns a value you can store it in a variable.
+
+let funcResult = (function(){})()
+
+If your function does NOT return a value you can also write:
+
+!function(){}()
+-function(){}()
+~function(){}()
++function(){}()
+
+The use case for this is when you want to write your own library and keep methods or variables in a private scope.
+
+
+IMPORTANT
+
+IIFE create a BLOCK SCOPE, thus variables declared inside the block with the LET keyword are not visible outside the block.
+
+(function(){let a = b = 100})()
+
+Thus console.log(a)	//-> reference error, a not defined
+
+BUT, console.log(b) = 100 	//-> 100 
+because it is not defined with the let keyword explicitely and therefore it becomes GLOBAL.
+
+NOTE that the code below is not accepted because it is a function declaration that is more like a reference rather than a value that can be resolved. To solve that you have to make into an expression by using ().
+
+function(){}();
+
+(function(){})();
+
+USE CASE: control the scope of your variables. You cannot predict the future update to your web app and what changes may be implemented. 

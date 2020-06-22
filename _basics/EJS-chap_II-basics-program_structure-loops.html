@@ -1,0 +1,206 @@
+<!DOCTYPE HTML>
+<HEAD>
+<TITLE>JS Loops</TITLE>
+
+</HEAD>
+<BODY>
+	<p>We tellen van 1 tot 5 met een WHILE loop</p>
+	<script type="text/javascript">
+		var tellen = 1;
+		while (tellen <=5) {
+			document.write(tellen + "<br/>");
+			tellen++; //important, if not incremented, you may end up in an infinite loop!
+		}
+	</script>
+
+	<p>We tellen van 0 tot 20 in stappen van 2 met een WHILE loop</p>
+	<script type="text/javascript">
+		var tellen = 0;
+		while (tellen <=20) {
+			document.write(tellen + "<br/>");
+			tellen+=2; //ipv ++
+		}
+	</script>
+
+	<p>We print the odd numbers from 1 tot 10</p>
+	<script type="text/javascript">
+		var tellen = 1;
+		while (tellen <=10) {
+			document.write(tellen + "<br/>");
+			tellen += 2;
+		}
+	</script>
+
+	<p>We print the multiples of 6 from 0 to 100</p>
+	<script type="text/javascript">
+		var tellen = 0;
+		while (tellen <=100) {
+			if (tellen % 6 === 0) {
+			document.write(tellen + "<br/>");
+			}
+			tellen++;
+		}
+	</script>
+
+	<p>We tellen af van 150 tot 50 </p>
+	<script type="text/javascript">
+		var aftellen = 150;
+		while (aftellen >= 50) {
+			document.write(aftellen + "<br/>");
+			aftellen--;
+		}
+	</script>
+
+	<p>We schrijven de nummers tussen -10 en 19.</p>
+	<script type="text/javascript">
+		var tellen = -10;
+		while (tellen <= 19) {
+			document.write(tellen + "<br/>");
+			tellen++;
+		}
+	</script>
+
+	<p>We schrijven alle EVEN nummers tussen 10 en 44.(methode IF)</p>
+	<script type="text/javascript">
+		var tellen = 10;
+		while (tellen <= 44) {
+			if (tellen % 2 === 0){
+			document.write(tellen + "<br/>");
+			}
+			tellen++;
+		}
+	</script>
+
+	<p>We schrijven alle EVEN nummers tussen 10 en 44.(methode var+= 2)
+	Het probleem hier is dat als je de var begint op oneven nummer, krijg je
+	oneven nummers.</p>
+	<script type="text/javascript">
+		var tellen = 10;
+		while (tellen <= 44) {
+			document.write(tellen + "<br/>");
+			tellen+= 2;
+		}
+	</script>
+
+	<p>We schrijven alle ONEVEN nummers tussen 10 en 44.</p>
+	<script type="text/javascript">
+		var tellen = 10;
+		while (tellen <= 44) {
+			if (tellen % 2 !== 0){
+			document.write(tellen + "<br/>");
+			}
+			tellen++;
+		}
+	</script>
+
+	<p>We schrijven alle nummers DEELBAAR door 5 EN 3 tussen 5 en 50.</p>
+	<script type="text/javascript">
+		var tellen = 5;
+		while (tellen <= 50) {
+			if (tellen % 5 === 0 && tellen % 3 ===0){
+			document.write(tellen + "<br/>");
+			}
+			tellen++;
+		}
+	</script>
+
+	<p>We schrijven de letter van de string "het is winter" met een WHILE loop</p>
+	<script type="text/javascript">
+		var str = "het is winter" //we are looping over this string, starting at index 0, the first char
+		var tellen = 0;
+		while (tellen < str.length) { //de loop draait zolang we niet op het einde van de str zijn
+			document.write(str[tellen] + "<br/>"); //we schrijven char index positie waarop we ons bevinden
+			tellen++; //na elke loop +1
+		}
+	</script>
+
+
+	<p>We schrijven 10x Twingo met een WHILE loop:</p>
+	<script>
+		var count = 1; //het tellen begint bij 1
+		while (count<11) { //condition
+			document.write("Twingo"+"<br>");
+			count++; //dit voegt telkens 1 eenheid toe aan de waarde van de var count
+		}
+	</script>
+	<hr>
+
+	<p>We schrijven het woorde Frog 10 keer met een FOR loop:</p>
+	<script>
+		for(i = 1; i<11;i++){
+			document.write("Frog"+"<br>")
+		}
+	</script>
+	<hr>
+
+<script>
+/*bijvoorbeeld: print naam derde tot 10de maand met for*/
+var months = ["January","Febuary","March","April","May","June","July",
+"August","September","Octuber","November","December"]
+for (i=2;i<10;i++)
+{document.write(months[i]+"<br>");}
+//tellen van array begint altijd met 0 dus derde plaats is 2
+</script>
+<hr>
+<script>
+//Maanden tonen tot je eentje vindt met minder dan 6 letters via while
+var count = 0; //telt het aantal loops
+var howManyLetters = months[count].length; /*lengte string van de maand
+in de loop*/
+while (howManyLetters>6)
+{
+	document.write(months[count]+"<br>");
+	count++;
+	howManyLetters = months[count].length; /*telkens er een ronde wordt
+	geteld wordt deze variabele de lengte van de volgende maand in de
+	array*/
+}
+</script>
+<h3>Comparison bewteen WHILE AND FOR LOOPS</h3>
+
+<p>Counting 1 to 5</p>
+<script type="text/javascript">
+	for(var tellen = 1; tellen <= 5; tellen++) {
+		document.write(tellen + "<br />")
+	}
+</script>
+<p>Writing every character in a string</p>
+<script type="text/javascript">
+	var str = "hello";
+	for(var i = 0; i < str.length; i++){
+		document.write(str[i]);
+	}
+</script>
+<p>print every other character of a string</p>
+<script type="text/javascript">
+var str ="this is my string";
+for(var i=0;i <str.length; i+=2){
+	document.write(str[i]);
+}
+</script>
+<p>Print all numbers between -10 and 19 with FOR loop</p>
+<script type="text/javascript">
+	for(var i = -10; i<=19;i++){
+		document.write(i);
+	}
+</script>
+<p>Print all EVEN numbers between 10 and 40 with FOR loop</p>
+<script type="text/javascript">
+	for(var i = 10; i <= 40; i++){
+		if(i % 2 ===0){
+		document.write(i);
+		}
+	}
+</script>
+<p>Print all numbers between 10 and 40 divisible by 5 AND 3 with FOR loop</p>
+<script type="text/javascript">
+	for(var i = 10; i <= 40; i++){
+		if(i % 5 ===0 && i % 3===0){
+		document.write(i);
+		}
+	}
+</script>
+
+
+</BODY>
+</HTML>

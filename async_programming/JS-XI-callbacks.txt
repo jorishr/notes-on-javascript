@@ -1,0 +1,138 @@
+##################
+CALLBACK FUNCTIONS
+#####################################
+I.	ABOUT CB 
+II.	HANDLING ERRORS IN CB FUNCTIONS
+III.	SET TIME OUT / INTERVAL
+#####################################
+
+###############
+I.	CALLBACKS
+###############
+
+The first approach to asynchronous programming is to make functions that perform a slow action take an extra argument, a callback function. 
+
+The action is started, and when it finishes, the callback function is called with the result.
+
+A callback function is function that is passed as a parameter to another function AND then invoked/called by that function. 
+
+That parent function usually is a higher order function:
+
+	function higherOrder(callbackFn){
+		callbackFn();
+	}
+
+The callbackFn itself can be anything, for example:
+	
+	function callbackFn(a, b){return a+b};
+
+A good example is the higher order function forEach(array, callbackFn). ForEach takes an array, loops over it and performs a callbackFn on each value in the array. 
+
+
+USE CASES:
+- advanced array methods (map, filter, reduce, some, every)
+- handling browsers events: click, submit, dom content loaded, all accept callbacks that are called when the event takes place.
+- AJAX requests
+- React development
+
+EXAMPLE I: 
+
+	function sendMessage(message, callbackFn){
+		return callbackFn(message)
+	}
+
+Thus, a function that takes in a message string and a callbackFn, the function returns the result of the callbackFn with the message as an argument.
+
+	sendMessage("Hello", console.log); 
+
+	// ->  return console.log("Hello") -> Hello
+
+EXAMPLE II:
+	
+	function greet(name, callbackFn){
+		return `Hello ${callbackFn(name)}`
+	}
+
+	function toBold(err, str){
+		return str.toUpperCase()};
+	
+	greet("Joris", toBold) // -> "Hello JORIS"
+
+Mostly however we will not be using declared functions but instead anonymous functions when invoking the declared higher order function:
+
+	greet("Joris", function(name){return name.toUpperCase()})
+	
+	// -> "Hello JORIS"
+
+
+#####################################
+II.	HANDLING ERRORS IN CB FUNCTIONS
+#####################################
+
+A widely used convention is that the first argument to the callback is used to indicate that the action failed, and the second contains the value produced by the action when it was successful.
+
+NodeJS has implemented err as the first argument of a cb function. If no err is present the value of err is null.
+	
+	fs.readFile('/file.json', (err, data) => {
+		if (err !== null) {
+			return console.log('Error', err);
+		console.log('success', data);
+
+Such callback functions must always check whether they received an exception and make sure that any problems they cause, including exceptions thrown by functions they call, are caught and given to the right function.
+
+The problem with nesting is that it will lead to a lot of nested code with lots of cb and if/else statements for handling errors and events.
+
+Alternatives are PROMISES and ASYNC/AWAIT.
+
+#############################
+III.	SET TIME OUT / INTERVAL
+#############################
+
+Calls a function after a delay of x milliseconds.
+
+	setTimeout(callbackFn, delay);
+
+	var delay = 1000;
+	function sayHello(){console.log("hello");};
+	setTimeout(sayHello, 1000);
+
+OR as anonymous function:
+
+	setTimeout(function(){console.log("hello");}, 1000));
+
+NOTE: before returning the result of the function, you also get a timerID in the console, a number that can be used to clear the timeout if needed.
+
+CLEAR TIMEOUT/INTERVAL
+
+In order to successfully clear intervals and timeouts, you actually need to assign the timeout or interval to a variable (that is the timerId). You can then use that variable as a parameter to clearInterval and clearTimeout. 
+
+	var timerId = setTimeout(cbFn, delay);
+
+NOTE: timerId is not equal to the setTimeout function BUT to the number that is returned from running the setTimeout.
+
+	clearTimeout(timerID);
+
+This is not very practical, but possible. If you set a clearTimeout the original timeout delay will not apply.
+
+SET TIME INTERVAL
+
+Continously calls a function at every x ms.
+
+	setTimeinterval(cbFn, interval) 
+
+EXAMPLE: log a number every second
+	
+	var num = 0;
+	
+	function logNum(){num = num + 1; console.log(num);}
+	
+	setInterval(logNum, 1000);
+
+
+Asynchronous callbacks.
+
+The callbacks are immediately created but not immediately executed. The function does not execute right away but rather whenever it is triggered asynchronously, at a moment unknown: It has to wait for the STACK to clear.
+
+Workaround: use a setTimeout 0 on the cb() to allow time for processing.
+
+	setTimeout(() => {cb()}, 0)

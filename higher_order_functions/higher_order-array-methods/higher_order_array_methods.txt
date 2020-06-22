@@ -1,0 +1,175 @@
+###############################
+EJS: CHAPTER V
+HIGHER ORDER METHODS FOR ARRAYS
+###############################
+I.	FOREACH
+II.	MAP
+III.	FILTER
+IV.	SOME/EVERY
+V.	REDUCE
+###############################
+
+################
+WHAT TO USE WHEN
+################
+
+Use .forEach to iterate over arrays
+
+Use .map to transform arrays into new ones of the same length. 
+
+Use .filter to filter arrays into arrays of different length, for example removing value based on a condition.
+
+Use .some and .every to return boleans from callbacks
+
+Use .reduce to accumulate values, and transform arrays into different datatypes. 
+
+NOTE ABOUT COMPOSABILITY
+
+Higher order functions trully shine once you have to compose operations that are like a pipeline of computation:
+
+For example: start with all scripts, filter out the living (or dead) ones, take the years from those, average them, and round the result.  
+
+In general the higher order functions are going to be better readable for human eyes but may result in more use of computational power. 
+
+If speed with huge datasets is an issue, you have to evaluate the approach: higher order functions with better readable code or faster code that may be more difficult to debug.
+
+
+#############
+I.	FOREACH
+#############
+
+Loops over the array and performs the function you pass as a parameter. This function is usually a callback function. 
+
+arr.forEach(() => {}) 
+
+What it does: iterates through the elements of the array and calls (the callback) function on each value. Since there is no return statement, forEach will always return undefined. 
+
+Thus if you try to store the result of a .forEach method into a binding, this will be UNDEFINED.
+
+The function inside the .forEach method has always access to the value of the array it is running on, the index position of that value, and the array itself. IN THAT ORDER.
+
+[1, 2, 3].forEach(function(value, index, array){})
+		
+Those three parameters are present for ALL ARRAY methods, except .reduce and are OPTIONAL. 
+
+
+#########
+II.	MAP
+#########
+
+Transform arrays into new ones with the same length but with different values. 
+
+You can do the same with a forEach method but then you need the additional step of a .push method to create the new array, .map is an easier way to do this.
+
+Thus .map iterates through the original array, calls a callback function on each value of that array, adds the result of that function to a new array of the same length, and finally returns that new array. 
+
+arr.map(callBackFn(value, index, parameter){
+	return whatToDo
+}) 
+
+IMPORTANT difference between .forEach and .map is that the latter goes with a RETURN statement because that result will be included in the array that is going to be created. ForEach on the other hand simple returns undefined.
+
+OBJECT VALUES INTO TO ARRAY
+.map is most usefull when you want to extract property values from an object and place them into an array.
+
+
+############
+III.	FILTER
+############
+
+Builds up a new array with only those elements that pass a test. The test is defined by the (anonymous)function you pass as an argument:
+
+arr.filter(() => {}) 
+
+array.filter(x => x.property == "string")	// -> []	
+
+In other words, compared to .map and .forEach the result of the callback function is evaluated into a bolean. When iterating through the array, the only values that will be added to the newly built array are those values of the original array for which the callback function returns true.
+
+If the callback function returns falls for that value, the value will be ignored.
+
+This changes for the way we write or callback function. The return statement has to have an EXPRESSION that evaluates as TRUE or FALSE, because .filter needs to know whether the evaluated value from the original array has to be added to the newly created array.
+
+var arr = [1, 2, 3]
+
+arr.filter(function(value, index, array){
+	return value > 1;
+}) // -> [2, 3] 
+
+For the first value 1 the result is false, thus ignored and not part of the new array.
+
+Note that there is no need to write if statements here.
+
+USE CASES
+For example, use the twitter API and filter out the 50 most recent tweets (put into an array) that have more than 10 retweets or favorites. Thus all the tweets with less than 10 retweets are filtered out, thus returning a smaller length array.
+
+
+####################
+IV.	SOME AND EVERY
+####################
+
+SOME
+.some()returns true when the given function returns true for any of the elements in the array. You can think of the some() method as the OR || operator for elements of an array.
+
+array.some(testFunction);
+array.every(testFunction);
+
+[1, 2, 3].some(function(value, index, array){
+	return value < 2;
+})	// -> true
+
+[1, 2, 3].some(function(value, index, array){
+	return value > 3;
+})	// -> false
+
+Iterates through the array, and if AT LEAST ONE callback function on a value returns TRUE, the .some method returns TRUE. If not, the .some method returns false.
+
+IMPORTANT NOTE: the .some method does not give you an array with the values that comply with the condition. It only returns a bolean true or false.
+
+EVERY
+
+The basic idea is that for every to return TRUE, every single value that passes through the callback fn has to return TRUE. 
+
+If one single value in the array has the callbackfn produces FALSE, the entire every method returns false.
+
+You can think of the every() method as the AND && operator for elements of an array.
+
+Example: Are all the array values negative numbers?
+
+var arr = [-1, 2, -3]
+function allNegative(arr){
+	return arr.every(function(value){
+		return value < 0;
+	});
+}
+allNegative(arr) // -> false
+
+Thus, the every will only return true if the for loop is complete without finding a value that produces false.
+
+
+############
+V.	REDUCE
+############
+
+Basic idea behind reduce method is to turn an ARRAY into a another datastructure: number, object, array of arrays, etc.
+
+Accepts a callback function and an optional starting value parameter.
+
+arr.reduce(cbFn(params), accStartVal);
+
+If no parameter is passed on to reduce method: 
+the accumulator takes the first value in the array (at index[0]).
+
+PARAMETERS
+Iterates through the original array and passes each value of the array through the callback function BUT the parameters for the callback function differ from those in the other methods. 
+
+The first parameter is called the ACCUMULATOR and starts as the optional parameter in the outer reduce function.
+
+[1, 2, 3].reduce(cbFn(accumulator, nextValue, index, array), accStartVal); 
+
+The return value from the callBackFn becomes the new value of the accumulator for each new iteration of the loop over the original array. 
+
+Thus the end result of the reduce function will be the end value of the accumulator once the looping is done.
+
+The nextValue is the value in the array at index[0] if an acccumulator startValue is specified.
+
+If no optional argument is given, the nextValue is the second position in the array (at index[1]).

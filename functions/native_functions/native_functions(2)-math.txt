@@ -1,0 +1,60 @@
+###############
+THE MATH OBJECT
+########################################
+I.	MATH.CEIL, .FLOOR, .ROUND, .RANDOM
+II.	MATH.MAX, .MIN, .ABS
+III.	MATH.PI
+IV.	MATH.SQRT
+########################################
+
+
+################################
+I.	CEIL, FLOOR, ROUND, RANDOM
+################################
+
+The Math object is used as a container to group a bunch of related functionality. It provides a namespace so that all these functions and values do not have to be global bindings. 
+
+Since JavaScript’s built-in max function is tucked safely inside the Math object(Math.max), we don’t have to worry about overwriting it by creating a new global binding let max = [];
+
+Math.ceil() 	//rounds UP to the nearest whole number
+Math.floor() 	//rounds DOWN to the nearest whole number.
+Math.round() 	//rounds to the nearest whole number
+
+Math.random() 	//returns a new pseudorandom number between zero (inclusive) and one (exclusive) every time you call it.
+
+
+##################
+II.	AX, MIN, ABS
+##################
+
+Math.max()		//-> -Infinity
+-Infinity is the initial comparant because almost every other value is bigger, that's why when no arguments are given, -Infinity is returned.
+Math.max([1,2,3])	//-> NaN
+Math.max(1,2,3)		//-> 3
+
+Math.min()		//-> Infinity
+Math.min(1,2,3)	//-> 1
+
+Math.abs(-21); 	// -> 21
+Convert a possible negative value into an absolute value: 
+
+
+########
+III.	PI
+########
+
+Math.Pi;	
+
+The PI number can be stored in variable to work with:
+let nummPi = Math.Pi;		// -> 3,1451....
+	
+let omtrek = (2 * Math.Pi * r);		//->	2 * pi * straal
+let oppervlakte = (Math.Pi * r * r)	//->	pi r kwadraat
+
+
+##########
+IV.	SQRT
+##########
+
+Math.sqrt(16)	// -> 4
+let vierkantswortel = Math.sqrt(64);	// -> 8

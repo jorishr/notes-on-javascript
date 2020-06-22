@@ -1,0 +1,303 @@
+###############################
+CLASSES AND CONSTRUCTORS IN OOP
+###############################
+I.	CONSTRUCTOR FUNCTION
+II.	CLASSES
+III.	INHERITANCE
+###############################
+
+##########################
+I.	CONSTRUCTOR FUNCTION
+##########################
+
+One of the techniques in OOP is to use blueprints to construct objects. These blueprints are called CLASSES. The objects created by classes are called INSTANCES.
+
+JS does not have built-in support for classes as other languages do, thus we use functions and objects to mimic that behavior.
+
+A.	CONSTRUCTOR FUNCTION
+
+Blueprint for a class that constructs an INSTANCE (object) that holds the properties of a house:
+
+let house1 = {bedrooms: 3, bathrooms: 2, sqFeet: 150}
+let house2 = {bedrooms: 3, bathrooms: 2, sqFeet: 150}
+let house3...etc.
+
+To automate this proces we use a constructor function, that is capitalized:
+
+	function House(bedrooms, bathrooms, numSqft){
+		this.bedrooms	= bedrooms;
+		this.bathrooms 	= bathrooms;
+		this.numSqft 	= numSqft;
+	}
+
+To have the this keyword use the correct context we have to use the keyword new when calling the function. Store the result in a binding:
+
+	const house1 = new House(3, 2, 1000)
+	const house2 = new House(4, 1, 2443)
+	etc...
+
+B.	KEYWORD NEW
+
+The new keyword MUST be used with a (constructor) function: 
+
+- it creates an empty object
+	
+- sets the value of the this keyword for that function to that newly created object
+
+- adds "return this" to that function, so the constructor returns that newly created object
+
+- adds a "__proto__" property to the object, the "dunder prototype property". This links the newly created object to the prototype property on the constructor function.
+
+Thus the House constructor function has a prototype property that gets linked up with the object that is being created by the new keyword.
+
+C.	EXAMPLE
+Create a function that creates dogs with a name property and an age property. Add an instance function that for each dog logs its name in a string with the sentence "just barked"
+
+	function Dog(name, age){
+		this.name 	= name;
+		this.age 	= age;
+		this.bark 	= function(){
+			return console.log(this.name + "barked");};
+	};
+
+	let dog1 = new Dog("Brego", 6);
+	let dog2 = new Dog("Biko", 2);
+
+	dog1.bark() 		//-> "Brego barked"
+
+BONUS
+
+Change the context of the bark() method using the .call() or .apply() methods.
+
+	dog1.bark.call(dog2) 	//-> "Biko	barked"
+	dog1.bark.apply(dog2) //-> "Biko barked"
+
+INSTANCE METHODS
+
+Shared methods and properties could also be set on the constructor function's prototype property:
+
+	Dog.prototype.bark = function(){
+		return console.log(this.name + "barked")};
+
+#############
+II.	CLASSES
+#############
+
+A class is a constructor function with modern notation, using class methods the add functionality.
+	
+	class Dog {
+		constructor(name, age){
+			this.name 	= name;
+			this.age	= age;
+		};
+		method1(){};
+		method2(){};
+	};
+	let dog1 = new Dog('Brego, 6);
+	dog1.bark()	// -> Brego barked;
+
+The new keyword automatically calls the constructor function inside the class to initialize the object properties defined there.
+
+Constructor, method1 and method2 are available in the __proto__ of dog1 and every instance of the Dog class created with keyword new.
+
+
+A.	INSTANCE METHODS
+
+Are defined inside the class as a seperate function:
+
+	class Dog {
+		constructor(name, age){
+			this.name 	= name;
+			this.age	= age;
+		};
+		bark(){
+			return console.log(`${this.name} barked`);
+		};
+	};
+
+Note that these instance methods are redefined each time we create an object or new instance from the class.
+
+
+B.	(STATIC) CLASS METHODS
+
+Methods can also be directely set on the class function itself and not in the prototype.
+
+Usually, static methods are used to implement functions that belong to the class, but not to any particular object of it.
+
+Static properties and methods are inherited when a class is extended eventhough they are not found in the prototype, because the search continues in parents class if not found in child.
+
+Basically they are class properties.
+
+class User {
+	constructor(name, age){
+		this.name = name;
+		this.age = age;
+	}
+	static printName = function(){console.log(this)}
+}
+
+User.printAge = function(){console.log(this.age)}
+
+Both methods defined by the keyword static or directly as class property are STATIC or class methods.
+
+Both of the functions above are useless because they are not available in the __proto__ of each user object created with this User class.
+
+let user1 = new User('jr', 20);
+
+user1.printName	//-> not a function
+
+But the static methods can be called on the User class:
+
+User.printName();	//-> class User{}
+
+
+EXAMPLE
+Add a new class method on the Array class that does the same as the existing class method .isArray	
+	
+Array.isMyArray = function(arr){
+	return arr.constructor == Array;
+};
+
+Array.isMyArray([1, 2]) 	// -> true;
+Array.isMyArray(['hello') 	// -> false;
+
+Static methods can be useful when no instances of a class are being created. 
+
+ 
+#################
+III.	INHERITANCE
+#################
+
+Pass instance and class methods to other classes.
+
+See codepen for working example.
+
+BETWEEN CONSTRUCTOR FUNCTIONS
+
+Inside the prototype property is where all the methods and properties of a constructor function are stored.
+
+Set the prototype property of the destination constructor function to be a new object create from another constructor prototype property.
+
+Next reset the destination constructor function constructor.
+
+	House.prototype = Object.create(Dog.prototype);
+	House.prototype.constructor = House;
+	
+	console.log(House.prototype.bark);	//-> fn
+	console.log(House.prototype.constructor === House); //->true
+
+BETWEEN CLASSES: EXTENDS
+
+Class inheritance is a way for one class to extend another class,
+so we can create new functionality on top of the existing.
+
+class Origin {
+	constructor(){}
+	instance(){}
+}
+
+class Destination extends Origin {
+	constructor(){}
+	method(){}
+};
+
+The constructor function in the Destination class is optional. The methods defined in Origin are available through the __proto__ and the newly added method is a regular instance method.
+
+console.log(Destination.prototype.constructor === 	Destination); 			//->true
+
+console.log(Destination.prototype);
+//->	constructor: class Destination
+	method: f method()
+	__proto__: 
+		constructor: class Origin
+		instance: f instance()
+
+console.log(Destination.prototype.instance);	
+//-> ƒ instance(){}
+
+
+OVERRIDING METHODS
+
+When your redefine a method in the child class, the functionality will change for the instances created with the child class:
+
+class Parent {
+	constructor(){}
+	log(){console.log(this)}
+}
+class Child extends Parent {
+	log(){console.log('hello')}	//-> log method is overridden
+}
+
+To make this usefull you can use the keyword SUPER in a new function whereby the original functionality is called from the parent class while adding new features.
+
+
+class Child extends Parent{
+	log(){
+		super.log();
+		console.log('hello');
+	};
+}; 
+
+
+OVERRIDING THE CONSTRUCTOR
+
+To override the parent constructor function
+
+If a child class extends a parent class and the child has no constructor, then the following “empty” constructor is generated
+automatically:
+
+constructor(...args) {
+    super(...args);
+}
+
+If you want to override the constructor in a child class you have to use SUPER! Because a "derived" constructor MUST call super in order to execute its parent constructor, otherwise the object for THIS won’t be created.
+
+class Child extends Parent{
+	constructor(newName){
+		super()
+		this.newName = newName;
+	}
+	log(){
+		super.log();
+		console.log('hello');
+	};
+}; 
+
+
+EXAMPLE
+Extend a class and override a method:
+
+class Animal{
+	constructor(name){
+		this.name = name;
+	}
+	action(){console.log('I can move')}
+}
+
+class Dog extends Animal{
+	action(){
+		super.action();
+		console.log('I can run');
+	}
+	bark(){console.log('Bark!')}
+}
+
+let dog1 = new Dog('Brego');
+
+Extend a class and override the constructor:
+
+class Dog extends Animal{
+	constructor(name, feeth){
+		super(name);
+		this.feeth = feeth;
+	}
+	action(){
+		super.action();
+		console.log('I can run');
+	}
+	bark(){console.log('Bark!')}
+}
+let dog1 = new Dog('Brego', 4);
+dog1;	//-> Dog {name: "Brego", feeth: 4}
+
+Note that you have to declare super with corresponding parameters in the parent class.

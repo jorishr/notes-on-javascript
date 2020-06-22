@@ -1,0 +1,42 @@
+#####################
+PROTOTYPE INHERITANCE
+#####################
+
+Inheritance: passing methods from one CONSTRUCTOR FUNCTION (or class) to another CONSTRUCTOR FUNCTION (or class).
+
+A good reason to use inheritance is to have objects that are lighter, since the inhertited method can be looked up in a parent object.
+
+Since JS does not have normal classes, what we do is passing the prototype property from one constructor to another constructor as under the protype property we find all the properties and method.
+
+###
+HOW
+###
+
+A.	THE WRONG WAY
+
+Set the destination constructor function prototype property TO BE that one of the origin constructor.
+
+	Student.prototype = Person.prototype;
+	let student = new Student('John', 'Doe');
+	student.sayHi(); //-> 'Hello John Doe'
+
+This works, the method inside the Person constructor is available on the Student constructor.
+
+However, this is not fully correct because all additional method that are being created on the destination constructor(Student) will now also be available on the origin constructor(Person).
+
+This is because created a new reference to the same value.
+
+B.	THE BETTER WAY: Object.create()
+
+The Object.create() creates a brand new value, not a reference to an existing value.
+
+	Student.prototype = Object.create(Person.prototype);
+	Student.prototype.constructor = Student;
+
+Now a method created on the Student.prototype will not be available on the Person.prototype as both are completely seperated values.
+
+Note that we have to reset the value of the destination prototype.constructor as it will have changed as well when creating the new object.
+
+Every prototype object has a method on it, prototype.constructor which points back to the constructor function. 
+
+

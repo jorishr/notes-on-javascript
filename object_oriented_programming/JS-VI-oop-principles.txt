@@ -1,0 +1,151 @@
+####################
+OOP: CORE PRINCIPLES
+####################
+
+Object-oriented programming is a set of techniques that use objects as the central principle of program organization. 
+
+There are 4 main principles:
+
+encapsulation, 
+
+abstraction, 
+
+inheritance, 
+
+and polymorphism.
+
+
+OOP example:
+
+Users: all data and related functionality is grouped together in an object. Thus names, ages, address, etc plus the functions to show those property values, update, delete, etc.
+
+Inheritance: child classes based on the user model. For example, administrators have the same functionality and data plus some extra features.
+
+
+###################
+I.	ENCAPSULATION
+###################
+
+Different pieces of a program, objects for example, interact through interfaces: interfaces are limited sets of functions and bindings.
+
+The properties and method that belong to the interface are called PUBLIC. 
+
+The properties and methods that contain the various functionalities of the program are called PRIVATE. 
+
+This distinction is not built-in to JS, thus use underscore to indicate a private object property name: 
+
+	object {
+		publicProperty: interfaceFunction(){}, 
+		_privateProperty: programFunction(){},
+		_privateProperty2: []
+	} 	
+
+Seperating the internal implementation from the external interface is encapsulation.
+
+Public properties and methods can easily be get/set from the outside to any value.
+
+The distinction is not enforced by Javascript itself but it is a good guideline for writing code.
+
+In the example below both _waterAmount and power belong to the internal interface. For power no setter is defined, as it supposed to be defined through the constructor, only once.
+
+EXAMPLE
+
+class CoffeeMachine {
+  _waterAmount = 0;
+
+  setWaterAmount(value) {
+    if (value < 0) throw new Error("Negative water");
+    this._waterAmount = value;
+  }
+
+  getWaterAmount() {
+    return this._waterAmount;
+  }
+
+  constructor(power) {
+    this.power = power;
+  }
+  
+  getPower() {
+    return this._power;
+  }
+}
+
+let coffeeMachine = new CoffeeMachine();
+CoffeeMachine.setWaterAmount(100);
+CoffeeMachine;	//-> {_waterAmount: 100}
+CoffeeMachine.setWaterAmount(-10);	//-> Error: Negative water
+
+console.log(`Power is: ${coffeeMachine.power}W`); 
+//-> Power is: 100W
+
+_waterAmount is 
+
+
+The importance of encapsulation:
+- prevent users from modifying core functionality
+- clearer development: an internal overhaul can be done without changing external functionality
+- hiding complexity 
+
+
+#################
+II.	ABSTRACTION
+#################
+
+Applying abstraction means that each object should only expose a high-level mechanism for using it. It's a natural extension of encapsulation. 
+
+This mechanism should hide internal implementation details. It should only reveal operations relevant for the other objects.
+
+Example: phone has only three buttons. The processes that runs in the background are not revealed to the user.
+
+
+#################
+III.	INHERITANCE
+#################
+
+Inheritance is technique that allows for sharing logic between classes.
+
+It means that you create a (child) class by deriving from another (parent) class. This way, we form a hierarchy.
+
+The child class reuses all fields and methods of the parent class (common part) and can implement its own (unique part).
+
+Example: 
+
+A class with a method walk(). 
+Child classes that extend the parent class now have access to walk() method:
+
+dog.walk()
+cat.walk()
+
+
+##################
+IV.	POLYMORPHISM
+##################
+
+Polymorphism means many shapes in Greek.
+
+Polymorphism takes advantage of inheritance in order to override shared or extended methods with specific ones for each child class.
+
+Thus polymorphism allows to perform a single action in different forms. It provides an ability to call the same method on different JavaScript objects.
+
+INHERITANCE
+class A {
+	display(){console.log('A')}
+}
+class B extends A {}
+
+const b = new B();
+b.display //-> 'A'
+
+INHERITANCE+POLYMORPHISM
+class A {
+	display(){console.log('A')}
+}
+class B extends A {
+	display(){
+		console.log('B')
+	}
+}
+
+const b = new B();
+b.display //-> 'B'

@@ -1,0 +1,122 @@
+#################
+MAPS AND WEAKMAPS
+#################
+I.	MAPS
+II.	WEAKMAPS
+#################
+
+
+##########
+I.	MAPS
+##########
+
+A map or HASH MAP is an iterable DATASTRUCTURE. Similar to objects, but the KEYS can of ANY TYPE, thus not only strings as in normal objects.
+
+The advantage over a normal object is:
+- the keys can be of any type 
+- iterable (index-based)
+- finding the size -or number of key-values pairs- is easy. 
+- the object.prototype cannot be overwritten as map don't have one. 
+
+When to use: 
+- when you need other key types than strings. 
+- when you need to look up keys that are not hardcoded strings and that need to be looked up dynamically.
+- when you need the add/remove key-value pairs frequently.
+
+
+A.	MAP METHODS
+
+let myMap = new Map();
+
+The methods on a map can be .set() to add key-value pairs. 
+
+Delete a key-value pair with .delete('<key>'). 
+
+Get the .size() of the map which gives you the number of keys present in the map.
+
+myMap.set(true, 'string' );
+myMap.set(false, 2 );
+
+or chain the set commands: myMap.set(true, 'str').set(false, 2);
+
+myMap.delete(false); 	//-> returns true when succesful
+myMap.size			//-> 1
+
+Keys can be arrays and objects!
+
+	let arrKey = [];
+	myMap.set(arrKey, [1, 2, 3]);
+
+	let objKey = {};
+	myMap.set(objKey, {'name': 'John', 'age': 22});
+
+This is key difference with regular objects. Whatever the object values you set in the key of a regular object, it will always be object Object: value; never {a:1, b:2}: value;
+
+let map = new Map();
+map.set({a:1, b:2}, 'str');
+
+map		//-> Map(1) {{...} => 'str'}; [[Entries]] -> 0: key: {a:1, b:2} value: 'str' 
+
+
+
+B.	GET MAP VALUES
+
+To access the values of those keys in a MAP use the .get() method.
+
+	myMap.get(true) 		//-> 'string'
+	myMap.get(arrKey) 	//-> [1, 2, 3]
+	myMap.get(objKey) 	//-> {'name': 'John', 'age': 22}
+
+Or loop over it with a .forEach method
+
+	myMap.forEach(value => console.log(value));
+
+Maps has a Symbol.iterator implementation which lets us use a for...of via the ENTRIES method.
+
+for(let [key, value] of myMap.entries()){
+	console.log(key, value);
+}
+
+OR
+	
+myMap.values()		//-> mapIterator {'string', 2}
+myMap.keys()		//-> mapIterator {true, false}
+
+
+C.	CONVERT MAP TO TWO DIMENSIONAL ARRAY
+
+let arr = [...myMap];
+arr 	//-> [[], []];
+
+
+##############
+II.	WEAKMAPS
+##############
+
+The WeakMap object is a collection of key/value pairs in which the keys are weakly referenced. Regular MAPS prevent the keys from being garbage collected(free-up memory occupied by objects that are no longer used) if there is no other reference to the object.
+
+The keys must be objects and the values can be arbitrary values.
+
+Cannot be iterated over because of the weak reference.
+
+Example of garbage collection prevention in maps:
+
+{
+	let x = {a:1, b:2};
+	var map = new Map();
+	map.set(x, 'str');
+}
+console.log(map);
+//	-> Map(1) {{…} => "str"}
+
+Let x has block scope and is not available outside the block. After running the block the x object can no longer be referenced. BUT, it does persist into memory because the map datastructure will prevent the garbage collection process to free up that memory so the MAP itself can store that reference.
+
+If a WEAKMAP is used, the reference is to the key is considered to be weak, in other words, garbage collections is not prevented and the reference to the key completely disseappears from the memory system.
+
+{
+	let x = {a:1, b:2};
+	var weakMap = new WeakMap();
+	weakMap.set(x, 'str');
+}
+console.log(weakMap);
+//	-> Map(0) {{…} => "str"}	No properties

@@ -1,0 +1,215 @@
+########
+CLOSURES
+######################################
+I.	ABOUT CLOSURES
+II.	CLOSURE IN A LOOP AND SETTIMEOUT
+III.	MIMICING PRIVATE VARIABLES
+######################################
+
+
+####################
+I.	ABOUT CLOSURES
+####################
+
+Closure are used to preserve data in function. Through a closure a function has access to values its surrounding environment.
+
+A closure is a reference to the lexial environment inside a function and it can give you access to an outer function’s scope from an inner function.
+
+Anytime a function uses a variable from outside it's own local function scope it uses a closure to store that value.
+
+(function(){
+var x = 1;
+const sum = function(){
+	var y = 1;
+	return x + y;
+}
+console.dir(sum);
+})()
+//-> f sum() -> Scopes -> Closure {x: 1}
+
+Thus the var x with value 1 from the outer function scope is stored inside the inner function sum as a closure.
+
+A closure is an inner function that has access to the variables in the outer (enclosing) function’s scope chain. The closure has access to variables in three scopes; specifically: (1) variable in its own scope, (2) variables in the enclosing function’s scope, and (3) global variables.
+
+- EXAMPLE 
+
+function wrapValue(n){
+	let local = n;
+	return () => local;
+}
+const	wrap1 = wrapValue(1);
+const	wrap2 = wrapValue(2);
+console.dir(wrap1)
+//-> fn () => local; Scopes -> Closure {local: 1};
+console.dir(wrap2)
+//-> fn () => local; Scopes -> Closure {local: 2};
+	
+Each local binding exists within an enclosing scope.
+
+- EXAMPLE
+
+Write a function that multiplies a given number by a randomly chosen factor.
+
+function multiplier(factor){
+	return number => number * factor;}
+	
+let factorThree = multiplier(3);
+console.dir(factorThree);	//-> Scopes: Closure {factor: 3}
+factorThree(10) 			//-> 30
+
+let factorFive = multiplier(5);
+console.dir(factorFive);	//-> Scopes: Closure {factor: 5}
+factorFive(10) 			//-> 50
+
+EXAMPLE
+
+const f = () => {
+	let i = 0;
+	let j = 1;
+	return () => {
+		console.log(i);
+		console.log(j);
+	}
+}
+f();				//-> () => {...}
+console.dir(f())		//-> closure {i: 0, j: 1};
+
+
+######################
+II.	CLOSURE IN LOOPS
+######################
+
+When using a loop with keyword LET, the i counter variable has a BLOCK SCOPE that is available inside the inner functions you may write. 
+
+This means that for each iteration of the loop, the i variable is created as a new instance. Thus on the first iteration of the loop: i = 0; AND once this first iteration is over, the i variable is erased. On each new iteration of the loop, i is created again with a new update value.
+
+On the other hand if you use the keyword VAR, the i counter variable has a FUNCTION SCOPE, which means that the SAME variable is used on each iteration, but with an updated value. Thus i = 0 on the first iteration and the same i = 1 on the second iteration, etc.
+
+The subtle difference has no effect with a normal inner function:
+
+The normal behavior: 
+
+for(let i = 0; i < 3; i++){	console.log(i)}	//-> 0, 1, 2
+
+for(var i = 0; i < 3; i++){	console.log(i)} 	//-> 0, 1, 2
+
+The above does have an interesting consequence for closures. If the loop has an inner function that references the counter variable i and the var keyword is used we can get a strange result with a setTimeout.
+
+for(let i = 0; i < 3; i++){
+	setTimeout(() => console.log(i), 1000);
+}
+
+-> i = 0: setTimeout(log, 1s) with i = 0 in a block scope
+-> i = 1: setTimeout(log, 1s) with i = 1 in a block scope
+-> i = 2: setTimeout(log, 1s) with i = 2 in a block scope
+
+//-> after 1 second: 0, 1, 2 
+
+for(var i = 0; i < 3; i++){
+	setTimeout(() => console.log(i), 1000);
+}
+
+-> i = 0: setTimeout(log, 1s)
+-> i = 1: setTimeout(log, 1s)
+-> i = 2: setTimeout(log, 1s)
+With var as global variable that after 1s is at 3, the point where the loop is stopped.
+
+//-> after 1 second: 3, 3, 3 
+
+What happens is that the console.log function is called after one second, three times with a variable i that has a closure value based on the var i with a function scope. And after three iterations of the loop, the value of var i = 3 because that is when the loop condition is met.
+
+To 'fix' this, you would have to invoke the setTimeout function immediately by wrapping it in another function. This way the value of the closure in the inner function gets stored correclty because a block scope is created.
+
+for(var i = 0; i < 3; i++){
+	((i) => {setTimeout(() => console.log(i), 1000);})(i)
+}
+
+//-> after 1 second: 0, 1, 2 
+
+
+#######################
+III.	PRIVATE VARIABLES
+#######################
+
+When closures are used? Other programming languages have support for private variables or bindings that can not be modified externally. In JS private bindings don't exist and therefore closure can be used.
+
+- EXAMPLE I
+
+Create a private variable in js. There is no real way to this in JS except for working with the local scope of a function.
+
+function secretVar(){
+	var private = 'secret';
+	return function(){return private}
+}
+console.log(private);	//-> undefined
+secretVar();		//-> f() {return private}
+
+let getPrivateVar = secretVar();
+console.log(getPrivateVar());
+//->	secret
+
+- EXAMPLE II: A PRIVATE COUNTER
+
+A variable defined inside a function is not accesible outside of the function scope.
+
+Return an object with method to modify and retrieve the counter status.
+
+function counter(){
+	var/let _counter = 0;
+	return {
+		add: function(increment){_counter += increment},
+		get: function(){return _counter}
+	};
+}
+
+The inner functions defined in the object have access to the outer function variable _counter as a closure.
+
+let count = counter();
+count; 	
+//-> count is an object return from the counter() function with two methods: add() and get()
+
+count.add(5);
+count.get();	//-> 5
+
+
+- EXAMPLE III
+
+function classRoom(){
+	var instructors = ["Jack", "Tina"];
+	return {
+		getInstructor: function(){return instructors;},
+		addInstructor: function(newPerson){
+			instructors.push(newPerson);
+			return instructors;
+		}
+	}
+}
+const classOne = classRoom();
+const classTwo = classRoom();
+
+classOne.getInstructor() // ["Jack", "Tina"]
+classTwo.getInstructor() // ["Jack", "Tina"]
+
+classOne.addInstructor("John")
+
+classOne.getInstructor() // ["Jack", "Tina", "John"]
+classTwo.getInstructor() // ["Jack", "Tina"]
+
+Because the instructors var is private it cannot be modified by external code. Plus by using closure we can isolate logic and application.
+
+HOWEVER: .push and .pop methods DO modify the instructors variable. To make the var completely immune from modification we can use a different implementation: make the inner functions return A COPY of the variable/array/object by using the slice() method, not the original:
+
+function classRoom(){
+	var instructors = ["Jack", "Tina"];
+	return {
+		getInstructor: function(){
+			return instructors.slice();
+		},
+		addInstructor: function(newPerson){
+			instructors.push(newPerson);
+			return instructors.slice();
+		}
+	}
+}
+classOne.getInstructor().pop()  //-> "Tina"
+classOne.getInstructor()	     //-> ["Jack", "Tina"] --no change

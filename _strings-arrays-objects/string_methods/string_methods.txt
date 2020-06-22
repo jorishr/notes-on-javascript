@@ -1,0 +1,188 @@
+###############
+STRINGS METHODS
+######################
+I.	INDEXOF
+II.	CHARAT
+III.	REPLACE
+IV.	SLICE
+V.	TRIM 
+VI.	PADDING
+VII.	SPLIT
+VIII.	JOIN
+IX.	REPEAT
+X.	INCLUDES
+XI.	STARTS/ENDS WITH
+XII.	REPEAT
+XIII.	RAW
+######################
+
+
+#############
+I.	INDEXOF
+#############
+
+Returns the position at which a character is found. If NOT FOUND the return value is -1.
+
+str.indexOf() can look for more than one character and returns the starting position of that string.
+
+	"a big three".indexOf("ee") // -> 9
+
+
+##################
+II.	CHARACTER AT
+##################
+
+str.charAt(i) returns the value stored at index position i. For example, to select and capitalize the first letter of a string:
+
+	str.charAt(0).toUpperCase()  
+
+
+CHARACTER CODE AT
+let str = 'x'
+str.charCodeAt(0) //-> 121
+
+Remember, JS strings are encoded as a sequence of 16-bit numbers or code units.
+
+The rule of thumb is that now mostly two-unit characters are used. However, in JS the string properties [] and .length use code units thus we have to use another method that does give the full Unicode character code: 
+		
+	str.codePointAt()
+
+
+#############
+III.	REPLACE
+#############
+
+str.replace(regEx, '_') uses a regular expression to select characters in a string and replace them with an alternative value.
+
+    var newStr = str.replace(/-/g , "_"); 
+
+###########
+IV.	SLICE
+###########
+
+str.slice work just as it does on an array. Copies items between index positions (start at, inclusive and end position NOT inclusive).
+
+str.slice(0, 2) will return a new string with characters at position 0 and 1. 
+
+Specifying one value will return entire string after starting at that index position.
+
+No values specified returns a copy of the entire string.
+
+"hello".slice(0,2) //-> "he"
+"hello".slice(1) //-> "ello"
+"hello".slice() //-> "hello"
+
+
+##########
+V.	TRIM
+##########
+
+str.trim remove white spaces, tabs and newlines at the end and beginning of string
+
+	"   \n hello world    ".trim() // -> "hello world"
+
+
+#############
+VI.	PADDING
+#############
+
+String padding to obtain a specific format, for example zeropadding.
+
+str.padStart(length, paddingChar)
+
+	"5".padStart(4, 0); // --> "0005"
+	"5".padStart(4, "a"); // --> "aaa5"
+
+
+###########
+VII.	SPLIT
+###########
+
+Split strings into parts using a seperation character. Returns an array.
+
+str.split a sentence string into seperate words
+	"hello world, it's me!".split(" ") 
+		// -> ["hello", "world", "it's", "me"]
+
+str.split('')		//-> [array of characters in string]
+'hello'.split('')	//-> [h,e,l,l,o]
+Usefull if you need to perform actions on all characters of a string (using forEach).
+
+##########
+VIII.	JOIN
+##########
+
+Joins the values of an array into a string whereby the join(val) val seperates the values.
+
+.join and .split a sentence
+	let sentence = "hello world it's me";
+	let words = sentence.split(" ");
+	words.join(" ")
+	words.join("-") // "hello-world-it's-me"
+
+
+############
+IX.	REPEAT
+############
+
+.repeat glues together copies of the string
+	"6".repeat(3) // -> "666"
+
+
+##############
+X.	INCLUDES
+##############
+
+.includes() returns a bolean if a value is found inside a string
+"hello".includes("e") // -> true
+"hello".includes("a") // -> false
+
+str.includes() can find strings inside strings:
+
+"hello".includes("ello") // -> true	 
+
+
+You could use indexOf: 
+"hello".indexOf("a")	// -> -1;
+"hello".indexOf("e"); // -> 1; 
+
+And if you want a bolean, write a condition that returns a boolean operation: 
+	
+	"hello".indexOf("e") > -1;	// -> true  
+	"hello".indexOf("a") > -1; // -> false
+
+OR use a for loop to iterate over the string with. Note that this cannot find strings inside strings, only characters.
+ 
+function checkChar(str, char){
+	for(let i = 0; i < str.length; i++){	
+		if(str[i] === char){
+			return true;
+		} 
+	}
+	return false;
+}
+
+
+######################
+XI.	STARTS/ENDS WITH
+######################
+
+'hello'.startWith('hell');	//-> true
+'hello'.endsWith('llo');	//-> true
+
+
+############
+XII.	REPEAT
+############
+
+const str = 'hello';
+str.repeat(3);		//-> "hellohellohello"
+
+
+#########
+XIII.	RAW
+#########
+
+Write a string as is, without escaping characters.
+
+let rawStr = String.raw`hello \n World`	//-> 'hello \n world'

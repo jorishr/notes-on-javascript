@@ -1,0 +1,265 @@
+#############
+ARRAY METHODS
+########################
+I.	CREATE A NEW ARRAY
+II.	ARRAY LENGTH
+III.	PUSH AND POP
+IV.	SHIFT AND UNSHIFT
+V.	SLICE
+VI.	SPLICE
+VII.	CONCAT
+VIII.	FIND
+IX.	REVERSE
+########################
+
+########################
+I.	CREATE A NEW ARRAY
+########################
+Declare or defines a new array with Array()
+
+let arr = []
+let arr = new Array();
+let arr = Array(5)		//-> [5 empty items]
+
+Add values to arr
+
+arr.fill('')			//-> ['', '', '', '', '']
+arr[0] = 'hello';
+arr[1] = 1;
+
+ARRAY.FROM
+
+Used to convert other datatypes into arrays. Thus create an array from, for example, array-like-objects such as: 
+
+var divs = document.getElementsByTagName("div"); 
+
+onto which we cannot apply array methods directly. We have to work around it by using .slice() and .call():
+
+var convertedDivs = [].slice.call(divs);
+convertedDivs.reduce(function(){});
+
+Much shorter and easier with Array.from:
+
+var divs = document.getElementsByTagName("div"); 
+var arrayOfDivs = Array.from(divs);
+
+OR 
+
+var arrayOfDivs = Array.from(document.getElementsByTagName("div"))
+
+NOTE:
+- Array.from works with array-like-objects, strings, sets, maps 
+- Array.from is a static method, just as Object.assign which is not invoked onto the array we are working with but on the constructor function Array.
+
+
+###################
+II.	LENGTH METHOD
+###################
+
+The .length method can be used on both strings and arrays. The index position of the last value is equal to .length - 1.
+
+
+PICK RANDOM ELEMENT FROM ARR
+Produce a random integer number between 0 and less than the arr.length. Call that number on the array as property:
+
+const x 	= array.length -1
+const num 	= Math.round(x * Math.random()); 
+
+arr[num] 	//-> value at index[num]
+
+
+##################
+III.	PUSH AND POP
+##################
+
+Push into an array adds a new item to the end of the list inside the array without having to count on the index. Pop is similar but removes the last item in the array.
+
+const colors = []
+color.push("black"); 
+color.pop();
+
+The pop method will also RETURN the element that you just removed in the console, so you could store removed items into variables
+
+colors.pop(); //-> "black"
+var removedColors = colors.pop();
+
+
+GRADUALLY BUILDING AN ARRAY WITH METHODS
+Write a function that adds objects to the array.
+
+let arr = [];
+function addEvent(activity, result){
+	arr.push({activity, result});
+};
+
+addEvent(["work", "run"], false);
+addEvent(["write", "eat"], true);
+	...
+
+Thus the function take two arguments, an array of strings that holds the activities of the day AND the bolean result of the day.
+
+NOTE: the declaration of the object properties inside the .push method does not contain the values. This is shorthand that does the same thing, it takes the value from the binding (parameter) with the same name. Long version would be:
+
+	array.push({events: events, result: result});
+
+PUSH ARRAY INTO ARRAY VS CONCAT
+
+var arr1 = [1,2,3];
+var arr2 = [4,5,6];
+arr1.push(arr2);
+arr1;		//-> (4)[1,2,3, Array(3)]
+
+Push does NOT concatenate the arrays, it adds the array as an entire element add the last index position.
+
+
+#######################
+IV.	UNSHIFT AND SHIFT
+#######################
+
+UNSHIFT to ADD a value at the beginning, index 0.
+
+const colors = ["green", "yellow", "red"]
+
+colors.unshift("#fff"); //-> ["#fff" "green", "yellow", "red"]
+
+SHIFT to REMOVE the first item in an array; this too will be RETURNED and can be stored in a var.
+
+colors.shift(); 	//-> ["yellow", "red"]
+var removedColors = shift(); //-> "green"
+
+
+ADD VALUE BEGINNING/END OF AN ARRAY WITH ES6
+
+const arr = [1,2,3];
+arr = [0, ...arr];
+arr = [...arr, 4];
+arr = [0, ...arr, 4];
+
+
+###########
+V.	SLICE
+###########
+
+SLICE() is used to copy or extract different portions of an array or the entire array into another array, without changing the original array.
+
+- COPY ENTIRE ARRAY
+var colors = ["#fff" "green", "yellow", "red"];
+
+var colorsCopy = colors.slice();
+
+If you use let arr2 = arr1.slice() you create a copy of the variable, which is a new array with a different IDENTITY. Thus the copy arr2 will not change when arr1 is changed. 
+
+In contrast, when arr2 = arr1, they have the same identity and changes in the original will affect all references to that array.
+
+- COPY PARTS OF AN ARRAY
+
+When arguments are passed into .slice(<start>, <end>) a new array is created from the values that are found between the starting and end index positions.
+
+var colorsCopy = colors.slice(1,3);
+
+Copies items between index positions 1 (start at, inclusive) and 3 (NOT inclusive), thus "green" and "yellow"
+
+I you enter just one argument, it'll copy everything from there on to the end of the array. A negative value will start at the back of the arr/str.
+
+var colorsCopy = colors.slice(1); will copy "green", "yellow", "red";
+
+- SHORTEN ARRAY
+
+An alternative could be to shorten the length if you only want the first few values.
+
+	const arr = [1, 2, 3, 4, 5]
+	arr.length = 3
+	console.log(arr)		//-> [1, 2, 3]
+
+To get the last few values:
+
+	const arr = [1, 2, 3, 4, 5]
+	let shorter = arr.slice(-2)
+	console.log(shorter)		//-> [4, 5]
+
+	const arr = [1, 2, 3, 4, 5]
+	let keepLastVal = arr.slice(-1)
+	console.log(keepLastVal)	//-> [5]
+
+
+
+#############
+VI.	SPLICE() 
+#############
+
+Splice() is used to make a similar cut and delete a number of values thereafter.
+
+colors.splice(2,3); 
+
+Will starting at index position 2 and delete 3 items (incl. the position 2). 
+
+
+############
+VII.	CONCAT
+############
+
+Method .concat glues arrays together similar to + for strings
+
+let partOne = ["a", "b", "c", "d", "e"];
+let partTwo = ["f", "g", "h"];
+
+partOne.concat(partTwo);
+
+NOTE: if you simply try [1,2,3] + [4,5,6] you get "1,2,34,5,6" because of string concatenation triggered by the + operator.
+
+Another way would be to use the spread operator to spread two existing arrays into a new one:
+
+let x = [...[1,2,3], ...[4,5,6]]	//-> [1,2,3,4,5,6]
+
+
+##########
+VIII.	FIND
+##########
+
+Find() is useful for searching for a value in an array without having to write a for loop.
+
+.find() accepts a callback function with parameters (value, index, array). Inside the cbFn you define a condition. 
+
+Find returns the value for which that condition turns true. If no value is found that matches the condition, undefined is returned.
+
+var instructor = 
+	[{name: "J"}, {name: "R"}, {name: "Q"}, {name: "J"}];
+
+instructor.find(function(val){
+	return val.name === "J";
+});
+// -> {name: "J"}
+
+
+#############
+IX.	REVERSE
+#############
+
+The reverse() method produces a NEW array, it does not reverse the existing one.
+
+function arrayReverse(array){
+    let newArray = array.reverse();
+    return newArray;
+}
+
+REFERENCE/IDENTITY
+
+var arr1 = "string".split('');
+var arr2 = arr1.reverse();
+var arr3 = "str".split('');
+arr2.push(arr3);
+
+console.log(arr1.length)		//-> 7
+console.log(arr2.length)		//-> 7
+console.log(arr1.slice(-1))		//-> Array(3)
+console.log(arr2.slice(-1))		//-> Array(3)
+
+arr2 is new reference to the same array! Thus arr1 and arr2 have the same IDENTITY, if you change arr2 you also modify the original arr1.
+
+arr1;		//->["g", "n", "i", "r", "t", "s", Array(3)]
+arr2;		//->["g", "n", "i", "r", "t", "s", Array(3)]
+arr3;		//->(3) ["s", "t", "r"]
+
+Slicing arr1 or arr2 results in Array(3) because a negative value extracts the values starting at the end of the array, which returns a new array with only the extracted values.
+
+

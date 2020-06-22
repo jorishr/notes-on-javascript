@@ -1,0 +1,30 @@
+MY JS TOOLBOX OVERVIEW AND TOOL COMPARISON
+
+CONDITIONALS
+if/else statements
+switch/case 
+
+logical operators || or ? to choose between two options 
+
+LOOPS 
+while, do, for
+
+WHILE versus FOR: when no clear beginning and/or end point is set, you use while loop. If you know the beginning and end point of the loop, you better use for.
+
+DO: execute the code block once, then check for condition.
+
+FOR loop without know end point: for(init; ;step){code; break;}
+
+
+
+
+CHECK PERFORMANCE OF CODE
+
+
+const startAt = performance.now()
+
+// code to check
+
+const endAt = performance.now()
+
+console.log(`${endAt - startAt} ms to execute`)

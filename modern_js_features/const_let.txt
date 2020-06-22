@@ -1,0 +1,140 @@
+###################
+DECLARING VARIABLES
+################################
+A.	KEYWORD CONST
+B.	KEYWORD LET
+C.	SCOPE EXAMPLE: VAR AND LET
+################################
+
+Alternatives to the var keyword for declaring variables.
+
+The VAR keyword creates variables which are FUCNTION scoped. This means that any variable created with var is available anywhere in the function in which it is defined.
+
+A binding created with VAR keyword OUTSIDE A FUNCTION is a GLOBAL variable.
+
+In most programming languages however a variable will have BLOCK SCOPE by default. Thus if a var is declared inside an if statement, the rest of the function would NOT have access to it.
+
+Both LET and CONST are BLOCK SCOPED when defined inside a function. A block defines any set of code that is inside a set of curly braces.  
+
+You also CANNOT redeclare a variable with let or const but you can with var.
+
+HOISTING
+One of the major differences is that the variables defined by var are hoisted which means that they are available to be used even before they are defined.
+
+Just like in most other programming languages, a variable declared with let/const must be defined before it is used the first time.
+
+
+
+###########
+A.	CONST
+###########
+
+Allows to create bindings that cannot be redeclared. Note that when using var arr = [1, 2], this can be easily REASSIGNED to hold a different value by simply declaring arr again: 
+	arr = "string";
+
+This cannot be done when the const arr = [1, 2] is used. arr = "string" will return a TypeError: constant variable. And REDECLARING const arr = "string" gets a syntax Error. Thus you cannot redeclare a binding with the same name. 
+
+IMPORTANT!: the value of bindings declared with const can only be changed if that value is an object(or array), using methods or functions. 
+
+	const arr = [1, 2]
+	arr.push(10) // -> [1, 2, 10];
+
+BUT you cannot change the binding if the value is a primitive: string, bolean, number, null or undefined and symbols. 
+
+You can still use methods on those values but the resulting modification will not be stored because the binding itself is a constant, and thus immutable.
+
+When working with objects(arrays) using the const will prevent you from creating other bindings with the same name. But it does not make the object immutable.
+
+
+#########
+B.	LET
+#########
+
+With let keyword you can still reassign a binding but NOT redeclare it. Thus let x = 1; to x = 0; can be done. But let x = 1; to let x = 0; produces a SyntaxError.
+
+- LET and BLOCK SCOPE:
+
+Note that before ES2015 there were two scopes: global and local. A binding declared in the global scope var arr = [] could be accessed from everywhere. While a var declared inside a function, thus in a local scope, would not be visible outside that function. 
+
+A block scope is created by keywords such as IF, FOR, WHILE, DO, TRY and CATCH. And when we use let inside those blocks, it cannot be accessed outside that scope, just a var binding would not be accesible outside a function. 
+
+- LET and HOISTING 
+
+The var binding declaration in a function is always hoisted to the top of the (local) scope: 
+
+	function myFn(){return newVar; var newVar = [1];}
+
+The newVar is declared after the return statement but we do not get a reference error because the var keyword brings that binding declaration (var newVar; NOT the value itself!) forward. Thus JS see this: function myFn(){var newVar; return newVar; var newVar = [1];}
+
+NOTE: To avoid bugs, always declare all variables at the beginning of every scope. The above example will return undefined because the newVar is returned before its value is declared.
+
+The let keyword also hoists the binding but it behaves differently and is put into a temporal deadzone where variables are declared but we cannot access their values. It does produces a reference error when you declare it after the use of it.
+
+- USE CASE FOR LET
+
+Each time you have a block and you don't need the binding outside that block, use LET. Thus in loops, for example.
+
+for(let i = 0; i < 5; i++){
+	setTimeout(function(){console.log(i)}, 1000)
+}
+
+This function prints out numbers 0 to 4, after a timeout of 1 second. Because by using LET a new variable is created for each iteration in the loop. While the VAR declares that binding globally (for loop is not a function, thus global scope for VAR, while LET does create a block scope). Thus, if you use var in the for loop however there would be a problem: 
+
+It prints out the number 5, 5 times. Why? During the timeout of one second the for loop goes on and stops when i = 5. The value of i after one second is thus 5, and that is what is logged by the setTimeout function. 
+
+
+###################
+C.	SCOPE EXAMPLE
+###################
+
+- Consider the example below.
+
+function log(){
+
+	{
+	let l = 'let';
+	var v = 'var';
+	}
+	
+	console.log(v);
+	console.log(l);
+}
+log();
+
+The result will be that the var variable is logged to the console because it has function scope but the let variable will result in undefined because let has block scope and is not visible outside of that block.
+
+A common problem when converting ES6 to ES5 is that the LET keyword gets converted to VAR, but this also changes the scope of the variable.
+
+To fix this, transpìlers use self-invoked functions.
+
+function log(){
+	
+	{
+	(function(){
+		let l = 'let';
+		var v = 'var';
+	})()
+}
+	console.log(v);
+	console.log(l);
+}
+log()
+
+Now both let and var are limited to the scope of the immediately invoked function.
+
+- Consider the example below:
+(function(){
+	var a = b = 3;
+})();
+console.log(a);	//-> reference error a is not defined
+console.log(b);	//->	3
+
+var a = b = 3; is shorthand for:
+
+b = 3;
+var a = b;
+
+In strict mode the first statement is invalid but in normal code b will become a global variable despite being defined inside a function scope.
+
+
+

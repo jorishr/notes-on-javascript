@@ -1,0 +1,146 @@
+#########
+OPERATORS
+##############################
+A.	BINARY VS UNARY OPERATOR
+B.	BOOLEAN OPERATORS 
+C.	LOGICAL OPERATORS
+D.	OPERATOR PRECEDENCE
+##############################
+
+A bolean value is easy to understand: true(1) or false(0).
+Other datatype, when put in a Boolean context become truthy or falsy.
+
+##############################
+A.	BINARY VS UNARY OPERATOR
+##############################
+
+Binary operators (+/%*) operate on two values: 4 + 3 or 8 % 3
+
+Note that the + operator performs polymorphism, as can adapt to situation it encounters. With 2 numbers it performs a calculation but when it encounters a string on the left or right side, it tries to convert the other value into a string to perfrom string concatenation. Strings always take precedence over numbers.
+
+Unary operators operate on just one value: 
+
+	-typeof
+	console.log(typeof "x") 
+ 	//result: string value naming the type of value you feed it   
+	
+	- -
+	console.log(- (10 + 2))
+	//operates on the result of 10+2  
+	
+	- !
+	console.log(!true)	//-> false
+	!!'true'			//-> !!true -> !false -> true
+	!!'false'			//-> !!true -> !false -> true
+
+In a Bolean context, created by !, a string is thruthy.
+	
+
+#######################
+B.	BOOLEAN OPERATORS 
+#######################
+
+Boolean OPERATORS are binary operators applied to two values and the outcome of the operation has only two possible values: true OR false.
+
+Thus applying console.log(3 < 2); results in a bolean value true or false. 
+
+x < y less than; x > y greater than
+
+<= ; >= ; == ; != 
+"apple" != "orange" //true
+"apple" == "orange" //false
+
+NaN == NaN		//->false 
+Because the outcome of nonsensical operation is not equal to any other nonsensical operation.
+
+NOTE: comparing strings: "abc" < "Abc" JS compares the 	unicode codes one by one from left to right. Uppercase is less than lowercase.
+
+'true'==true		
+//-> different type -> coercion into number NaN == 1 -> false
+
+false=='false'		//-> false==true	´	-> false
+//-> different type -> coercion into number 0 == NaN -> false
+
+null==''			//-> false
+
+console.log(5 < 6 < 7);	//-> true < 7 -> 1 < 7 -> true
+console.log(7 > 6 > 5);	//-> true > 5 -> 1 > 5 -> false
+
+
+#######################
+C.	LOGICAL OPERATORS
+#######################
+
+Applying operations to bolean values true and false with logical operators: and, or , not.
+
+&& is a binary operator (applied to two values, here true and false). The result of this operation is true only when BOTH values given to it are true:
+
+	console.log(true && false); 	//false
+	console.log(false && false); 	//false	
+	console.log(true && true); 		//true
+
+|| The result of this operation is true only when one of the values given to it are true:
+
+	console.log(true || false); 	//true
+
+!, not is a UNARY operator that flips the value that is given to it. 
+	
+	console.log(!true); 			//false
+
+NOTE: special case of the TERNARY or CONDITIONAL operator or the conditional operator that takes not one or two but three values:
+	
+	console.log(true ? 1 : 2); 		//1
+	console.log(false ? 1 : 2); 	//2
+
+If first value is true, the middle value is picked.
+if first value is false, the last value after the : is picked.
+
+The conditional operator can be a useful replacement for and if/else statement.
+
+
+#########################
+D.	OPERATOR PRECEDENCE
+#########################
+
+In mathematics: BODMA
+B Brackets first
+O Orders (i.e. Powers and Square Roots, etc.)
+DM Division and Multiplication (left-to-right)
+AS Addition and Subtraction (left-to-right)
+
+
+READ REFERENCE:
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence
+
+
+!+[]+[]+![]              // 'truefalse'
+
+Operator precedence kick in here. The empty array is converted to numeric value, 0. And !(+0) is !0. 0 is converted into a boolean by the ! operator, thus false becomes true.
+
+The numeric conversion of the empty array is not a primitive so we fall back to the toString method. 
+
+The last part is easy: the ! operator converts the [] into a bolean. (!true)
+
+(!+[]) + [] + (![])
+	-> (!0) + [] + (false)
+		-> true + [] + false
+			-> true + "" + false
+				-> "truefalse"
+
+
+0 || "0" && {} 	 // -> {}
+	(0 || "0") && {}
+		internally: (false || true) && true
+		-> "0" && {}
+			internally: true && true
+			-> return {} 
+	   
+new Date(0) + 0          // 'Thu Jan 01 1970 02:00:00(EET)0'
++ operator triggers default conversion. Date assumes string conversion as a default one, so toString() method is used, rather than valueOf().
+
+'Thu Jan 01 1970 02:00:00 GMT+0200 (EET)' + 0
+==> 'Thu Jan 01 1970 02:00:00 GMT+0200 (EET)0'
+
+new Date(0) - 0          // 0
+- operator triggers numeric conversion for Date. Date.valueOf() returns number of milliseconds since Unix epoch.
+0 - 0 -> 0

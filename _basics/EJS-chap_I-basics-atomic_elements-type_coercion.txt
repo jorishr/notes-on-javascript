@@ -1,0 +1,237 @@
+#############################################
+ELOQUENT JS, CHAPTER I: ATOMIC ELEMENTS OF JS
+#############################################
+TYPE COERCION
+I.	OPERATORS AND IMPLICIT TYPE COERCION
+II.	EXPPLICIT TYPE COERCION
+III.	OBJECTS AND TYPE COERCION
+IV.	EXERCISE EXAMPLES
+###################################
+
+##########################################
+I.	OPERATORS AND IMPLICIT TYPE COERCION
+##########################################
+
+The == and === are comparison operators whereby the == only compares the abstract equality and === compare both data type and value (strict equality). This means that if == find different data types to compare, it will use type coercion (if possible).
+
+Thus a = 10 and b = '10'; a == b //true; a === b // false becaue in == type coercion occurs.
+
+Typecoercion is the automatic type conversion wherby JS will try to accept almost everything.
+
+	console.log(8 * null)	// -> 0 
+	console.log("5" - 1)	// -> 4 converts string into number
+	console.log("5" + 1)	// -> 51 
+
+NOTE: using the + operator on a string triggers type coercion and concatenation
+	
+	console.log(2 + '2')	
+	// -> '22'	(number fails-> concatenation with type coercion)
+	
+	console.log(2 - '2')	
+	// -> 0 	(number operator only)
+
+The automatic conversion of the value to the type JS needs is called type coercion. JS has a set of rules built in for this. When you do not explicitely do the conversion yourself using a function, the type coercion is considered IMPLICIT.
+
+	console.log(undefined == null); 
+	//true both are from the same value type (empty)
+	
+	console.log(undefined == 0); 
+	//false emty value vs number 
+
+Use case: if you want to know whether a value has a meaningful value or is undefined, you compare it: console.log(x == undefined) will only return true if both values x and undefined(self-evident) are undefined.
+
+- AVOID TYPE COERCION
+Use the strict equality operators === and !== to avoid type coercion and check for precise matches of BOTH value type AND value.
+
+- LOGICAL OPERATORS AND TYPE COERCION
+When || and && encounter two values of a non boolean data type they will convert the value on the left-side to a boolean value (truthy or falsy). 
+
+All strings and numbers count as truthy IN A BOOLEAN CONTEXT, except for 0, NaN and ""(empty string), undefined and null. Those count as falsy.
+
+TRUTHY VALUES: all values incl. strings, numbers, true
+FALSY VALUES: false, 0, NaN, "", null, undefined
+0
+The OR operator will start off with type coercing the left-hand side value. If a truthy value is produced, that value is returned and the operation stops.
+
+	console.log("Agnes" || "user")	// -> Agnes 
+
+Why? Because the string on the left side of the OR operator can be converted to true. Thus, the right side of the equation is not even processed!
+
+	console.log(0 || "user"); 		// -> user
+
+	console.log(undefined || "user");	// -> user
+
+The AND operator will also type coerce the left-side of the equation. BUT returns the only the left-hand side value if that can be converted to FALSY. If both can be converted to truthy, then the right-hand side value is returned  
+
+	console.log(0 && "user"); // -> 0 because 0 is falsy
+
+	console.log(undefined && "user"); // -> undefined
+
+	console.log(5 && "user"); // -> user
+
+NOTE: the right-side in || or && will only be evaluated if necessary. console.log(true || x); since the first value is true, the second is not evaluated.
+
+
+############################
+II.	EXPLICIT TYPE COERCION
+############################
+
+A. Numeric conversion. 
+
+Number("hello");		// -> NaN
+Number("123"); 		// -> 123
+Number("123 hello"); 	// -> NaN
+
+Number(true); 		// -> 1
+Number(false); 		// -> 0
+
+Number(""); 		// -> 0; 
+Number("\n"); 		// -> 0; 
+Because white space, tabs and newlines are trimmed first. What is left is an empty string.
+
+Number(undefined); 	// -> NaN
+Number(null); 		// -> 0  
+
+IMPORTANT:
+- NaN does not equal anything, not even itself! 
+Thus: NaN == NaN 	// -> false
+
+Which means: function compare(value){if(value != value){return "We are dealing with a NaN"}};
+
+- symbols data type cannot be converted to numbers. Doing so will result in type error: +Symbol("123") 
+
+- numeric conversion does not happen when using == and undefined or null:
+null == 0; // -> false, because no type coercion occurs
+
+
+B. String conversion. 
+
+All primitive values are easily converted to strings: numbers, boleans and empty values.
+
+String(undefined);	// -> "undefined"
+String(true); 		// -> "true"
+String(222); 		// -> "222"
+
+String(Symbol('my symbol')); 	// -> "Symbol(my symbol)"
+
+Convert a number to a string with + ""
+
+const age = 30 + "";
+console.log(typeof(age));	//-> string
+
+
+C. Boolean conversion.
+
+Any value that is not in the FALSY list is converted to true, including object, function, Array, Date, numbers, strings, symbols, empty objects and empty arrays,... :
+
+Boolean(""): 	// -> false
+Boolean(2); 	// -> true
+Boolean("hello"); // -> true
+Boolean(true); 	// -> true
+Boolean({}); 	// -> true
+
+
+###############################
+II.	TYPE COERCION AND OBJECTS
+###############################
+
+[1] + [2,3]; // -> "12,3"
+The + operator will want to try string concatenation. "1" + "2,3", note that the second array become a three character string. The final result is a string.
+
+Objects to bolean conversion is always true. See above.
+Objects can be converted to primitive datatypes using the internal [[ToPrimitive]] method.
+
+A custom version can be found in the exercises.js
+
+
+console.log([] + [])	//->	''	because of typecoercion ''+''	
+console.log({} + {})	//->	''
+
+
+IMPORTANT
+[1,2,3] == [1,2,3]       // false
+No coercion is needed because both operands have SAME TYPE. Since == checks for OBJECT IDENTITY (and not for object equality) and the two arrays are two different instances, the result is false.
+
+
+#######################
+IV.	EXERCISE EXAMPLES
+#######################
+
+REMEMBER: null and undefined are only equal to and amongst themselfves. NaN does not equal to anything, not even itself.
+
+true + false             // -> 1 (1 + 0) numeric conversion
+
+[1] > null               // true
+Triggers numeric conversion: first "1" > 0, then 1 > 0 
+
+"foo" + + "bar"          // -> "fooNaN"
+Here you have combination of the binary operator + and the unary operator +. Unary + operator has higher precedence over binary + operator. The unary + operator works with numbers and thus there is an intent to convert "bar" into a number. The result is NaN.
+
+So +"bar" expression evaluates first: "foo" + (+"bar").
+Next: "foo" + NaN. The binary in combination with a string triggers concatenation. -> "fooNaN"   
+
+!!"false" == !!"true"    // -> true
+! converts the strings into booleans. !!true -> !false -> true
+true == true whereby == checks if both booleans are equal.
+
+'true' == true           // false
+== triggers numeric conversion. NaN == 1 
+
+false == 'false'         // false
+== triggers numeric conversion. 0 == NaN 
+
+null == ''               // false
+no numeric conversion is triggered because null equals to null or undefined ONLY.
+
+
+IMPORTANT
+['x'] == 'x'             // true 
+== operator triggers a numeric conversion for an array. Array’s valueOf() method returns the array itself, and is ignored because it’s not a primitive. Array’s toString() converts ['x'] to just 'x' string.
+"x" == "x" // -> true because both data type and value are equal.
+
+[] + null + 1            // 'null1'
++ operator triggers numeric conversion for []. Array’s valueOf() method is ignored, because it returns array itself, which is non-primitive. Array’s toString returns an empty string.
+"" + null + 1 -> concatenation: "null" + 1 -> "null1"
+
+
+IMPORTANT
+{}+[]+{}+[1]             // '0[object Object]1'
+All operands are non-primitive values, so + starts with the leftmost triggering numeric conversion.
+
+Both Object’s and Array’s valueOf method returns the object itself, so it’s ignored. toString() is used as a fallback. 
+
+The trick here is that first {} is not considered as an object literal, but rather as a block declaration statement, so it’s ignored. 
+
+Evaluation starts with next +[] expression, which is converted to an empty string via toString() method and then to 0.
+
+{} + 0 + [object Object] + "1" 
+	-> 0 + '[object Object]' + [1]
+		-> '0[object Object]' + '1'
+
+
+WHAT IS THE OUTPUT OF THE FOLLOWING CODE?
+
+var y = 1;
+if (function f(){}){
+	y += typeof f;
+}
+console.log(y);
+
+//-> 1undefined;
+
+The boolean expression evaluates to TRUE because a function declaration is a value.
+
+Thus we get 1 += typeof f whereby f is undefined because here f does not refer to the function f in the if statement but to a name that is not defined. When typeof does not find the reference it returns the value undefined.
+
+Typeof produces a string value thus we get string concatenation.
+
+var y = 1;
+if (1){
+	function f(){};
+	y += typeof f;
+}
+console.log(y);
+
+//-> 1function;
+
+

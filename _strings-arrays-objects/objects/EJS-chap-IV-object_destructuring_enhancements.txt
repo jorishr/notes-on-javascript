@@ -1,0 +1,97 @@
+#############################################
+ES2015: OBJECT ENHANCEMENTS AND DESTRUCTURING
+#############################################
+I.  OBJECT ENHANCEMENTS
+	A.	SHORTHAND NOTATIONS
+	B.	COMPUTED PROPERTY NAMES
+II.	DESTRUCTURING
+#############################################
+
+
+########################
+I.  OBJECT ENHANCEMENTS
+########################
+
+A.	SHORTHAND NOTATIONS
+
+When declaring an object and the object property and object value have the same name you only have to write the name once (if they exist as variables).
+
+let firstName = "#me";
+let lastName  = "too";
+
+let object = {
+	firstName,
+	lastName
+};
+object  // -> {firstName: "#me", lastName: "too"}
+
+Storing a function as property value becomes shorter.
+Omit the function keyword, start with function name
+
+let instructor = {
+	firstName: "#me",
+    	lastName = "too",
+    	sayHello(){return "Hello"}
+	//  sayHello: function(){return "Hello"}
+};
+
+
+B.	COMPUTED PROPERTY NAMES
+
+Assign a property to an object with a name that is the value of an existing binding. This takes two steps: 
+
+- Create an empty object, or have an existing object. 
+- Compute the value of the binding with [] when declaring the property and its value.
+
+let myName = "Joris"
+let object = {}
+object[myName] = "awesome";
+
+let object = {
+	[myName]: "awesome"
+};
+
+object  // -> {Joris: "awesome"}
+object.Joris // -> "awesome"
+
+
+###################
+II.	DESTRUCTURING
+###################
+
+The idea to extract values from data (properties) stored in objects and arrays.
+
+Destructuring allows us to unpack property values from an object or value from an array into new distinct or seperate bindings.
+
+In the example below we create three new variables, that are UNPACKED FROM the instructor OBJECT.  
+
+let {firstName, lastName, sayHello} = instructor;
+
+console.log(firstName); // ->"#me"
+console.log(lastName);  // -> "too"
+console.log(sayHello);  // -> function(){}
+
+//  var firstName = instructor.firstName;
+//  var lastName = instructor.lastName;
+//  var sayHelloFn = instructor.sayHello;
+
+IMPORTANT is that the names of the new variables we create are the same as the property names in the object we are working with.
+
+If you want to change the variable name you need to use different syntax:
+
+var {firstName: newName1, lastName: newName2, sayHello: newName3} = instructor;
+
+var {firstName: first, lastName: last, sayHello: helloFn} = instructor;
+
+
+DESTRUCTURING ARRAYS
+
+Destructure the numbers array into three new bindings with the variable names a, b and c.
+
+var numbers = [1, 2, 3];
+
+var [a, b, c] = numbers;
+
+//  var a = numbers[0]; console.log(a); // 1
+//  var b = numbers[1]; console.log(b); // 2
+//  var c = numbers[2]; console.log(c); // 3

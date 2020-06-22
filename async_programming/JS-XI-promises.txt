@@ -1,0 +1,361 @@
+########################
+PROMISES AND ASYNC/AWAIT
+########################
+I.	ABOUT PROMISES
+II.	CREATING PROMISES
+III.	PROMISE CONSUMERS
+IV.	FETCH EXAMPLE
+V.	JQUERY EXAMPLE
+VI.	PROMISE API 
+########################
+
+####################
+I.	ABOUT PROMISES
+####################
+
+WHAT IS A PROMISE
+A promise is an OBJECT that represents the completion or failure of an asynchronous task and its resulting value(error or data).
+
+In other words a ONE TIME guaranteed return of some future value. 
+
+It is a placeholder, since we do not know when it will be returned by the async operation nor what the exact value will be. 
+
+When the promise returns its value the promise is either RESOLVED(fullfilled) with the expected result, or REJECTED.
+
+Conceptually think of the ordering process in a fastfood joint: your order placement results in a promise to deliver food, while you wait other people can order as well. 
+
+At some point in the future you will get your order, but untill that is fullfilled you only hold a placeholder ticket. Ones the food arrives, it either is as expected or there is an error.
+
+NOTE: callback functions can be performed multiple times, for example with a setInterval, every x seconds. Promises however can only be resolved/rejected ONCE. If you want do it all again you have to create a new promise.
+
+WHY USE PROMISES
+It simplifies reading and debugging of your code and avoids callback hell.
+
+
+#######################
+II.	CREATING PROMISES
+#######################
+
+Using the new keyword and the Promise constructor function.
+
+Promise takes a cbFn that contain TWO parameters: resolve and reject. 
+
+These parameters are bindings to functions to be run if the promise is either resolved or rejected.
+
+A promise that gets resolved or rejected:
+ 
+   Promise {<pending>}
+    __proto__: Promise
+
+    [[PromiseStatus]]: "resolved"
+    [[PromiseValue]]: <return value>
+
+    Promise {<pending>}
+    __proto__: Promise
+ 
+    [[PromiseStatus]]: "rejected"
+    [[PromiseValue]]: <return value>
+
+The STATE (resolved/rejected) and the RESULT(return value or error) are internal to the promise and CANNOT be directly accessed. You need a CONSUMER method to access those values.
+
+NOTE that the promise is an object with methods that can be found in the __proto__
+
+
+#######################
+III.	PROMISE CONSUMERS
+#######################
+
+.finally() is executed when the promise is settled, it does not consume the promise but passes it on to the .then or .catch methods you chain to it. This finally() is useful, for example to write a function that stops a loader on the screen
+.then is to be executed when the promise is fullfilled
+.catch is to be executed when the promise is rejected. 
+
+Both methods .then and .catch accept TWO cbFn. The parameters for those cbFn are the PromiseValue or an error.
+
+If you define two function in .then only one of them gets executed: the resultHandlingCb(val) if promise is fullfilled or the errHandlingCb(err) if an error occurs.
+
+.then(resultHandlingCb(val), errHandlingCb(err))
+
+.then((val) => console.log(val));
+
+.catch(function(err){console.log(err);})
+.catch is equal to .then(null, errHandlingCb)
+
+EXAMPLE
+What is the difference between:
+promise.then(f1).catch(f2); 
+promise.then(f1, f2);
+
+The difference is that if an error happens in f1, then it is handled by .catch in the first promise chain, not the second one.
+
+That’s because an error is passed down the chain, and in the second code piece there’s no chain below f1.
+
+In other words, .then passes results/errors to the next .then/catch. So in the first example, there’s a catch below, and in the second one there isn’t, so the error is unhandled.
+
+THENABLE
+Each .then method expected to return another promise a so-called “thenable” object – an arbitrary object that has a method .then. It will be treated the same way as a promise.
+
+This allows for chaining together various promises and pass values from one promise to another.
+
+The idea is that 3rd-party libraries may implement “promise-compatible” objects of their own. They can have an extended set of methods, but also be compatible with native promises, because they implement .then.
+
+class Thenable {
+  constructor(num) {
+    this.num = num;
+  }
+  then(resolve, reject) {
+    console.log(resolve); 
+    // resolve with this.num*2 after the 1 second
+    setTimeout(() => resolve(this.num * 2), 1000);	// (**)
+  }
+}
+new Promise(resolve => resolve(1))
+	.then(result => {
+    		return new Thenable(result);	// (*)
+  	})
+  	.then(console.log); 
+
+//-> shows 2 after 1000ms
+
+(*): JavaScript checks the object returned by the .then handler in line (*): if it has a callable method named then, then it calls that method providing native functions resolve, reject as arguments (similar to an executor) and waits until one of them is called.
+
+Thus resolve(2) is called after 1 second at line (**)
+
+ASYNCHRONICITY
+Promise handlers .then, .catch and .finally are always asynchronous and thus pass through the TASK QUEUE before being called into the callstack by the event loop. 
+
+Consider the example:
+
+let promise = Promise.resolve();
+promise.then(() => alert("promise done!"));
+alert("code finished"); 
+//-> 	code finished
+	promise done!
+
+So .then/catch/finally handlers are always called after the current code is finished. 
+
+
+###################
+IV.	FETCH EXAMPLE
+###################
+Fetch data from a server with browser native Fetch API.
+The function fetch() makes a network request to the url and returns a promise.
+
+let promise = fetch(url);
+
+The promise resolves with a response object when the remote server responds with headers, BUT BEFORE the full response is downloaded. To read the full response, we should call the method response.text() method or response.json() method if that is available in the remote api.
+
+fetch('<url>')
+  .then(function(response) {
+    	//return response.text();
+	return response.json;
+  })
+
+Thus .then() returns a promise with the response object, the callback function inside the .then method returns or extracts the required data from that response object.
+
+EXAMPLE
+For instance, we can make one more requests to GitHub, load the user profile and show the avatar:
+
+// Make a request for user.json
+fetch('/article/promise-chaining/user.json')
+  .then(response => response.json())
+  .then(user => fetch(`https://api.github.com/users/${user.name}`))
+  .then(response => response.json())
+  .then(githubUser => {
+    let img = document.createElement('img');
+    img.src = githubUser.avatar_url;
+    img.className = "promise-avatar-example";
+    document.body.append(img);
+
+    setTimeout(() => img.remove(), 3000); // (*)
+  });
+
+Shows the avatar image (githubUser.avatar_url) for 3 seconds.
+
+However, there’s a potential problem in it, a typical error for those who begin to use promises. After showing the avatar, you cannot chain on anymore .then methods.To MAKE THE CHAIN EXTENDABLE, we need to return a promise that resolves when the avatar finishes showing.
+
+fetch('/article/promise-chaining/user.json')
+	.then(response => response.json())
+	.then(user => fetch(`https://api.github.com/users/	${user.name}`))
+  	.then(response => response.json())
+  	.then(githubUser => new Promise(functio(resolve, reject {   
+		let img = document.createElement('img');
+    		img.src = githubUser.avatar_url;
+    		img.className = "promise-avatar-example";
+    		document.body.append(img);
+
+	    	setTimeout(() => {
+     		 	img.remove();
+      		resolve(githubUser); 
+    		}, 3000);
+	}))
+	.then(githubUser => alert(`Finished showing 				${githubUser.name}`));
+
+As a good practice, an asynchronous action should always return a promise. That makes it possible to plan actions after it; even if we don’t plan to extend the chain now, we may need it later.
+
+REFACTOR INTO REUSABLE CODE
+
+function loadJson(url) {
+  return fetch(url)
+    .then(response => response.json());
+}
+
+function loadGithubUser(name) {
+  return fetch(`https://api.github.com/users/${name}`)
+    .then(response => response.json());
+}
+
+function showAvatar(githubUser) {
+  return new Promise(function(resolve, reject) {
+    let img = document.createElement('img');
+    img.src = githubUser.avatar_url;
+    img.className = "promise-avatar-example";
+    document.body.append(img);
+
+    setTimeout(() => {
+      img.remove();
+      resolve(githubUser);
+    }, 3000);
+  });
+}
+
+// Use them:
+loadJson('/article/promise-chaining/user.json')
+  	.then(user => loadGithubUser(user.name))
+  	.then(showAvatar)
+  	.then(githubUser => alert(`Finished showing 				${githubUser.name}`))
+	.catch(err => console.log(err));
+  // ...
+
+ERROR HANDLING
+The easiest way to catch all errors is to append .catch to the end of the promise chain. Normally, such .catch doesn’t trigger at all. But if any of the promises above rejects (a network problem or invalid json or whatever), then it would catch it.
+
+The final .catch not only catches explicit rejections, but also accidental errors in the handlers above.
+
+If the error is not handled the js will throw a global error in the console.
+
+
+####################
+V.	JQUERY EXAMPLE
+####################
+
+Building an array with years of movies, taken from a database API using JSON formatting.
+
+NOTE that JQuery needs to be running to use this example.
+
+.getJSON is an AJAX methods that returns a promise. Thus we can call the .then method directly on to it.
+
+var years = [];
+
+$.getJSON("https://omdbapi.com?t=titanic&apikey=thewdb")
+.then(function(movie){
+    years.push(movie.Year); 
+    return $.getJSON("https://omdbapi.com?t=shrek&apikey=thewdb")
+})
+.then(function(movie){ 
+    years.push(movie.Year);
+    console.log(years);
+});
+console.log("The above is asynchronous, thus this sentence will be printed first");
+// -> ["1997", "2001"] 
+
+Check the API DOCS: the promise returned above is an object and we know it has a property .Year which we push to our array.
+
+Next we make the .then return another new AJAX call.
+
+NOTE: usually you will be working with libraries like jQuery with methods that return promises. Only rarely will you be using native JS promises that you have to write yourself.
+
+EXAMPLE: PROMISE BASED TIMEOUT
+
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+delay(3000).then(() => alert('runs after 3 seconds'));
+
+
+#################
+VI.	PROMISE API 
+#################
+
+PROMISE ALL
+Let’s say we want many promises to execute in parallel and wait until all of them are ready.
+
+The promise.all() is a method on the Promise constructor function that takes in an array of promises and resolves them all at once. It returns a promise as well.
+
+Or, once one of them gets rejected you have a fast fail or rejection (instead of rejecting one by one).
+
+If all promises are fullfilled their values will be returned in an array with those values in the SAME ORDER, eventhough the process of resolving those promises is not sequential. 
+
+let promise = Promise.all([<arr of promises>]);
+
+EXAMPLE
+Promise.all([
+  new Promise(resolve => setTimeout(() => resolve(1), 3000)), 
+  new Promise(resolve => setTimeout(() => resolve(2), 2000)), 
+  new Promise(resolve => setTimeout(() => resolve(3), 1000))])
+.then(console.log) 	//-> (3) [1,2,3] 
+.catch(alert); 		//-> Error
+
+When promises are ready: each promise contributes an array member. The setTimeout means that internally the results 1, 2 and 3 come in reverse order but the returning result of Promise.all is always in the same order as the promises were called.
+
+In case of error in one of the promises the result is an error and the resolved promises are ignored.
+
+MAPPING URLS
+A common trick is to map an array of task data into an array of promises, and then wrap that into Promise.all.
+
+let urls = [
+  'https://api.github.com/users/iliakan',
+  'https://api.github.com/users/remy',
+  'https://api.github.com/users/jeresig'
+];
+
+// map every url to the promise of the fetch
+let requests = urls.map(url => fetch(url));
+
+// Promise.all waits until all jobs are resolved
+Promise.all(requests)
+  .then(responses => responses.forEach(
+    response => alert(`${response.url}: ${response.status}`)
+  ));
+
+EXAMPLE: MULTIPLE AJAX API REQUESTS TO A DATABASE
+
+Retrieve movie title objects from a database with a function that returns a promise, and once resolved prints one or multiple properties of the movie objects.
+
+function getMovie(title){
+    return $.getJSON(`https://omdbapi.com?t=${title}&apikey=thewdb`) 
+}; 
+
+Store the promise for various AJAX calls into variables. The values stored here are objects with pending promises that are not 
+resolved yet.
+
+let titanicPromise 	= getMovie("titanic"); 
+let shrekPromise 	= getMovie("shrek");
+let braveheartPromise = getMovie("braveheart");
+
+Promise.all([titanicPromise, shrekPromise, braveheartPromise])
+.then(function(movies){
+    return movies.forEach(function(value){
+      	  console.log(value.Year);
+		});   
+});
+//-> 1997, 2001, 1995
+
+Thus instead of running .then on each promise binding we can use Promise.all. This will return an array of resolved promises with movie objects as values
+
+That array (movies) is passed as an argument to the cbFn in the .then method and the cbFn returns the values that are a result of looping over the array and logs the .Year property value.
+
+OTHER METHODS
+- PROMISE.ALLSETLED
+For example, we’d like to fetch the information about multiple users. Even if one request fails, we’re still interested in the others. 
+
+So for each promise we get its status and value/error that we have access to.
+
+[
+  {status: 'fulfilled', value: <response>},
+  {status: 'fulfilled', value: <response>},
+  {status: 'rejected', reason: <error object>}
+]
+
+- PROMISE.RACE()
+Like promise.all() but it only return the value for the promise that resolves first, all others are ignored.

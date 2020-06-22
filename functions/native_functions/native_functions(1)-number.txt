@@ -1,0 +1,114 @@
+###################
+NATIVE JS FUNCTIONS
+########################
+I.	NUMBER()
+II.	IsNaN
+III.	isFinite()
+IV.	isInteger()
+V.	NUMBER TO HEX
+VI.	NUMBER / STRING
+VII.	MIN/MAX VALUE IN JS
+VIII.	LENGTH OF NUMBER
+#########################
+
+
+#############
+I.	NUMBER()
+#############
+
+Function that turns the argument given to it into a number.
+
+Number('5');	//	-> 5;
+Number('');	//	-> 0;
+Number('aaa');	//	-> NaN;
+Number(true);	//	-> 1;
+Number(false);	//	-> 0;
+Number(undefined);	//	-> NaN;
+Number(null);	//	-> 0;
+
+###########
+II.	IsNaN
+###########
+
+Function that returns true only if the argument given to it not a number (e.g. string)
+
+isNaN("x")		//-> true  
+isNaN(2); 		// -> false
+isNaN(a); 		// -> true
+isNaN(NaN); 	// -> true
+
+
+################
+III.	isFinite()
+################
+
+Function that checks if a number is finite and returns a bolean.
+
+isFinite(3); 	// -> true
+isFinite(-Infinity);	// -> false 
+isFinite(NaN);	// -> false
+
+
+################
+IV.	isInteger()
+################
+
+Function that checks if the number is een geheel getal.
+
+isInteger(2); 	// -> true
+isInteger(2.4); 	// -> false
+
+
+###################
+V.	NUMBER TO HEX
+###################
+
+let num = 5;	//-> '5'
+let num1 = 20;	//-> ''
+let hexString = num.toString(16);	//-> '5'
+
+
+#####################
+VI.	NUMBER / STRING
+#####################
+
+-	NUMBER TO STRING: 	num.toString();
+
+- 	STRING TO NUMBER:	parseInt(str);
+
+
+###################
+VII.	MIN/MAX VALUE
+###################
+
+- Number.MIN_VALUE;
+
+The lowest possible number in JS. It is almost zero, thus math operation will produce a similar result as zero except:
+
+let i = Number.MIN_VALUE;	//-> 5e-324
+	
+i * i //-> 0		//-> 0.0000000001 * 0.0000000000001
+i + 1 //-> 1
+i - 1 //-> -1
+i / i //-> 1	
+
+Because is like 0.00001 / 0.00001 and not 0/0 //-> Infinite
+
+- Number.MAX_VALUE
+
+let i = Number.MAX_VALUE	//-> 1.7976931348623157e+308
+
+i * i 	//-> Infinity
+i + 1		//->	1.7976931348623157e+308
+i - 1		//->	1.7976931348623157e+308
+i / i		//-> 1
+
+
+########################
+VIII.	LENGTH OF A NUMBER
+########################
+
+let x = 1023;
+let numLength = x.toString().length
+
+The max length of an integer in JS is 16. After that is losing precision. 

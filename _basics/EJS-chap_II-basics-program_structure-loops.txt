@@ -1,0 +1,102 @@
+################
+JS BASICS: LOOPS
+################
+
+- WHILE and DO LOOPS
+A loop is a form of control flow that let's you run a piece of code multiple times. You can go back to some point in the program and repeat it with the current or updated state of the program.
+
+WHILE loop is comparable to an IF statement BUT instead of running the code block once, it keeps repeating the code as long as the condition is true.
+
+	while (condition){code block};
+
+DO loops are similar to while loops but they always execute the {code block} AT LEAST ONE TIME and TEST for the CONDITION only AFTER FIRST RUN, not at the beginning. 
+
+do {code block}
+while (condition);
+
+
+- FOR LOOPS
+The FOR loop is usually shorter than the while or do loop because the statements and expressions for creating the binding, checking the condition and updating the binding are grouped together.
+
+	for(init; condition; step){}
+
+The loop pattern is always the same: 
+- create a counter binding that tracks the progress of the loop, this binding has a local scope, so is it has no meaning outside the loop.
+- test expression that checks whether the loop should continue or not. For a string that would be str.length
+- counter binding is updated at the end of the loop: normal loop increases the step by one unit: i++
+Increasing with two units, multiplication: i + 2; i * 2; 
+
+NOTE: a backward loop over a string starts at str.length -1; as long as i > 0; i--
+
+
+- UPDATING BINDINGS SHORTCUTS
+count = count + 1;
+	count += 1; OR count++
+count = count - 1;
+	count -= 1; OR count--
+count = count + x;
+	count += x;
+count = count * x;
+	count *= x;
+count = count / x;
+	count /= x;
+
+
+If you omit the checking condition of the loop, you run the risk of an infinite loop that never ends. 
+
+
+- A LOOP WITH AN UNKNOWN END POINT
+
+The special keyword break, can be aplied if you don't want to or cannot specify a specific endpoint for the loop. You omit the condition and insert a break point:
+
+	for(init; step){
+		if(condition){
+			code;
+			break;
+		}
+	}
+
+NOTE: see exercises.
+
+
+###########################################
+VI. DISPATCHING ON A VALUE WITH SWITCH/CASE
+###########################################
+
+Switch statement is used as an alternate to multiple if .. else statements. 
+
+The switch expression is evaluated once and compared with the values of each defined CASE.
+
+The Switch statement uses strict comparisons (===), values must be the same type to match.
+
+A default or catch all case can be defined when the expression does not match a case.
+
+switch(expression){
+    case value:
+        expression;
+        break;
+
+    case value:
+        expression;
+        break;
+
+    default:
+        expression;
+	  break;
+}
+
+The SWITCH/CASE/BREAK statements can best be used when you have specifically defined cases or possibilities: 
+
+switch (prompt("what is the weather like?")){
+	default:
+		console.log("Unknown weather type: sunny, rainy, 				foggy, cloudy?");
+		break;
+	case "rainy":
+		console.log("bring an umbrella");
+		break;
+	case "sunny":
+		console.log("sunglasses are needed today");
+		break;
+} 
+
+The program will start at the label (case) that corresponds to the value that was given or at the default expression when no matching value is entered. The break statements are necessary to stop the switch conditional.

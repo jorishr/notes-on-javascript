@@ -1,0 +1,251 @@
+#########
+JS BASICS
+################################################
+ELOQUENT JS, CHAPTER II: Basic Program Structure
+I.	EXPRESSIONS AND STATEMENTS
+II.	BINDINGS
+III.	OTHER BASIC CONCEPTS 
+IV. 	CONTROL FLOW
+V.	STRICT MODE
+################################################
+
+
+#############################
+I. EXPRESSIONS AND STATEMENTS
+#############################
+
+An expression is a fragment of code that produces a value (thus, a chunk of grouped digits). Think of a subsentence.
+
+A JS statement is full sentence, that ends with a ;
+A program is list of statements.
+
+Type 1 into the JS console and this expression only produces the value 1. But it disappears. 
+A statement stands on it own. It can affect the statements that come after it(side effects).
+
+############
+II. BINDINGS
+############
+
+Variables and constants are containers that store data throughout the program. Variables can change the value they grasp onto while constants can change once their value is assigned.
+
+Since JS is a loosely typed language you can change not only the value of a variable but also the data-type. This is not possible in strictly typed language.
+
+To catch and hold values you use bindings or variables. You define a variable: 
+	var name = value; 
+	let name = value;
+The full statement consists of var or let keywords; name; = operator; expression of a value;
+
+	let sum = 5 + 5; var sum = 10;
+
+Once the variable is defined it can be used as an expression elsewhere in statements. And the value of this expression is the value it currently holds (this can be changed).
+
+	console.log(sum * sum); //100
+
+Multiple variables can point to the same value.
+
+Bindings are tentacles that temporarily grasp values.
+	let debt = 100;
+	debt = debt - 35;
+	console.log(debt); //65
+
+	let debt //undefined
+	
+	const surname = "Raymaekers";  
+	let debt = 100, paid = 5, netDebt = 20; 
+	//define mulitple var in one statement
+
+NOTE: 
+- var is pre-2015 JS; see let, const in document extra-modern featutures 
+
+- binding names: do not start with number, mind reserved keywords, $ or _ is allowed. Uppercase only for constructor functions.
+
+- dynamic typing: the value type of binding can be easily changed from, for example, a number to a string or bolean. Not all programming languages support this.
+
+Real world examples of bindings:
+var currentSigned-inUser = username; Once the user logs out, the value of this bindings becomes false or empty(undefined).
+
+var currentPlayer = player1 (or player2), tracks the turn of which player it is in the game.
+
+FUNCTION SCOPE
+Lexical scope in JS: things defined outside are available inside. Thus a global variable can be accessed inside functions and a variable defined inside a function will be available in all subsequent blocks inside that function.
+
+The var keyword has function scope when defined inside a function. 
+
+Thus y is available inside the {} not outside it.
+
+function(){
+	var y = 0;
+}
+console.log(y);	//-> reference error
+
+In most other languages variables have BLOCK scope. 
+
+
+HOISTING
+
+The var keyword for variable definition also means the variable gets hoisted to the top and can be referenced from the beginning of the program, BEFORE its value is declared.
+
+function(){
+	console.log(1,y)
+	var y = 0;
+	console.log(2,y)
+}
+console.log(3, y);
+//->	1, undefined
+//->	2, 0
+//->	reference error, y is not defined
+NO reference error because y is hoisted to the top of the program and is declared without a value at the start of the program.
+
+This is the reason why you should always declare your variables at the top of a function to mimic the hoisting behavior.
+
+A TRICKY EXAMPLE
+
+What is the value of y in the log?
+
+var y = 2;
+
+function(){
+	console.log(y);
+}
+
+//-> 2, the global variable is used in the function. 
+
+BUT
+
+var y = 2;
+
+function(){
+	console.log(y);
+	var y = 1
+}
+//-> undefined
+
+Because the y variable inside the functions gets hoisted to the top of the function as var y; declared without value.
+
+LET gives us BLOCK SCOPE and prevents HOISTING.
+
+
+#########################
+III. OTHER BASIC CONCEPTS
+#########################
+
+- environment: the collection of bindings and their respective values that exist at a given time. Some are part of the language standard and provide ways to interact with the surrounding system, for example: the browser DOM.
+
+- functions are pieces of programs wrapped in a value. A lot of the values that are part of the default JS are functions. These values can be applied to run the program they have wrapped inside. e.g prompt("hello"). 
+
+CALL, INVOKE or APPLY a function with parentheses, this produces a function value. 
+
+You use the name of the binding that hold the function. (prompt = function)
+
+The values between the parentheses are called arguments, these arguments are given to the program inside the function. The number of arguments and the type of arguments may differ. In prompt("Enter surname"); we give the string "enter surname" to the program inside the function prompt.
+
+- console.log()
+The console binding is a function(value) that hold a program. The log property is applied to this binding and retrieves a specific part of the value held by the console binding.  
+
+- return values and side effects.
+Sometimes we use functions because of the side-effects they produce, like showing a dialog box or changing on-screen text. Other times we use functions because of the values they produce. When a function produces a value, it RETURNS a value. 
+
+The returning of a value by calling a function is a JS expression that can be used in within larger expressions or statements:
+	console.log(Math.max(2,3,5,7,10) + 22); //10+22=32
+	console.log(Math.min(2,3,5,7,10) + 22); //24
+	
+Note: the function Math.max takes any amount of arguments 		and returns the greatest. The return value is used to add 	to the number 22 
+
+
+################
+IV. CONTROL FLOW
+################
+
+- straight-line flow
+
+- conditional execution: if keyword, only if a certain condition holds true, some code is executed.
+
+	if (condition){code to be executed}
+
+only if the boolean return value of the condition is true the code will run, if false it will be ignored.
+
+NOTE: In the {code block} between the braces you can have multiple statements.
+
+	if (1 + 1 == 2){console.log("correct");}
+
+In the condition the sum of two number values is compared to the number value 2. The bolean result of this comparison is true or false. If true, the string "correct" will be logged in the console.  
+
+The alternative execution path is indicated with the ELSE keyword. Thus when the if condition returns false, its code block will be ignored and JS will go to the else code block for an alternative execution path.
+
+Chain multiple if/else statements:
+
+	let num = Number(prompt("Give me a number"));
+
+	if (num < 10){
+		console.log("small");
+	} else if (num < 100){
+		console.log("medium");
+	} else {
+		console.log("large");
+	}	
+
+
+TERNARY OPERATOR INSTEAD OF IF/ELSE
+
+const age = 30;
+
+age > 30 ? console.log('30+') : console.log('-30');
+
+Combinations:
+
+age > 30
+	? age > 50 
+		? console.log('50+') 
+		: console.log('30-50')
+	: console.log('-30');
+
+
+#################
+V.	STRICT MODE
+#################
+
+
+A.	INVOKING STRICT MODE
+
+At level of the script: 'use strict'; on top of the file.
+In ES Modules strict is applied automatically.
+Inside functions:
+
+function strict(){
+	'use strict';
+	//do smth
+}
+
+B.	WHAT STRICT MODE DOES
+
+Enforce stricter parsing and error handling by changes in both syntax and runtime behavior:
+
+- Makes debugging easier by converting mistakes into ERRORS
+In general JS some mistakes are simply ignored but in strict mode they generate an explict error.
+
+Example: function parameter names must be unique.
+Thus function sum(a, a, b){'use strict'; return a + a + b} will return an error while in a normal context you get sum(1,2,3) //->7 as a takes on the value of last parameter definition.
+
+Example: global variables cannot be defined by accident.
+undeclaredVar = 10;	
+//-> global var is created if a keyword is missing
+
+'use strict';
+undeclaredVar = 10;	//-> err
+
+- deleting a variable is not allowed
+- defining a property value more than once in an object is not allowed
+-writing to read-only or get-only properties is not allowed.
+
+- a range of security features:
+
+Among other things, that in browsers it's no longer possible to reference the window object through this inside a strict mode function.
+
+'This' is no longer forced into an object as in a normal function it is an object(if parameter passed is object); a boxed value(string, bolean or number) or the global object with a value of undefined 
+
+
+
+
+
+
+

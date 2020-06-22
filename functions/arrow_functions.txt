@@ -1,0 +1,96 @@
+###############
+ARROW FUNCTIONS
+###############
+
+var add = function(a, b) {return a + b;};
+add(1,1) // -> 2
+
+becomes: 
+var add = (a, b) => {return a + b;};
+
+ONE LINE ARROW FUNCTIONS
+- when using one line you MUST OMIT {} and return keyword
+
+var add = (a, b) => a + b;
+
+Shortcode one line arrow functions are useful with higher order function that can become long and tedious to write.
+For example: double the numbers of an array:
+
+[1, 2, 3].map(function(value){
+	return value * 2;
+});
+
+becomes:
+
+[1, 2, 3].map(value => value * 2);
+
+USE CASES FOR ARROW FUNCTION:
+- => function are not regular functions
+- they do not get there own keyword 'this'.
+
+The value of the this keyword in an arrow function is it's enclosing context. What is the enclosing context?
+
+REVISIT AN EARLIER PROBLEM:
+
+var instructor = {
+firstName: "Joris",
+sayHi: function(){
+		setTimeout(function(){
+			console.log(`Hello ${this.firstName}`)
+		}.bind(this), 1000);
+	}
+}
+instructor.sayHi() // -> "Hello undefined" after 1000ms.
+
+Because after with setTimeout, the execution context for the keyword this changes from the nearest parent object to the global object(window), where there is no property firstName. Because setTimeout operates on the global object.
+The fix would be to change the execution context with BIND(this).
+
+The refacor with => works without the bind fix
+
+var instructor = {
+firstName: "Joris",
+sayHi: function(){
+		setTimeout(() => {
+			console.log(`Hello ${this.firstName}`)
+		}, 1000);
+	}
+}
+instructor.sayHi() // -> "Hello Joris"
+
+Since the => function inside the setTimeout does not have its own keyword this. This means that the execution context cannot be that of the global object through setTimeout. Instead the enclosing context becomes the value of this in an arrow function. That is, the instructor object.
+
+NOTE: if you would go a step further and also write a => for the sayHi: function, the undefined problem would come back. Because then also, the => does not have a keyword this. This means that the execution context becomes the global object. 
+
+var instructor = {
+firstName: "Joris",
+sayHi: () => {
+		setTimeout(() => {
+			console.log(`Hello ${this.firstName}`)
+		}, 1000);
+	}
+}
+instructor.sayHi() // -> "Hello undefined"
+
+LESSON: => can clean up code but are no automatic replacement for normal functions. NEVER use them when creating methods in objects because this will create confusing around the value of the keyword this.
+
+ALSO: arguments keywords cannot access the arguments of the arrow function. Thus 
+	var showArg = (a, b) => {return arguments};
+	// -> reference error
+
+
+ARGUMENTS
+
+let a = () => arguments;
+
+console.log(a('hello'));	//->arguments is not defined 
+
+Because in an arrow function arguments is not bound to that arrow function. 
+
+In a regular function expression it does work:
+
+let a= function(){return arguments}
+
+Instead use:
+
+let a = (...n) => n;
+console.log(a('hello'));	//-> ['hello'] 

@@ -1,0 +1,419 @@
+###############
+KEYWORD "THIS"
+################################
+I.	ABOUT THIS
+II.	GLOBAL
+III.	IMPLICIIT/OBJECT
+IV.	EXPLICIT EXECUTION CONTEXT
+	A. 	CALL
+	B.	APPLY
+	C.	BIND
+V.	NEW
+################################
+
+
+################
+I.	ABOUT THIS
+################
+
+METHODS are object properties that hold function values. And methods usually work on the object it is a called upon:
+
+	let rabbit = {} //-> empty object
+	rabit.speak = 
+		function(line){console.log(`The rabbit says ${line}`)
+	}
+	rabbit.speak("hello.") // -> The rabbit says hello.
+
+When a function is called as a method to an object it is looked up inside the object as a property and immediately called. This works because every function has a binding inside called "this". The this binding automatically points at the object it was called on.
+	
+- declare a function:
+	
+	function speak(line) {
+ 		 console.log(`The ${this.type} rabbit says 					'${line}'`);
+	}
+
+- declare object with a property speak that holds the 	function value
+	
+	let hungryRabbit = {type: "hungry", speak};
+ 
+- call the speak function as method on the object:
+
+hungryRabbit.speak("hello")
+	// -> The hungry rabbit says 'hello'
+
+IMPORTANT NOTE: here the this.type refers to the object the method was called on: thus type property inside the hungryRabbit object.
+ 
+BUT there are other uses for the reserved keywords this because its value depends on how the way it is called, the execution context.
+
+The execution context can be: 
+1. global, 2. object/implicit, 3. explicit, 4. new 
+
+
+############
+II.	GLOBAL
+############
+
+When the keyword this is used NOT inside a declared object it's value is the global object, which in the browser is the window object:
+
+console.log(this) 	// -> window
+
+This will refer to the global scope. And the global scope in the browser is the window. 
+		
+Thus basically when you create a global binding it is attached to the browser window.
+
+var newBinding = "hello"; 
+window.newBinding 				// -> "hello"
+window.newBinding === newBinding 	// -> true
+
+NOTE: if this is inside a function it also refers to the global object, the browser window:
+
+function whatIsThis(){return this} 
+whatIsThis() 	//-> window
+
+If you attach a property to it, this creates a global variable the same way you add a property to an array:
+
+function whatIsThis(){this.newVar = "hello"};
+window.newVar 	// -> "hello"
+
+But this is bad practice. There even is "use strict" mode to prevent this (in ES5).
+
+RECAP: if the keyword this is used inside the global context in a function the value is the global object(window) OR undefined if strict mode is used.
+
+
+######################
+III.	IMPLICIIT/OBJECT
+######################
+
+Implicit or object rule: when "this" is inside a declared object the value of the keyword this will be the value of the CLOSEST PARENT OBJECT
+
+EXAMPLE I:
+var person = {
+	firstName: "Joris",
+	sayHi: function(){
+			return "Hi " + this.firstName
+	},
+	determineContext: function(){
+		return this === person; //return true or false
+	}
+}
+person.sayHi() // -> "Hi Joris"
+person.determineContext() // -> true
+
+EXAMPLE II:
+var instructor = {
+    firstName: "Colt",
+    sayHi: function(){
+        setTimeout(() => {
+          console.log(`Hello ${this.firstName}`)
+        }, 1000)
+    }
+}
+instructor.sayHi()
+
+
+With nested objects you have to pay close attention:
+var person = {
+	firstName: "Joris",
+	sayHi: function(){
+			return "Hi " + this.firstName
+	},
+	determineContext: function(){
+					return this === person; 
+	},
+	dog: {
+		sayHello: function(){
+				return "Hello " + this.firstName;
+		},
+		determineContext: function(){
+						return this === person;
+		}
+}
+person.dog.sayHello() // -> "Hello undefined" because the value of this is the closest parent object, dog, which has no key (or property) firstName.
+
+person.dog.determineContext() // -> false because this takes the value of dog, not person. 
+
+EXAMPLE
+
+const a = {
+	x: 1, 
+	getX(){
+		const inner = function(){console.log(this.x)}
+		inner();}}
+
+a.getX()	//-> undefined, because scop is global, not object. 
+
+Fix1:
+
+const a = {
+	x: 1, 
+	getX(){
+		const that  = this;
+		const inner = function(){console.log(that.x)}
+		inner();}}
+a.getX()	//-> 1
+
+Fix2:
+
+const a = {
+	x: 1, 
+	getX(){
+		const inner = function(){console.log(this.x)}
+		inner.bind(this);}}
+a.getX()	//-> 1
+
+
+##############################
+IV. EXPLICIT EXECUTION CONTEXT
+##############################
+
+CALL, APPLY, BIND will explicitly change the value of the this keyword. 
+
+In the previous example we can then explicitly indicate that in the nested object this should take the value of person instead of the nearest parent object dog.
+
+To do so, we have to change the execution context by using call, apply or bind. All are used to give an explicit value for the keyword this. 
+
+Call and Apply immediately invoke the function they are called on, whereas bind will return a new function definition with the value of the keyword this explicitly set. 
+
+Call and bind can take infinite number of parameters whereas apply on accepts two: (thisArg, arr) thus an the new value for this, thisArg, and an array.
+
+A.	CALL
+
+Invoke a function with a diferent execution context. 
+
+EXAMPLE
+Fix for previous example with call:
+
+	person.dog.sayHello() becomes:
+	person.dog.sayHello.call(person) //-> "hello Joris"
+
+NOTE: you do not call the sayHello, that is done by the call method. The argument of the call method sets a new execution context to the object person. 
+
+Thus the function inside sayHello is called as if it where on the person object and not the nested dog object.
+
+EXAMPLE
+Borrowing a function defined in another object, but calling that function within the execution content of another object.
+
+	var person1 = {
+		firstName: "Joris",
+		sayHi: function(){return "Hi " + this.firstName}
+	}
+	var person2 = {
+		firstName: "Sara",
+		sayHi: function(){return "Hi " + this.firstName}
+	}
+person1.sayHi() // -> "Hi Joris"
+person2.sayHi() // -> "Hi Sara"
+
+This can be done much shorter by using call:
+	var person1 = {
+		firstName: "Joris",
+		sayHi: function(){return "Hi " + this.firstName}
+	}
+	var person2 = {
+		firstName: "Sara"	
+	}
+person1.sayHi() // -> "Hi Joris"
+person1.sayHi.call(person2) // -> "Hi Sara"
+
+NOTE: this particalur example with just one argument could be done by using APPLY because the only difference between apply and call is the argument structure:
+	
+person2.sayHi.apply(person2) // -> "Hi Sara"
+
+EXAMPLE
+
+function Product(name, price) {
+  this.name = name;
+  this.price = price;
+}
+
+function Food(name, price) {
+  Product.call(this, name, price);
+  this.category = 'food';
+}
+
+console.log(new Food('cheese', 5).name);
+// expected output: "cheese"
+
+
+B.	APPLY
+We add another property to the object that hold a function that takes arguments:
+ 
+	var person1 = {
+		firstName: "Joris",
+		sayHi: function(){return "Hi " + this.firstName},
+		addNumbers: function(a, b, c, d){
+			return this.firstName + " calculated " + 						(a + b + c + d);
+		}
+		
+	}
+person1.addNumbers(1, 2, 3, 4) //-> "Joris calculated 10"
+person1.addNumbers.apply(person2,[1, 2, 3, 4]); 
+person1.addNumbers.call(person2, 1, 2, 3, 4);
+
+
+NOTE: call, apply and bind can only be used on functions, not on objects(arrays), boleans or strings.
+
+
+C.	BIND
+Bind works just like call BUT it does not execute the function right away. It returns a function environment with whereby the keyword this is set to a specific value. 
+
+This function environment can be stored into a binding and called upon on a later point in the control flow.
+
+This is useful when we do not know all of the parameters yet:
+
+person1.addNumbers.bind(person2, 1, 2) 
+// -> ƒ (a, b, c, d){return this.firstName + " calculated " + (a + b + c + d);} with the firstName set to the property of the person2 object, and with only two parameters known. 
+
+This is PARTIAL APPLICATION
+
+let calcPerson2 = person1.addNumbers.bind(person2, 1, 2)
+calcPerson2() // -> "Sara calculated NaN" because some 						parameters are missing.
+calcPerson2(3, 4) // -> "Sara calculated 10"
+
+Thus the advantage of using bind is that you only need to know what the value of the keyword this has to be, you do not need to know all the arguments of the function yet.
+
+The most use cases will be in asynchronous programs where you set the context for the keyword this for a function that will be called at later point in the code.
+
+EXAMPLE  
+Example with setTimeout:
+
+var person = {
+	firstName: "Joris",
+	sayHi: function(){
+			setTimeout(function(){
+                console.log("Hi " + this.firstName);
+            }, 20000);
+	},
+}
+//sayHi property is a function value. That function logs a string AFTER a setTimeout of 20000ms, whereby the string is supposed to refer to the person.firstName value.
+
+BUT although the this keyword is DECLARED within an object, the setTimeout interval changes the context. 
+
+The setTimeout function operates on the window of the browser and is called on a later point, thus on the global object. Therefore the execution context for the this keyword is NOT the person object.
+
+person.sayHi() // Hi undefined, after 20000 ms
+	The fix:
+
+setTimeout(function.bind(this), 20000);
+
+Bind operates on the function we declare, it returns a function that can be called at a later stage (after the interval) and takes the this keyword as an argument whereby it directly refers to the context of the binding person as a whole (not a property of it). 
+
+This means that once the function is called after the interval the this.firstName will operate in the correct context of the person object, not the global windows object as before.
+
+var person = {
+	firstName: "Joris",
+	sayHi: function(){
+		setTimeout(function(){
+              console.log("Hi " + this.firstName);
+           }.bind(this), 20000);
+	},
+}
+person.sayHi() // "Hi Joris" after 20000ms
+
+NOTE: the difference between .bind(this) and the use of this.firstName. First: reference to object, second reference to object.property
+
+
+WHAT IS THE OUTPUT?
+var hero = {
+	name: 'john doe',
+	getIdentity: function(){return this.name}	
+}
+var identity = hero.getIdentity;
+
+console.log(identity());
+console.log(hero.getIdentity());
+
+//	-> undefined
+	-> john doe
+
+To reason for the undefined value is that be creating a new variable the execution context has changed as this becomes undefined.
+To fix it:
+
+var identity = hero.getIdentity.bind(hero);
+console.log(identity());
+//->	john doe
+
+BIND IN EVENT LISTENERS
+Set the execution context right for the fn you want called upon event. Use null if this is not needed, or use an object that came back from an API call for example. You can pass in additional arguments if the handler function accepts them.
+
+elem.addEventListerner('click', myFn.bind(null/this, additionalargument));
+
+
+#################
+V.	NEW KEYWORD
+#################
+
+SEE OOP for use of the "new" keyword.
+
+The value of the keyword this set to an empty object AND returned from the function that is set with the new keyword.
+
+EXAMPLE:
+
+	function CreatePerson(firstName, lastName){
+		this.firstName = firstName
+		this.lastName = lastName
+	}
+
+CreatePerson("Joris", "R") 
+window.firstName //-> "Joris"
+
+This function creates two properties on object that is defined by the value of the this keyword. But, since this is a function, not an object the this keyword therefore binds to the global object, the window.
+
+Using new keyword when calling the function changes this:
+new CreatePerson("Sara", "P") //-> {firstName: "Sara", lastName:"P"}
+
+A new object was created "out of nothing". To store it, use a binding: 
+
+	let newPerson = new createPerson("Eddy", "Wally");
+	newPerson.firstName 	// -> Eddy
+	newPerson.lastName 	// -> Wally
+
+
+EXAMPLE:
+
+var length = 10;
+function y(){
+	console.log(this.length)
+}
+
+var x = {
+	length: 5,
+	method = function(y) {
+		y();
+		arguments[0]();
+	}
+}
+
+x.method(y, 1, 2, 3)	//-> 10, 4
+
+The method function first calls the y function but the execution context for this function is the global window, and window.length = 10;
+
+Inside the method function arguments() invokes the first parameter passed to it which is the function y(){}. The scope for the keyword THIS becomes the array-like object ARGUMENTS. Thus the arguments.length = 4. 
+
+
+EXAMPLE
+Consider an object with three methods. Rewrite the obj functions so that you can chain the methods and get printed x, y z.
+
+var A = {
+	x: function(){console.log('x')},
+	y: function(){console.log('y')},
+	z: function(){console.log('z')}
+}
+
+A.x().y().z()	// -> x y z
+
+If you call it like this you get:
+
+A.x() -> 'x'.y() -> undefined
+
+To fix this add a return statement to each function that return the entire object:
+
+var A = {
+	x: function(){console.log('x'); return this},
+	y: function(){console.log('y'); return this},
+	z: function(){console.log('z'); return this}
+}
+
+Now you have:
+
+A.x() -> 'x' in the log + A.y() -> 'y' + A.z() -> 'z' + A
