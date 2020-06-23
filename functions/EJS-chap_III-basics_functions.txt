@@ -6,11 +6,42 @@ II.	DECLARATION vs EXPRESSION
 III.	PURE FUNCTIONS
 IV.	IMMEDIATELY INVOKED FUNCTIONS
 ###################################
+Block scope issues
+
+WHAT IS THE OUTPUT OF THE FOLLOWING CODE?
+```javascript
+var y = 1;
+if (function f(){}){
+	y += typeof f;
+}
+console.log(y);
+
+//-> 1undefined;
+```
+The function declarion `function f(){}` is a value, thus in a boolean context it returns true and the if block is executed.
+
+However, the `typeof f` is not 'function' but `undefined` because of a scoping issue. The function f is declared inside the if condition and is not visible outside that limited scope.  
+
+The result is thus a string concatenation of 1 + undefined.
+If we declare the function inside the block, we get ``1function`.
+```javascript
+var y = 1;
+if (1){
+	function f(){};
+	y += typeof f;
+}
+console.log(y);
+//-> 1function;
+```
+
+
 
 
 ##########################
 I.	FUNCTION DECLARATION
 ##########################
+
+
 
 Functions are an essential building block of JS, let's you wrap lines of code into reusable packages.
 
@@ -62,8 +93,8 @@ function anon(){
 //-> returns the array of all ARGUMENTS passed to the function, independent of the number of parameters defined in the function declaration.
 
 anon(1,2,3)
-//-> Arguments(3) 
-	[1, 2, 3, callee: ƒ, Symbol(Symbol.iterator): ƒ]
+//-> Arguments(3)ï¿½
+	[1, 2, 3, callee: ï¿½, Symbol(Symbol.iterator): ï¿½]
 
 
 RETURN
