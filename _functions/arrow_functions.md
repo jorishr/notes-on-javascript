@@ -23,7 +23,7 @@ Shortcode one line arrow functions are useful with higher order functions that c
 [1, 2, 3].map(value => value * 2);
 ```
 ## Keyword this
-Arrow function are not regular functions and do not have their own keyword `this` because the value of `this` is the enclosing context of the nearest parent object. The enclosing context for an arrow function is not the function object itself but the object that encloses the function, probably the global object. 
+Arrow function are not regular functions and do not have their own keyword `this`. If we reference the keyword this from inside an arrow function, it’s value is taken from the outer “normal” function.
 
 ## keyword arguments
 Similarly the keyword arguments is not bound to the function object and thus cannot access the arguments given to an arrow function.

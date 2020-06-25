@@ -9,6 +9,7 @@ Table of contents
 			- [setTimeout and bind](#settimeout-and-bind)
 			- [setTimeout and arrow function](#settimeout-and-arrow-function)
 		- [Get property value](#get-property-value)
+		- [This inside a function expression (variable)](#this-inside-a-function-expression-variable)
 		- [Arguments array](#arguments-array)
 
 ## Set an explicit execution context
@@ -89,7 +90,7 @@ There are two solutions:
 - use the bind method
 - use an arrow function
 #### setTimeout and bind
-Use the bind method on the callback function inside setTimeout. At the time of this function declaration the keyword this referes to the enclosing person object and we bind the callback function to that object.
+Use the bind method on the callback function inside setTimeout. At the time of this function declaration the keyword this references to the enclosing person object and we bind the callback function to that object.
 ```js
 var person = {
 	firstName: "Joris",
@@ -102,6 +103,7 @@ var person = {
 person.sayHi() // "Hi Joris" after 2000ms
 ```
 #### setTimeout and arrow function
+Arrow functions don’t have their “own” this. If we reference this from within such a function, the value of this is taken from the outer “normal” function.
 ```js
 var person = {
 	firstName: "Joris",
@@ -134,27 +136,34 @@ var identity = hero.getIdentity.bind(hero);
 console.log(identity());
 //-> john doe
 ```
+### This inside a function expression (variable)
+The this keyword is unbound inside the function expression. Thereby refering to the global object.
 ```js
 const a = {
 	x: 1, 
+	logThis() { console.log(this) },
 	getX(){
 		const inner = function(){
+			//console.log(this)	//-> Window {…}
 			console.log(this.x)
 		}
 		inner();
 	}
 }
 a.getX()	
-//-> undefined, because scope is global, not object. 
+//-> undefined
+a.logThis()
+//-> {x: 1, logThis: ƒ, getX: ƒ}
 
-//Fix1: bind
+//Fix1: call with setting the value of the keyword this to the object
 const a = {
 	x: 1, 
 	getX(){
+		//console.log(this)	//->{x: 1, getX: ƒ}
 		const inner = function(){
 			console.log(this.x)
 		}
-		inner.bind(this);
+		inner.call(this);
 	}
 }
 a.getX()	//-> 1
