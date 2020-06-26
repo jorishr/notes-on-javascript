@@ -2,6 +2,7 @@
 Table of contents
 - [The Math object](#the-math-object)
   - [Ceil, floor, round, random](#ceil-floor-round-random)
+    - [Generating pseudo random numbers](#generating-pseudo-random-numbers)
   - [Max, min, abs](#max-min-abs)
   - [PI](#pi)
   - [Square-root](#square-root)
@@ -12,10 +13,25 @@ The Math object is used as a container to group a bunch of related functionality
 Math.ceil()     //rounds UP to the nearest whole number
 Math.floor() 	//rounds DOWN to the nearest whole number.
 Math.round() 	//rounds to the nearest whole number
-
-Math.random() 	//returns a new pseudorandom number between zero (inclusive) and one (exclusive) every time you call it.
 ```
+### Generating pseudo random numbers
+`Math.random` kan 0 zijn maar niet 1. Met Math.round() kan je wel 10 krijgen als bijvoorbeeld 0,9501 wordt afgerond naar BOVEN.
+```js
+let randomNum = Math.round(Math.random());	
+//-> always rounded to either 0 or 1.
 
+var numm = Math.round(Math.random() * 10);
+//-> rounded to a positive integer number between 0 (included) and 10 (excluded) 
+Math.floor(Math.Random() * 10 + 1);	
+//-> rounded to a positive integer number between 0 (included) and 11 (excluded) 
+```
+Note that if you don't multiply by 10 `.floor` will always be 0 and `.ceil` will always be 1. By multiplying you get: 
+```			
+0       	  * 10 = 0;
+0,222343... * 10 = 2; 
+0,366443... * 10 = 4; 
+0,982343... * 10 = 10;
+```
 ## Max, min, abs
 ```js
 Math.max()	//-> -Infinity

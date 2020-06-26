@@ -4,40 +4,11 @@ MATH RELATED PROBLEMS
 ##################################################
 I.	    GENERATE A RANDOM POSITIVE INTEGER NUMBER
 II.     FIND MAX NUM IN ARR
-III.	REPLICATE Math.min
 IV.     FIND HIGHEST/LOWEST NUMBER VALUES WITH ...
 V.      COUNT THE NUMBER OF MAX/MIN VALUES IN ARR
 VI.     LOGARITMIC FUNCTION
 ##################################################
 
-
-#############################################
-I.	GENERATE A RANDOM POSITIVE INTEGER NUMBER
-#############################################
-*/
-let randomNum = Math.round(Math.random());	
-//-> always rounded to either 0 or 1.
-
-var numm = Math.round(10*Math.random());
-//-> rounded to a positive integer number between 0 and 10 
-
-/*
-Note: if you don't multiply by 10 .floor will always be 0 and .ceil will 
-always be 1. 
-
-Thus what you get is 			
-	0       	* 10 = 0;
-	0,222343... * 10 = 2; 
-	0,366443... * 10 = 4; 
-	0,982343... * 10 = 10;
-	
-Math.random kan 0 zijn maar niet 1. Met Math.round() kan je wel 10 krijgen als
-wanneer 0,9501 wordt afgerond naar BOVEN.
-
-Gebruik je Math.floor() hou er dan rekening mee dat dit naar ONDER afrond. Dus 
-als je een nummer wil tussen 0 en 10 dan moet + 1 toevoegen!
-*/
-Math.floor(Math.Random() * 10 + 1);	
 
 
 /*
@@ -64,23 +35,6 @@ var max = arr.reduce(function(a, b) {
     return Math.max(a, b);
 });
 
-
-/*
-##########################
-III.	REPLICATE Math.min
-##########################
-
-Write a function that takes two arguments and returns the lowest value.
-*/
-function min(a, b){
-    if (a < b){
-        return a;
-    } else {
-        return b;
-    }
-}
-min (0, 10);	//-> 0
-min (0, -10);	//-> -10
 
 /*
 ##############################################
