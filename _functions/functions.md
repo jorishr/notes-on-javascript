@@ -5,6 +5,9 @@ Table of contents
 		- [Parameters and arguments](#parameters-and-arguments)
 			- [Default parameter](#default-parameter)
 			- [Keyword arguments](#keyword-arguments)
+			- [Calling a function](#calling-a-function)
+				- [Core call method](#core-call-method)
+				- [A wrapper, apply and bind](#a-wrapper-apply-and-bind)
 	- [Function return value](#function-return-value)
 		- [Semi-colon problem](#semi-colon-problem)
 		- [Return multiple variables](#return-multiple-variables)
@@ -58,6 +61,83 @@ function f(){
 f(1,2,3)
 //-> Arguments(3) [1, 2, 3, callee: ƒ, Symbol(Symbol.iterator): ƒ]
 ```
+#### Calling a function
+##### Core call method
+The core function invocation primitive is the call method. The syntax is usually shortened to `fn()` but what happens underneath is: `fn.call()`. The very first argument passed to the call method is the `thisValue` as represented by the keyword `this`. All arguments that come after that are part of the regular arguments list. 
+```js
+//fn.call(this, argument1, argument2, argument3)
+function hello(thing) {
+  console.log(this + " says hello " + thing);
+};
+
+hello.call("Yehuda", "world");
+//-> Yehuda says hello world
+
+//if you pass just one argument to the call method, it will always be the thisValue to set the this keyword value.
+hello.call("world");
+//-> world says hello undefined
+```
+Knowing the core primitive call function we can now elaborate the more common shorthand function call with just parentheses. The same function from above can be called as: `hello("world")` which compiles to: `hello.call(<thisValue>, "world")`. Whereby the `<thisValue>` depends on the execution context. In the global scope it will default to `window || undefined (in strict mode)` and inside an object it will take on the value of nearest enclosing object.
+```js
+//the example above with the symplified syntax:
+hello('world');
+//compiles to...
+hello(window, 'world');
+//-> [object Winodw] says hello world
+
+//thus: fn(...arg) becomes fn.call(window [ES5-strict: undefined], ...args)
+```
+The keyword this does not have a persistent value. It will always take on the thisValue that is present upon the actual function call.
+
+##### A wrapper, apply and bind
+To explicitely set the value of the keyword this to a fixed value, the `call()`, `.bind()` or `apply()` methods can be used or a closure trick with a wrapper function:
+```js
+var person = {
+  name: "J R",
+  hello: function(thing) {
+    console.log(this.name + " says hello " + thing);
+  }
+}
+/*
+Wrapper function that calls the instance method hello with the call method
+that explicitely sets the this value to the person object 
+*/
+var boundHello = function(thing) { return person.hello.call(person, thing); }
+
+boundHello("world");
+/* 
+-> boundHello.call(<thisValue>, arg1, arg2, arg3, ...);
+compiles to: boundHello.call(window, "world") and returns the result of 
+person.hello.call(person, thing)
+//-> J R says hello world
+*/
+```
+The apply method is the same as tje call method with the exception of the additional arguments. Those should be passed in as an array-like object.
+
+Using the apply method we can write our own bind function:
+```js
+function bind(fn, thisValue){
+	return function(){
+		return fn.apply(thisValue, arguments);
+	}
+}
+/* 
+- bind takes in a function and the thisValue
+- returns a function
+- when that function is called, the original functions is invoked with the set value for the this keyword
+- the additional arguments passed to the original function are collected by the arguments keyword
+*/
+
+function originalFn(){
+	console.log(this);
+	console.log(arguments)
+}
+const setThis = originalFn.bind('Hello');
+setThis('arg1', 'arg2');
+//-> String {"Hello"}
+//-> Arguments(2) ["arg1", "arg2", callee: ƒ, Symbol(Symbol.iterator): ƒ]
+```
+
 ## Function return value
 The result of a function by itself is not useful (undefined). You can print it, but is does not produce an output that you can capture into a variable. To do that we use the RETURN keyword.
 ```js

@@ -3,6 +3,7 @@ Table of contents
 - [Jest](#jest)
   - [Install and setup](#install-and-setup)
   - [Writing tests](#writing-tests)
+  - [Express integration testing](#express-integration-testing)
 ## Install and setup
 ```
 npm i -D jest
@@ -43,3 +44,9 @@ module.exports = (num) => {
 
 const fizzBuzz = require('./fizzBuzz.js')
 ```
+
+## Express integration testing
+Use the package `superset` for creating HTTP requests. 
+
+See my Github for working example:
+[Express Integration Testing](https://github.com/jorishr/express-integration-testing)
