@@ -23,7 +23,10 @@ let randomNum = Math.round(Math.random());
 var numm = Math.round(Math.random() * 10);
 //-> rounded to a positive integer number between 0 (included) and 10 (excluded) 
 Math.floor(Math.Random() * 10 + 1);	
-//-> rounded to a positive integer number between 0 (included) and 11 (excluded) 
+//-> rounded to a positive integer number between 0 (included) and 11 (excluded)
+
+Math.floor(Math.random() * 2)
+//-> produces either 0 or 1 
 ```
 Note that if you don't multiply by 10 `.floor` will always be 0 and `.ceil` will always be 1. By multiplying you get: 
 ```			
