@@ -98,17 +98,18 @@ class Dog extends Animal {
     console.log('The dog barks');
   }  
 }
-const myDog = new Dog('Sheperd');
+const myDog = new Dog('Shepard');
 myDog.walk();
 //-> 'The animal starts walking'
 myDog.bark();
 //-> 'The dog barks'
 ```
+In practice there are limits to inheritance. And picking the correct abstraction level is not always as straightforward as it seems. Take the example of order information in a multi-country app. You cannot assume that the address field is going to be the same everywhere. For example, Belgium uses separate fields for street and number while in most other countries the street and number are in the same field.
 
 ## Polymorphism
 Polymorphism means many shapes in Greek. In OOP polymorphism takes advantage of inheritance in order to override shared or extended methods with specific ones for each child class. Thus polymorphism allows to perform a single action in different forms, depending on the execution context. 
 
-A good example is the `+` operator that is primarly a math operator that produces a sum of numbers. However, when one of the operands is a string the operator performs string concatenation.
+A good example is the `+` operator that is primarily a math operator that produces a sum of numbers. However, when one of the operands is a string the operator performs string concatenation.
 
 ```js
 //simple inheritance

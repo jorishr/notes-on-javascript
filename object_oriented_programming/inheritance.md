@@ -9,7 +9,7 @@ Table of contents
 		- [Overriding the constructor function](#overriding-the-constructor-function)
 
 ## Prototype inheritance
-Inheritance: passing methods from one CONSTRUCTOR FUNCTION (or class) to another CONSTRUCTOR FUNCTION (or class). A good reason to use inheritance is to have objects that are lighter since the inhertited method can be looked up in a parent object.
+Inheritance: passing methods from one CONSTRUCTOR FUNCTION (or class) to another CONSTRUCTOR FUNCTION (or class). A good reason to use inheritance is to have objects that are lighter since the inherited method can be looked up in a parent object.
 
 Since JS does not have normal classes, what we do is passing the prototype property from one constructor function to another constructor function. 
 ### The wrong way
@@ -61,7 +61,7 @@ The constructor function in the Destination class is optional. The methods defin
 ### Overriding inherited methods
 When you redefine a method in the child class, the functionality will change for the instances created with the child class. 
 
-To make this usefull you can use the keyword SUPER in a new function whereby the original functionality is called from the parent class while adding new features.
+To make this useful you can use the keyword SUPER in a new function whereby the original functionality is called from the parent class while adding new features.
 ```js
 class Parent {
 	constructor(){}
