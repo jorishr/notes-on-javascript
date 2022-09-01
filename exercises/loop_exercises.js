@@ -8,8 +8,8 @@ INDEX
 4.  DO LOOP
 5.  BREAK A LOOP MANUALLY
 6.  PRINT TRIANGLE
-7.  FIZZBUZZZ
-8.  CHESSBOAR
+7.  Fizzbuzz
+8.  Chessboard
 9.  FIND LAST RECEIVER OF DISTRIBUTION OF VALUES
 ##########################
 
@@ -168,7 +168,7 @@ triangle:
     
 LOGIC
 - use a binding that will be log a STRING in the console
-- continue to add # to the string untill its length reaches 7, 
+- continue to add # to the string until its length reaches 7, 
 thus while it is less or = than, keep going
 */
 
@@ -187,9 +187,9 @@ for (let x = 0; x < 7; x++){
 
 /*
 
-#############
-7.  FIZZBUZZZ
-#############
+############
+7.  Fizzbuzz
+############
 Write a program that uses console.log to print all the numbers from 1 to 100, 
 with two exceptions. Divisible by 3 -> fizz, divisible by 5 but not 3-> buzz
 

@@ -127,11 +127,11 @@ function Person(firstName, lastName, favoriteColor, favoriteNumber){
 /*  4 - Add a function on the Person.prototype called addToFamily which adds an 
 object constructed from the Person constructor to the family array. 
 
-IMPORTANT: Make sure that the object you are adding (the familymember object),
+IMPORTANT: Make sure that the object you are adding (the family member object),
 is an object constructed from the Person constructor 
 (HINT - take a look at the instanceof keyword).
 
--> NOTE: check of the parameter passed (familymember) is an instanceof the 
+-> NOTE: check of the parameter passed (family member) is an instanceof the 
 constructor function Person
 
 CHECK DUPLICATES: Make sure that your family array does not include duplicates! 
@@ -155,7 +155,7 @@ person1.addToFamily(person2);   //-> 1 DUPLICATE
 person1.family.length           //-> 1 NO EFFECT
 /*
 If you pass arguments that are not objects created by the Person function,
-such as strings, other objects, or boleans, this will have no effect on the
+such as strings, other objects, or booleans, this will have no effect on the
 the this.family array.*/
 person1.addToFamily("test");    //-> 1
 person1.addToFamily({});        //-> 1

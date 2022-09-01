@@ -15,29 +15,29 @@ Table of contents
 
 ## About asynchronicity 
 ### Synchronous code
-When code is synchronous, the program cannot continue untill the function that was called has returned its result. For example, a second network request can only be made once the first request has returned a result. This means that while you wait for a network request to yield a result, the processor is sitting idle, slowing down your program.
+When code is synchronous, the program cannot continue until the function that was called has returned its result. For example, a second network request can only be made once the first request has returned a result. This means that while you wait for a network request to yield a result, the processor is sitting idle, slowing down your program.
 
-In a synchronous environment the solution would be to open another processing thread of control (mulit-threaded processing). A second thread could start the second request, and then both threads wait for their results to come back, after which they resynchronize to combine their results.
+In a synchronous environment the solution would be to open another processing thread of control (multi-threaded processing). A second thread could start the second request, and then both threads wait for their results to come back, after which they resynchronize to combine their results.
 
 ### Asynchronous code
 In the asynchronous model, starting a network action conceptually causes a split in the timeline. The program that initiated the action continues running, and the network action happens alongside it, notifying the program when it is finished.
 
 Asynchronous code allows thus for multiple actions to run at the same time. Both of the two important JavaScript programming platforms, browsers and NodeJs- make operations that might take a while asynchronous rather than relying on extra threads (JS is single threaded and synchronous by default).
 
-Thus when a result is returned, the program is informed and gets access to the result. This asychronicity is great for the browser: while you wait for network request to return something -load an image, for example-, the Javascript code can continue and run an event listener to catch click events. 
+Thus when a result is returned, the program is informed and gets access to the result. This asynchronicity is great for the browser: while you wait for network request to return something -load an image, for example-, the Javascript code can continue and run an event listener to catch click events. 
 
 #### The challenges
-Asynchronicity cuts both ways: it makes it easier to express programs that do not follow the straight line model of control, but it also makes it more problematic to write programs that do explicitely require a straight line model of execution.
+Asynchronicity cuts both ways: it makes it easier to express programs that do not follow the straight line model of control, but it also makes it more problematic to write programs that do explicitly require a straight line model of execution.
 
 When working with database operations, for example, you want certain tasks to be completed before you go on to run the next task. This poses a challenge when writing your code because both the browser and NodeJs will treat the action that takes a while as asynchronous, and we want to treat them as synchronous actions in our code.
 
-In other words, under the asychronous model we have to make waiting for an action to complete EXPLICIT. While in a synchronous environment the waiting for tasks to complete is implied by default.
+In other words, under the asynchronous model we have to make waiting for an action to complete EXPLICIT. While in a synchronous environment the waiting for tasks to complete is implied by default.
 
 The solutions JS offers for this problem are: callback functions (with the potential for 'callback hell' or multiple nested callbacks) and in modern JS: promises and async/await.
 
 ## The call stack and the heap
 ### Stack
-The stack or call stack is an ordered datastructure that is part of the JS runtime and that keeps track of the function calls that are made in a program. Thus each time a point in the code is reached where a function is called the info and position of that function is pushed to the top of the call stack. Once the function has returned it is popped off the call stack and the program knows where to resume the program. A stack is LIFO: last in first out.
+The stack or call stack is an ordered data structure that is part of the JS runtime and that keeps track of the function calls that are made in a program. Thus each time a point in the code is reached where a function is called the info and position of that function is pushed to the top of the call stack. Once the function has returned it is popped off the call stack and the program knows where to resume the program. A stack is LIFO: last in first out.
 ```
 push(a)
 push(b)

@@ -8,7 +8,7 @@ Table of contents
   - [For loop](#for-loop)
 
 ## About arrays
-Primitive or simple data types like numbers, boleans or strings are the atomic elements that more complex data structures are built from. Variables let you store just one piece of info, a number, a name, etc. But this does not work if you want to store multiple piece of info together.
+Primitive or simple data types like numbers, booleans or strings are the atomic elements that more complex data structures are built from. Variables let you store just one piece of info, a number, a name, etc. But this does not work if you want to store multiple piece of info together.
 
 Objects and arrays are groups or collections of primitive values. Arrays are used for LISTS of related data. For example, a list of all the comments on a blog post. Arrays can hold old a mixture of any type of data:
 

@@ -54,13 +54,13 @@ describe('a setTimeout', () => {
   });
 ```
 ## Async testing
-Time based testing with `jasmin.clock().instal()`
+Time based testing with `jasmine.clock().instal()`
 - initialize in a beforeEach
 - uninstall in a afterEach
 
 AJAX testing
 - add a parameter to the beforeEach/afterEach or it('', (done) => {})
-- a test will not complete untill the 'done' function has been called
+- a test will not complete until the 'done' function has been called
 - jasmine has an internal timer that it runs before the test fails to make sure the test is not waiting to long. 
 ```js
 function getUserInfo(username){

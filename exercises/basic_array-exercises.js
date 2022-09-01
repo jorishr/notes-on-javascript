@@ -49,7 +49,7 @@ When you take out a number from any given arr the max sum changes. Find that
 max and min sum.
 
 In other words, what is the minimum Sum if you would take out the largest 
-number of the array. And what is the maximun sum if you would take out the 
+number of the array. And what is the m sum if you would take out the 
 smallest number from the array.
 */
 function findMinMax(arr){
@@ -303,7 +303,7 @@ has uneven length, example 3, the middle is index position 1. On that
 position you start adding the other arr values.
 
 - to add values to an array, use SPLICE which accepts three parameters:
-splice(beginPos, howManyValueToRemove, listOfValuestoAddSeperatedByComma)
+splice(beginPos, howManyValueToRemove, listOfValuestoAddSeparatedByComma)
 */
 let placeInMiddle = (arr, arrToAdd) => {
   let middle = Math.floor(arr.length / 2);
@@ -423,7 +423,7 @@ const swap = function(arr, elemA, elemB){
     }
     arr[indexA] = elemB;
     arr[indexB] = elemA;
-    console.log(`Element ${elemA} and element ${elemB} swapped places succesfully`);
+    console.log(`Element ${elemA} and element ${elemB} swapped places successfully`);
     return arr;
   } else {
     console.warn('WARNING: Swap function parameter(s) invalid. No swap operation performed. Number values expected.');
@@ -450,7 +450,7 @@ The rotation consists of popping the last element from the array and inserting
 it at the front. The native pop() and unshift() functions can be used. 
 Repeat this process with a loop as many times as the step value indicates.
 
-For negative step values the rotation is elimating the firest value and 
+For negative step values the rotation is eliminating the first value and 
 inserting that value at end of the array. The shift() and push() methods can be
 used.
 

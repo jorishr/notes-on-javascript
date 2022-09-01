@@ -3,11 +3,11 @@ Table of contents
 - [Higher Order Functions](#higher-order-functions)
 	- [About abstractions](#about-abstractions)
 	- [Higher order functions](#higher-order-functions-1)
-		- [Repitition abstraction](#repitition-abstraction)
+		- [Repetition abstraction](#repetition-abstraction)
 		- [Comparison abstraction](#comparison-abstraction)
 		- [For Each abstraction](#for-each-abstraction)
 ## About abstractions
-It is a useful skill, in programming, to notice when you are working at too low a level of abstraction. Every single step and loop that the computer has to perform is obviously important but equally important is to be able to write meaningful code that is easy to understand and debug if necessary. This requires thinking at a more abstract level that easily explains the solution for the problem. For example, it is easy to understand what `sum(range(1, 10))` does and why. The details of the loops and tracking bindings are ommited here but when you have hundreds of lines of code this one is easy to identify and debug.
+It is a useful skill, in programming, to notice when you are working at too low a level of abstraction. Every single step and loop that the computer has to perform is obviously important but equally important is to be able to write meaningful code that is easy to understand and debug if necessary. This requires thinking at a more abstract level that easily explains the solution for the problem. For example, it is easy to understand what `sum(range(1, 10))` does and why. The details of the loops and tracking bindings are omitted here but when you have hundreds of lines of code this one is easy to identify and debug.
 ## Higher order functions
 Higher order functions are functions that operate on other functions: 
 - either by taking other functions as arguments 
@@ -21,7 +21,7 @@ setInterval(function(){
 ```
 One area where higher-order functions shine is data processing. 
 
-### Repitition abstraction
+### Repetition abstraction
 Functions can be passed as arguments because they are regular values (objects). Write a higher order function that repeats 'whatever function' is given to it through a loop.
 ```js
 //base example

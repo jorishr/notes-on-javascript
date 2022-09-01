@@ -9,12 +9,12 @@ Table of contents
 	- [Strict mode](#strict-mode)
 		- [Strict mode properties](#strict-mode-properties)
 ## Expressions and statements
-An expression is a fragment of code that produces a value (thus, a chunk of grouped digits). Think of a subsentence. A JS statement is full sentence, that ends with a `;`. A program is a list of statements.
+An expression is a fragment of code that produces a value (thus, a chunk of grouped digits). Think of a sub-sentence. A JS statement is full sentence, that ends with a `;`. A program is a list of statements.
 
 Type `1` into the JS console and this expression only produces the value 1. But it disappears. A statement stands on it own. It can affect the statements that come after it (side effects).
 
 ## Javascript environment
-The environment is the collection of bindings and their respective values that exist at a given time. Some are part of the language standard. Others are specific to the enviromnent and provide ways to interact with the surrounding system. For example, in the browser you can interact with the Document Object Model but those methods are not available when running the code in NodeJs.
+The environment is the collection of bindings and their respective values that exist at a given time. Some are part of the language standard. Others are specific to the environment and provide ways to interact with the surrounding system. For example, in the browser you can interact with the Document Object Model but those methods are not available when running the code in NodeJs.
 
 ## Control flow
 Javascript by default follows a straight-line flow, executing line by line from top to bottom.
@@ -46,7 +46,7 @@ age > 30
 	: console.log('-30');
 ```
 ### Switch case
-A switch statement is used as an alternate to multiple if/else statements. The switch expression is evaluated once and compared with the values of each defined CASE.
+A switch statement is used as an alternate to multiple if/else statements. The switch expression is evaluated once and compared with the values of each defined *case*.
 
 The switch statement uses the equality operator `===` for comparisons, thus values must be of the same data type to match. A `default` or catch all case can be defined when the expression does not match a case.
 ```js
@@ -89,7 +89,7 @@ function strict(){
 ### Strict mode properties
 Strict mode enforces stricter parsing and error handling by changes in both syntax and runtime behavior:
 - debugging becomes easier by converting minor mistakes and ambiguities into errors.
-In general JS some mistakes are simply ignored but in strict mode they generate an explict error. For example, function parameter names must be unique. Thus `function sum(a, a, b){'use strict'; return a + a + b}` will return an error while in a normal context you get `sum(1,2,3) //->7` as `a` takes on the value of last parameter definition. Anothher example: global variables cannot be defined by accident. Thus writing `undeclaredVar = 10;` will create a global variable despite having the keyword missing. In strict mode this will produce an error. 	
+In general JS some mistakes are simply ignored but in strict mode they generate an explicit error. For example, function parameter names must be unique. Thus `function sum(a, a, b){'use strict'; return a + a + b}` will return an error while in a normal context you get `sum(1,2,3) //->7` as `a` takes on the value of last parameter definition. Another example: global variables cannot be defined by accident. Thus writing `undeclaredVar = 10;` will create a global variable despite having the keyword missing. In strict mode this will produce an error. 	
 - deleting a variable is not allowed
 - defining a property value more than once in an object is not allowed
 - writing to read-only or get-only properties is not allowed.

@@ -1,7 +1,7 @@
 # Object creation patterns
 Table of contents
 - [Object creation patterns](#object-creation-patterns)
-	- [Mimicing classes](#mimicing-classes)
+	- [Mimicking classes](#mimicking-classes)
 	- [Factory pattern](#factory-pattern)
 	- [Constructor pattern](#constructor-pattern)
 		- [Modern class notation](#modern-class-notation)
@@ -12,7 +12,7 @@ Table of contents
 	- [Static methods](#static-methods)
 		- [Example](#example)
 
-## Mimicing classes
+## Mimicking classes
 One of the techniques in OOP is to use blueprints for constructing objects. These blueprints are called CLASSES. The objects created by classes are called INSTANCES.
 
 JS does not have built-in support for classes as other languages do, thus we use functions and objects to mimic that behavior. Basically, you create a base object and create new object instances from that object.
@@ -46,11 +46,11 @@ A constructor function is used to define the object properties and functions. He
 
 The keyword new is crucial:
 - it creates a new empty object
-- sets the value of the this keyword to refere to the newly created object
+- sets the value of the this keyword to refer to the newly created object
 - adds "return this" to the constructor function so the that it  returns the newly created object
 - adds a `__proto__` property to the object. This links the newly created object to the prototype property on the constructor function.
 
-Thus we use the new keyword to create a new excution context for each new object that is created. The new keyword sets the keyword this to refer to the current object instance.
+Thus we use the new keyword to create a new execution context for each new object that is created. The new keyword sets the keyword this to refer to the current object instance.
 ```js
 function PersonConstructor(name, age, email){
 	
@@ -93,7 +93,7 @@ The issue with the constructor pattern is that for each new object that is creat
 
 This can lead to bloated objects that take up too much memory space. Especially the print function in the example is a good candidate to move out of the individual objects and move to the prototype property. When you have thousands of user objects you want them to be as lightweight as possible.
 
-The constructor function does nothing but we can define shared properties for all object instances that will be created by that funciton using the keyword new.
+The constructor function does nothing but we can define shared properties for all object instances that will be created by that function using the keyword new.
 
 An advantage is also that you can specify default values.
 ```js
@@ -105,7 +105,7 @@ function Person(name, age, email){
 Person.prototype.print	= function(){console.log(`${this.name}, ${this.age}, ${this.email}`)}
 
 const person1 = new Person('no name', 0, 'no email');
-person1.print()	//-> no name, 0, no emai
+person1.print()	//-> no name, 0, no email
 
 person1	
 //	-> Person {...} 
@@ -124,9 +124,9 @@ console.log('print' in person1)
 //-> true
 ```
 ## Static methods
-Methods can also be directely set on the class function object itself and not in the prototype. Usually, static methods are used to implement functions that belong to the class, but not to any particular object or instance creeted through that class.
+Methods can also be directly set on the class function object itself and not in the prototype. Usually, static methods are used to implement functions that belong to the class, but not to any particular object or instance created through that class.
 
-Static properties and methods are inherited when a class is extended eventhough they are not found in the prototype. If the method is not found in the child class the search continues in the parent class.
+Static properties and methods are inherited when a class is extended even though they are not found in the prototype. If the method is not found in the child class the search continues in the parent class.
 
 There are two way to set a static property:
 - keyword static inside the class
@@ -144,7 +144,7 @@ User.printName = function(){console.log(this)}
 ```
 Both methods defined by the keyword static or directly as class property are STATIC or class methods. 
 
-None are usefull for object instances created by this class because the method are not part of the prototype object.
+None are useful for object instances created by this class because the method are not part of the prototype object.
 ```js
 const user1 = new User('jr', 20);
 user1.printName	

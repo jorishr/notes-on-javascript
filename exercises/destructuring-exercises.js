@@ -32,7 +32,7 @@ createInstructor({name: {first: "Sara", last: "Palacios"}, available: true});
 assign a default value, an empty object.
 - start with an empty object, no argument: var options = {}
 - options.name does not exist, thus assign new properties
-- options.availble does not exist, thus assign false*/
+- options.available does not exist, thus assign false*/
 
 // DESTRUCTURED VERSION:
 function createInstructor({name = {first: "Joris", last: "R"}, available = false} = {}){
@@ -40,13 +40,13 @@ function createInstructor({name = {first: "Joris", last: "R"}, available = false
 }
 createInstructor(); // ["Joris", "R", false]
 /*
-- pass a DESTRUCTERED OBJECT as a parameter to the function.
-- if no paramter is passed, the default value is an empty object. If you don't
+- pass a de-structured object as a parameter to the function.
+- if no parameter is passed, the default value is an empty object. If you don't
 do this, the function will return null or undefined when called without an
 argument.
 
 NOTE the difference in SYNTAX: 
-{name = {}, available = false} // NOT {name: {}, avaiable: false}
+{name = {}, available = false} // NOT {name: {}, available: false}
 Thus we destructure the nameless object into two new bindings:
 name and available. 
 
@@ -102,7 +102,7 @@ First will access the value of index[0] and second will get index[1].
 4. SWAPPING VALUES IN AN ARRAY CREATED FROM NUMBERS
 ###################################################
 
-Write a functions that takes in three numbers. And returs the an array
+Write a functions that takes in three numbers. And returns the an array
 of those numbers with places swapped. Thus swap(1, 2, 3) returns [3, 2, 1] */
 
 function swap(a, b, c){
@@ -212,7 +212,7 @@ If both the value of likesJavaScript and likesES2015 are false, the function
 should return the string 'The student does not like much...'
 
 IMPORTANT: NOTE that part of the string is always the same. The constant 
-part can be become a variable to which you assign the correct concatination
+part can be become a variable to which you assign the correct concatenation
 based on the if statement logic.*/
 
 function createStudent({likesES2015 = true, likesJavaScript = true} = {}){

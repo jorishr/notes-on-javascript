@@ -1,5 +1,5 @@
 # Sets
-A set is a datastructure in which all values are unique. No duplicates are allowed but the value can be of any data type.
+A set is a data structure in which all values are unique. No duplicates are allowed but the value can be of any data type.
 ```js	
 let arr = [1, 2, 3, 4];
 let obj = {'a':1, 'b': 2} 
@@ -20,5 +20,5 @@ firstSet.has(false)	//-> false
 ```
 Symbol Iterator is present, thus we can use a for...of loop to get all the values.
 
-## Weakset
-In a weakSet all values must be unique OBJECTS.
+## A weak set
+In a weakSet all values must be unique *objects*.

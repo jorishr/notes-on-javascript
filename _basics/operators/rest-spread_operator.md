@@ -6,7 +6,7 @@ Table of contents
 			- [Sum of all arguments](#sum-of-all-arguments)
 	- [Spread operator for arrays](#spread-operator-for-arrays)
 		- [Spread out array into function arguments](#spread-out-array-into-function-arguments)
-			- [Math.max example](#mathmax-example)
+			- ['Math.max' example](#mathmax-example)
 	- [Spread operator on objects](#spread-operator-on-objects)
 		- [Spread and overwrite](#spread-and-overwrite)
 
@@ -57,7 +57,7 @@ const sumArguments = (...arg) => arg.reduce((value, next) => value + next);
 sumArguments(1, 2, 3, 4, 5) // -> 15
 ```
 ## Spread operator for arrays
-When used outside the function parameter declaration `...` is called the spread operator. It spreads out an array as comma seperated values into another array.
+When used outside the function parameter declaration `...` is called the spread operator. It spreads out an array as comma separated values into another array.
 ```js
 var arr1 = [1, 2, 3];
 var arr2 = [4, 5, 6];
@@ -86,7 +86,7 @@ addNumbers(...num)
 addNumbers.apply(this, num) 
 // -> 6
 ```
-#### Math.max example
+#### 'Math.max' example
 ```js
 var arr = [5, 3, 7, 4, 3, 1, 2]
 Math.max(arr) 

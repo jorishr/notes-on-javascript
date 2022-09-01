@@ -86,7 +86,7 @@ you first filter the array of arguments for even ones. The resulting array
 is reduced to a single value, the sum of its values, starting the acc at
 the first value of the array.
 
-OR use the tercery operator
+OR use the ternary operator
 */
 let sumEvenArgs = (...arg) => arg.reduce((acc, next) => next % 2 === 0 ? acc += next : acc, 0);
 

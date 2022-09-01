@@ -30,7 +30,7 @@ function override(){
 }
 override();		//-> 'overridden'
 ```
-If you redeclare a global variable inside a function scope it is not overridden but SHADOWED. By redeclaring a variable with the same name as in the outer scope a new variable is created with a different value.
+If you redeclare a global variable inside a function scope it is not overridden but SHADOWED. By re-declaring a variable with the same name as in the outer scope a new variable is created with a different value.
 ```js
 var global = 'global';
 function shadow(){

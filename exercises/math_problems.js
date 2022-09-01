@@ -6,7 +6,7 @@ I.	    GENERATE A RANDOM POSITIVE INTEGER NUMBER
 II.     FIND MAX NUM IN ARR
 IV.     FIND HIGHEST/LOWEST NUMBER VALUES WITH ...
 V.      COUNT THE NUMBER OF MAX/MIN VALUES IN ARR
-VI.     LOGARITMIC FUNCTION
+VI.     LOGARITHMIC FUNCTION
 ##################################################
 
 
@@ -91,7 +91,7 @@ function countMax(arr){
 
 /*
 #######################
-VI. LOGARITMIC FUNCTION
+VI. LOGARITHMIC FUNCTION
 #######################
 */
 function integerLength(num){

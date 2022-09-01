@@ -1,4 +1,4 @@
-//  CALL STACK + EVENT LOOP RUNTHROUGH
+//  CALL STACK + EVENT LOOP RUN THROUGH
 
 function square(n){
     return n * n;
@@ -10,7 +10,7 @@ setTimeout(function(){
 
 console.log(square(2));
 
-/*  CALLSTACK 
+/*  CALL STACK 
     How the computer operates.
 
     1. main: function

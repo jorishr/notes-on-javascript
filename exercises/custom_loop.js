@@ -6,7 +6,7 @@
   function. 
 
   Each iteration, it first runs the test function on the current loop value and 
-  stops if that returns false. This is basicallly how a normal loop works.
+  stops if that returns false. This is basically how a normal loop works.
 
   Then it calls the body function, giving it the current value. 
 

@@ -3,7 +3,7 @@ Table of contents
 - [The keyword this](#the-keyword-this)
 	- [Execution context](#execution-context)
 		- [Global context](#global-context)
-		- [Implict execution context](#implict-execution-context)
+		- [Implicit execution context](#implicit-execution-context)
 ## Execution context
 Unless set otherwise, the value of the keyword this will refer to the nearest enclosing parent object. 
 
@@ -34,7 +34,7 @@ window.newVar
 
 //this is bad practice that is prevented in strict mode
 ```
-### Implict execution context
+### Implicit execution context
 Implicit or object rule: when the keyword this is inside a declared object the value of the keyword this will be the value of the CLOSEST PARENT OBJECT.
 ```js
 var person = {

@@ -21,7 +21,7 @@ str.charCodeAt(0)  //-> 121
 ```
 
 ## indexof
-Returns the position at which a character is found. If NOT FOUND the return value is -1. The `str.indexOf()` method can look for a characterstring and returns the starting position of that string. Thus: `"a big three".indexOf("ee") // -> 9`
+Returns the position at which a character is found. If NOT FOUND the return value is -1. The `str.indexOf()` method can look for a character-string and returns the starting position of that string. Thus: `"a big three".indexOf("ee") // -> 9`
 
 ## includes
 The `.includes()` method returns a bolean if a value is found inside a string. 
@@ -55,7 +55,7 @@ const newStr = str.replace(/-/g , "_");
 ## slice, split and join
 The `str.slice` work just as it does on an array. Copies items between index positions (start at, inclusive and end position NOT inclusive).
 
-`str.slice(0, 2)` will return a new string with characters at position 0 and 1. Specifying only one value will return the string untill the end after starting at that index position.
+`str.slice(0, 2)` will return a new string with characters at position 0 and 1. Specifying only one value will return the string until the end after starting at that index position.
 
 No values specified returns a copy of the entire string.
 ```js
@@ -63,7 +63,7 @@ No values specified returns a copy of the entire string.
 "hello".slice(1) //-> "ello"
 "hello".slice() //-> "hello"
 ```
-The split method splits strings into parts using a seperation character and returns an array. Example, `str.split` a sentence string into seperate words using space as a seperator:
+The split method splits strings into parts using a separation character and returns an array. Example, `str.split` a sentence string into separate words using space as a separator:
 ```js
 "hello world, it's me!".split(" ") 
 // -> ["hello", "world", "it's", "me"]
@@ -72,9 +72,9 @@ str.split('')
 //-> [array of characters in string]
 'hello'.split('')	//-> [h,e,l,l,o]
 ```
-This method is usefull if you need to perform actions on all characters of a string.
+This method is useful if you need to perform actions on all characters of a string.
 
-The join method join the values of an array into a string whereby the join(val) val seperates the values.
+The join method join the values of an array into a string whereby the join(val) val separates the values.
 
 Example, `.join` and `.split` a sentence:
 ```js
@@ -93,7 +93,7 @@ The `str.trim` method removes white spaces, tabs and newlines at the end and beg
 "   \n hello world    ".trim() 
 // -> "hello world"
 ```
-The `padStart` method can be used to obtain a specific format, for example zeropadding:
+The `padStart` method can be used to obtain a specific format, for example zero-padding:
 ```js
 str.padStart(length, paddingChar)
 

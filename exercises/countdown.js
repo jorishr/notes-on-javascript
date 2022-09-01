@@ -10,7 +10,7 @@ Instead of printing 0, the function should print "Ring Ring Ring!!!".
 LOGIC 
 - function that takes one parameter: a number 
 - print every second: call a function every second with SetInterval
-- each time the function is called you substract one unit from the 
+- each time the function is called you subtract one unit from the 
 parameter number
 - as long as remaining time > 0 print the remaining time
 - else: print "Ring Ring Ring"

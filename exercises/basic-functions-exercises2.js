@@ -38,7 +38,7 @@ function isEven(x) {
 Write a function which takes a single numeric argument and returns the
 factorial of that number:
 
-factioral(4) = 4 x 3 x 2 x 1 OR 1 x 2 x 3 x 4
+factorial(4) = 4 x 3 x 2 x 1 OR 1 x 2 x 3 x 4
 */
 function factorial(x) {
   if(x === 0){return 1};
@@ -63,7 +63,7 @@ result = 5040
 
 REVERSE LOOP
 */
-function factioralReverse(x){
+function factorialReverse(x){
   if(x === 0){return 1};
   let result = 1;
   for(let i = x; i > 0; i--){

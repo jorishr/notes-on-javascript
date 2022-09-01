@@ -1,5 +1,5 @@
 # Object destructuring
-The idea is to extract values from properties stored in objects or arrays and store them in bindings. Destructuring allows us to unpack property values from an object into a new distinct or seperate bindings through a smooth syntax.
+The idea is to extract values from properties stored in objects or arrays and store them in bindings. Destructuring allows us to unpack property values from an object into a new distinct or separate bindings through a smooth syntax.
 
 In the example below we create three new variables, that are UNPACKED FROM the instructor OBJECT:  
 ```javascript

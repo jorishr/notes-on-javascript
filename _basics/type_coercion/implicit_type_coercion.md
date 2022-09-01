@@ -10,7 +10,7 @@ Reference Guide
 [Eloquent JS: Values, Types, and Operators](https://eloquentjavascript.net/01_values.html)
 
 ## Implicit type coercion
-The implict type coercion occurs when operators encounters values of different data-types. An attempt will be made to convert one or both of the values to another data-type so that the operator can perform its operation. A set of rules is defined within javascript to determine how this process works.
+The implicit type coercion occurs when operators encounters values of different data-types. An attempt will be made to convert one or both of the values to another data-type so that the operator can perform its operation. A set of rules is defined within javascript to determine how this process works.
 
 ### The equality operator
 ```javascript
@@ -70,7 +70,7 @@ new Date(0) - 0	//-> 0
 ```
 ### Logical operators
 When `||` and `&&` encounter values of a non-boolean data type they will convert the value on the left-side to a boolean value (truthy or falsy). 
-In a boolean context values of any datetype count as true (thruthy) except for `0`, `NaN` and `""` (empty string), `undefined` and `null`.
+In a boolean context values of any datetype count as true ('truthy') except for `0`, `NaN` and `""` (empty string), `undefined` and `null`.
 
 The OR operator will start off its evaluation on the left value. If a non-bolean is encountered type coercion is attempted and if true, the left value is returned. The right value is not even evaluated.
 ```javascript
@@ -82,7 +82,7 @@ The OR operator will start off its evaluation on the left value. If a non-bolean
 
 undefined || "user";//-> user
 ```
-The AND operator will also type coerce the left-side of the equation. BUT returns only the left-hand side value if that can be converted to FALSY. If both can be converted to truthy, then the right-hand side value is returned.  
+The AND operator will also type coerce the left-side of the equation. *But* returns only the left-hand side value if that can be converted to FALSY. If both can be converted to truthy, then the right-hand side value is returned.  
 ```javascript
 0 && "user"); // -> 0 because 0 is falsy
 undefined && "user"); // -> undefined

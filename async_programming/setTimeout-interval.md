@@ -34,7 +34,7 @@ put out in a different order:
 */
 ```
 ## SetInterval
-Continously calls a function at every x ms.
+Continuously calls a function at every x ms.
 ```js
 //setTimeinterval(cb, interval) 
 

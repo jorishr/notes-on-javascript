@@ -11,7 +11,7 @@ III.    CURRYING: ELABORATE EXAMPLE
 I.  CURRING AVERAGE
 ###################
 
-Write a function that takes in an unknow number of Number arguments and returns 
+Write a function that takes in an unknown number of Number arguments and returns 
 the average of those arguments.
 */
 function avg(...n){
@@ -55,7 +55,7 @@ Write a function that can be called as follows:
 
 sum(1)(2)(3)(4)...(n)()   //-> 1 + 2 + 3 + 4 + ... + n
 
-If you break it down it has two parts: basic currying and recursion untill 
+If you break it down it has two parts: basic currying and recursion until 
 there are no more arguments.
 */
 let sum = function(a){
@@ -69,10 +69,10 @@ sum(1)(2)() //-> 3
 
 /*
 To have this function work with n parameters you see a pattern emerge: for
-each additional parameter you would have to return another function in exactely
+each additional parameter you would have to return another function in exactly
 the same way. This is ideal for RECURSION.
 
-The second part is to repeat the above n times, that is, untill the function 
+The second part is to repeat the above n times, that is, until the function 
 gets called without an argument for parameter b, thus where b is undefined.
 */
 let sum = function(a){
@@ -120,7 +120,7 @@ function bind(fn, thisArg, ...outerArg){
 /* 
 Note that the return function that will invoke the function passed to bind, 
 may or may not have arguments. The description does not say anything about them
-BUT you have to assume that when the function that is passed into bind will 
+But, you have to assume that when the function that is passed into bind will 
 hold parameters and those will always be used as the parameters for the return 
 function.
 
@@ -206,14 +206,14 @@ function flip(fn, thisVal, ...outerArg){
 -> flip(fn, this, ...outerArg) to catch all extra arguments
 -> innerFn(...innerArg) to catch all arguments passed to it
 
--> concate the arrays of arguments from the outer and inner function.
+-> concatenate the arrays of arguments from the outer and inner function.
 
--> BUT you have to make sure the correct number of parameters is used in the fn
+-> But, you have to make sure the correct number of parameters is used in the fn
 function that is passed into flip. Because in theory the AllArg could contain 
 more arguments.
 
 To do so you SLICE the array of combined arguments: Start at position 0 and up 
-untill the number of arguments that fn function accepts. 
+until the number of arguments that fn function accepts. 
 
 To find the number of arguments passed to a function use fn.length property.
 */
@@ -238,7 +238,7 @@ flipFn(3,2,1) // "Elie subtracts -4"
 allArg is thus: [] + [3, 2, 1]
 allArg.slice(0, 3) -> [3. 2, 1]
 fn is called: fn.apply(person, [1, 2, 3])
-THUS: personSubtract(1, 2, 3){return person.firstName + (1 - 2 - 3)}
+Thus: personSubtract(1, 2, 3){return person.firstName + (1 - 2 - 3)}
 RESULT: "Ellie subtracts -4"
 */
 var flipFn2 = flip(personSubtract, person, 5,6);
@@ -247,11 +247,11 @@ flip(personSubtract, person, [5, 6]) - now we do have outerArg
 */
 flipFn2(7,8)
 /* 
-fn.length = 3, default personSubtstract.length
+fn.length = 3, default personSubtract.length
 innerArg = [7, 8]
 allArg = [5, 6, 7, 8].slice(0, 3) => [5, 6, 7] - cut off position is index[3], not inclusive!
 fn.apply(person, [7, 6, 5])
-THUS: personSubtract: (7 - 6 - 5) = -4
+Thus: personSubtract: (7 - 6 - 5) = -4
 
 "Elie subtracts -4"
 */

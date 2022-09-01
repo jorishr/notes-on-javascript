@@ -112,7 +112,7 @@ function allArrays(arr){
 allArrays([["a", "b"], ["name", "b"]]) // -> true
 allArrays([["a", "b"], {name: "name"}]) // -> false
 
-// For ojects you can use typeof, Note: all arrays are objects.
+// For objects you can use typeof, Note: all arrays are objects.
 function allArrays(arr){
   return arr.every(function(value){
     return typeof value === "object";
@@ -176,7 +176,7 @@ and a key, and returns true if every single object in the array contains
 that key. 
 Otherwise it should return false.
 
-NOTE: to check whether a propertie or key is present in an object: 
+NOTE: to check whether a properties or key is present in an object: 
 use the IN operator.*/
 
 function hasCertainKey(arr, property){

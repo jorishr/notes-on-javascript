@@ -5,7 +5,7 @@ Table of contents
 	- [Object mutability](#object-mutability-1)
 
 ## Immutable primitive values
-Strings, boleans and numbers are immutable, there values cannot be changed. The code for number 22 is 22 and the code for "hello" is  "hello". You can operate on strings, booleans and numbers to create new values, but that does not affect the original. Thus two number 10 and 10 are precisely the same number, whether or not they refer to the same physical bits.
+Strings, booleans and numbers are immutable, there values cannot be changed. The code for number 22 is 22 and the code for "hello" is  "hello". You can operate on strings, booleans and numbers to create new values, but that does not affect the original. Thus two number 10 and 10 are precisely the same number, whether or not they refer to the same physical bits.
 
 For example, if you try to add properties to a binding that holds a string, this is not stored:
 ```js
@@ -13,7 +13,7 @@ let name = "first name";
 name.surname = "last name";
 console.log(name.surname) //undefined
 ```
-Strings, numbers and boleans only have built-in properties that hold function values, i.e methods like `.length`, `.slice`, etc.
+Strings, numbers and booleans only have built-in properties that hold function values, i.e methods like `.length`, `.slice`, etc.
 
 ## Object mutability
 Objects (and thus arrays) however, can have their properties changed so that a single object can have different properties at different times.
@@ -25,7 +25,7 @@ let object2 = object1;
 //new object, different identity
 let object3 = {'a': 5};
 /*
-Object3 contains the same property with the same value as object1 (and object2) BUT it lives a seperate life because the binding refers to a different object. 
+Object3 contains the same property with the same value as object1 (and object2) but it lives a separate life because the binding refers to a different object. 
 
 Modifying through reference object1 or object2 changes the same physical object in memory.
 */

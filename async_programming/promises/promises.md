@@ -11,21 +11,21 @@ Table of contents
     - [Promise all](#promise-all)
       - [Example: mapping urls into requests](#example-mapping-urls-into-requests)
       - [Multiple AJAX API requests to a database (jQuery)](#multiple-ajax-api-requests-to-a-database-jquery)
-    - [Promise.allSetled](#promiseallsetled)
-    - [Promise.race](#promiserace)
+    - [Promise.allSettled](#promiseallsettled)
+    - ['Promise.race'](#promiserace)
 
 ## About promises
 A promise is an OBJECT that represents the completion or failure of an asynchronous task and its resulting value (error or data).
 
 In other words a ONE TIME guaranteed return of some future value. It is a placeholder, since we do not know when it will be returned by the async operation nor what the exact value will be. 
 
-When the promise returns its value the promise is either RESOLVED(fullfilled) with the expected result, or REJECTED.
+When the promise returns its value the promise is either RESOLVED(fulfilled) with the expected result, or REJECTED.
 
-Conceptually think of the ordering process in a fastfood joint: your order placement results in a promise to deliver food, while you wait other people can order as well. At some point in the future you will get your order, but untill that is fullfilled you only hold a placeholder ticket. Ones the food arrives, it either is as expected or there is an error.
+Conceptually think of the ordering process in a fastfood joint: your order placement results in a promise to deliver food, while you wait other people can order as well. At some point in the future you will get your order, but until that is fulfilled you only hold a placeholder ticket. Ones the food arrives, it either is as expected or there is an error.
 
 Callback functions can be performed multiple times, for example with a setInterval, every x seconds. Promises however can only be resolved/rejected ONCE. If you want do it all again you have to create a new promise.
 
-Promises simplift reading and debugging of your code and avoids callback hell.
+Promises simplify reading and debugging of your code and avoids callback hell.
 
 ## Creating promises
 Use the new keyword and the Promise constructor function. Promises takes a callback function that contains TWO parameters: resolve and reject. 
@@ -52,7 +52,7 @@ The promise is an object with methods that can be found in the `__proto__`.
 
 ## Consuming promises
 - The `finally()` method is executed when the promise is settled, it does not consume the promise but passes it on to the `then` or `catch` methods you chain to it. This method is useful for writing a function that stops a loader on the screen. 
-- The then method is to be executed when the promise is fullfilled
+- The then method is to be executed when the promise is fulfilled
 - The catch method is to be executed when the promise is rejected. 
 
 Both methods then and catch accept two callbacks. The parameters for those callbacks are the PromiseValue and an error.
@@ -72,7 +72,7 @@ promise.then(f1, f2);
 Each then method is expected to return another promise, a so-called thenable object. It will be treated the same way as a promise. This allows for chaining together various promises and pass values from one promise to another. 
 
 #### Asynchronicity
-The promise handlers then, catch and finally are always asynchronous and thus pass through the TASK QUEUE before being called into the callstack by the event loop. 
+The promise handlers then, catch and finally are always asynchronous and thus pass through the TASK QUEUE before being called into the call stack by the event loop. 
 
 Consider the example:
 ```js
@@ -98,7 +98,7 @@ Let's say we want many promises to execute in parallel and wait until all of the
 
 Or, once one of them gets rejected you have a fast fail or rejection instead of rejecting one by one.
 
-If all promises are fullfilled their values will be returned in an array with those values in the SAME ORDER, eventhough the process of resolving those promises is not sequential. 
+If all promises are fulfilled their values will be returned in an array with those values in the SAME ORDER, even though the process of resolving those promises is not sequential. 
 ```js
 let promise = Promise.all([/*arr of promises>*/]);
 
@@ -151,7 +151,7 @@ Promise.all([titanicPromise, shrekPromise, braveheartPromise])
 ```
 Thus instead of running the then method on each promise binding we can use `Promise.all`. This will return an array of resolved promises with movie objects as values. That array (movies) is passed as an argument to the callback in the then method and the callback returns the values that are a result of looping over the array and logs the year property value.
 
-### Promise.allSetled
+### Promise.allSettled
 For example, we'd like to fetch the information about multiple users. Even if one request fails, we're still interested in the others. So for each promise we get its status and value/error that we have access to.
 ```js
 [
@@ -160,5 +160,5 @@ For example, we'd like to fetch the information about multiple users. Even if on
   {status: 'rejected', reason: <error object>}
 ]
 ```
-### Promise.race
+### 'Promise.race'
 Like promise.all() but it only return the value for the promise that resolves first, all others are ignored.

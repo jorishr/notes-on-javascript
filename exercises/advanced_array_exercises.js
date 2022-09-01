@@ -25,11 +25,11 @@ position removed.
 */	
 function copyRemove(array, index){
     return array.slice(0, index)
-                .concat(array.slice(index + 1);	
+                .concat(array.slice(index + 1));	
 }
 copyRemove(["a", "b", "c"], 1)  // -> ["a, "c"];
 /*
-- you cut the first part up untill the index
+- you cut the first part up until the index
 - concat with the part starting at index +1
 - remember: slice(1,2): start indices is inclusive, end exclusive	
 
@@ -123,7 +123,7 @@ NOTE: the above does not work for descending ranges 10,1 or negative step
 values, it returns an empty array []
 
 To solve this change the default step parameter to either 1 or -1 by using
-the conditional operator (bolean expresion ? x : y). The value on the left 
+the conditional operator (bolean expression ? x : y). The value on the left 
 of the question mark “picks” which of the other two values will come out. 
 
 To account for a descending range: the step in a descending range HAS to
@@ -180,7 +180,7 @@ although this is more complicated:*/
 
 function arrayReverse(array){
     let newArray = [];
-    for(let i = array.length - 1; i >= 0; i--){ //last postion of [] is array.length -1
+    for(let i = array.length - 1; i >= 0; i--){ //last position of [] is array.length -1
         let elements = array[i];
         newArray.push(elements);
     }

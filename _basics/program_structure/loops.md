@@ -8,10 +8,10 @@ Table of contents
 ## While and Do loops  
 A loop is a form of control flow that let's you run a piece of code multiple times. You can go back to some point in the program and repeat it with the current or updated state of the program.
 
-A WHILE loop is comparable to an IF statement BUT instead of running the code block once, it keeps repeating the code as long as the condition is true: `while (condition){code block};`
+A WHILE loop is comparable to an IF statement *but* instead of running the code block once, it keeps repeating the code as long as the condition is true: `while (condition){code block};`
 
-A DO loop is similar to a while loop but they always execute the `{code block}` AT LEAST ONE TIME and TEST for the CONDITION only AFTER THE FIRST RUN, not at the beginning. 
-```
+A do-loop is similar to a while loop but they always execute the `{code block}` *at least one time* and *test* for the condition only *after* the first run, not at the beginning. 
+```js
 do {code block}
 while (condition);
 ```

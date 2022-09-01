@@ -34,7 +34,7 @@ function compare(value){
 };
 ```
 ### String conversion 
-All primitive values are easily converted to strings: numbers, boleans and empty values.
+All primitive values are easily converted to strings: numbers, booleans and empty values.
 ```javascript
 String(undefined);	// -> "undefined"
 String(true); 		// -> "true"

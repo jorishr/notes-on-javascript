@@ -47,7 +47,7 @@ function arrayToList(array){
     }
     return list;
 }
-//THUS:
+//Thus:
 arrayToList([10, 20]) // -> {value: 10, rest: {value: 20, rest: null}}
 
 
@@ -61,16 +61,16 @@ function listToArray(list) {
     }
     return array;
   }
-//THUS:
+//Thus:
 listToArray(arrayToList([10, 20, 30])) // -> [10, 20, 30]
 
 /*
-The for loop condition: node starts at first sublist value:10, rest:{}, here 
+The for loop condition: node starts at first sub list value:10, rest:{}, here 
 the body of the function can read the node.value property and push the value to
 the array.
 
 Next, the node condition goes on as long as node = true. Thus it will continue
-untill it encounters a null(which returns false) and then the loop ends.
+until it encounters a null(which returns false) and then the loop ends.
 
 Thus in the second iteration node = node.rest thus node = {value: 20, rest: null},
 here again it can read the property value and push it to the array AND node will

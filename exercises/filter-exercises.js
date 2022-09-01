@@ -156,7 +156,7 @@ VII.  REMOVE CHARACTERS FROM A STRING
 ##################################### 
 
 Write a function called removeVowels which accepts a string and returns a 
-new string with all of the vowels (both uppercased and lowercased) removed. 
+new string with all of the vowels (both uppercase and lowercase) removed. 
 Every character in the new string should be lowercased.*/
 
 function removeVowels(string){
@@ -166,7 +166,7 @@ function removeVowels(string){
     return vowels.indexOf(value) === -1;  
   }).join("");
 }
-/* only withold those values that are not vowels, thus for those that 
+/* only withhold those values that are not vowels, thus for those that 
 indexOf = -1
 The above returns an array, not a string. Thus you have to add .join("") method
 */

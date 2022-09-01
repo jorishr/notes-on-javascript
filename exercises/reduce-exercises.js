@@ -107,7 +107,7 @@ let arrays = [[1, 2, 3], [4, 5], [6]];
 The REDUCE function takes a combineFunction and a startValue, and it produces
 an array. Instead of starting at 0 you can start at [], the first array 
 inside the array. The reduce function than loops over the arrays array and 
-adds the currentArrray to the innerFirstArray.
+adds the currentArray to the innerFirstArray.
 */
 
 arrays.reduce((innerFirstArray, currentArray) => innerFirstArray.concat(currentArray), []);
@@ -292,10 +292,10 @@ function partition(arr, callBackFn){
 NOTE: Important here is the callBackFn(next), you have to specify the value
 at which the callBackFn is called. Not merely state the function. 
 
-Second, you start the accumulator at an empty array with two empty subarrays
+Second, you start the accumulator at an empty array with two empty sub arrays
 inside of it, the first subarray thus has [0], the second [1]
 
-Then if the value passed through the callbackfunction returns true, you
+Then if the value passed through the callback function returns true, you
 push it to the first array inside the array at acc[0]
 
 If returns false, push to second subarray at acc[1]*/

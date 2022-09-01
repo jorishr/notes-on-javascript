@@ -1,12 +1,12 @@
-# Maps and weakmaps
+# Maps and weak maps
 Table of contents
-- [Maps and weakmaps](#maps-and-weakmaps)
+- [Maps and weak maps](#maps-and-weak-maps)
 	- [Maps](#maps)
 		- [Map methods](#map-methods)
-	- [WeakMaps](#weakmaps)
+	- [Weak maps](#weak-maps)
 
 ## Maps
-A map or HASH MAP is an iterable datastructer. A maps is similar to objects, but the KEYS can of any data type, thus not only strings as in normal objects. The advantage over a normal object is:
+A map or HASH MAP is an iterable data structures. A maps is similar to objects, but the KEYS can of any data type, thus not only strings as in normal objects. The advantage over a normal object is:
 - the keys can be of any type 
 - iterable (index-based)
 - finding the size -or number of key-values pairs- is easy. 
@@ -33,7 +33,7 @@ myMap.set(false, 2 );
 myMap.set(true, 'str').set(false, 2);
 
 myMap.delete(false); 	
-//-> returns true when succesful
+//-> returns true when successful
 
 myMap.size			//-> 1
 
@@ -74,8 +74,8 @@ arr
 //-> [[], []];
 ```
 
-## WeakMaps
-The WeakMap object is a collection of key/value pairs in which the keys are weakly referenced. Regular MAPS prevent the keys from being garbage collected (free-up memory occupied by objects that are no longer used) if there is no other reference to the object.
+## Weak maps
+The WeakMap object is a collection of key/value pairs in which the keys are weakly referenced. *Regular maps* prevent the keys from being garbage collected (free-up memory occupied by objects that are no longer used) if there is no other reference to the object.
 
 The keys must be objects and the values can be arbitrary values.
 
@@ -91,9 +91,9 @@ Example of garbage collection prevention in maps:
 console.log(map);
 //-> Map(1) {{…} => "str"}
 ```
-Let x has a block scope and is not available outside the block. After running the block the x object can no longer be referenced. BUT, it does persist in memory because the map datastructure will prevent the garbage collection process to free up that memory so the MAP itself can store that reference.
+Let x has a block scope and is not available outside the block. After running the block the x object can no longer be referenced. *But*, it does persist in memory because the map data structure will prevent the garbage collection process to free up that memory so the MAP itself can store that reference.
 
-If a WEAKMAP is used, the reference to the key is considered to be weak, in other words, garbage collections is not prevented and the reference to the key completely disseappears from the memory system.
+If a *weak map* is used, the reference to the key is considered to be weak, in other words, garbage collections is not prevented and the reference to the key completely disappears from the memory system.
 ```js
 {
 	let x = {a:1, b:2};

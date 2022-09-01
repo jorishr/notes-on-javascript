@@ -7,11 +7,11 @@ Table of contents
 			- [Example](#example)
 
 ## Try...catch block
-Invalid JS is catched during compilation and produces PARSE TIME ERRORS that are unrecoverable and cannot be handled. 
+Invalid JS is caught during compilation and produces *parse time errors* that are unrecoverable and cannot be handled. 
 
-Errors that occur during run-time can be catched and handled with a TRY...CATCH block.
+Errors that occur during run-time can be caught and handled with a `try...catch` block.
 
-The try...catch is SYNCHRONOUS and does not have access to async tasks that are executed at a later stage via the task queue. Thus setTimeout callback errors, for example, are not catched because JS has already exited the try...catch code blocks before the setTimeout callback has been executed.
+The `try...catch` is *synchronous* and does not have access to async tasks that are executed at a later stage via the task queue. Thus setTimeout callback errors, for example, are not caught because JS has already exited the `try...catch` code blocks before the setTimeout callback has been executed.
 
 Exceptions are promise-based async tasks that do pass on errors.
 ```js
@@ -30,14 +30,14 @@ catch(err){
 	...//handle error
 }
 finally{
-	//do smth wathever the outcome
+	//do smth whatever the outcome
 }
 ```
 
 ## The error object
 When an error occurs, JavaScript generates an object containing the details about the error. The built-in errors have at least two properties: `.name` and `.message`.
 
-Sometimes also the current callstack `.stack` is available. A string with information about the sequence of nested calls that led to the error.
+Sometimes also the current call stack `.stack` is available. A string with information about the sequence of nested calls that led to the error.
 
 ### Throw custom errors
 Technically, we can use anything as an error object. That may be even a primitive, like a number or a string, but it's better to use objects, preferably with name and message properties.

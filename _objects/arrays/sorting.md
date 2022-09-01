@@ -23,7 +23,7 @@ For complete guide on the sort method see [Level-up-your-sort-game](https://css-
 
 While many of the ES5 array methods such as filter, map, and reduce will return a new array and leave the original array untouched, the sort method does its sorting IN PLACE, modifying the original array.
 
-If you need a new array with a seperate identiy use the spread operator to on an new array:
+If you need a new array with a separate identity use the spread operator to on an new array:
 ```js
 const arr = [`a`, `c`, `b`];
 const arrSorted = arr.sort();
@@ -39,7 +39,7 @@ const arrSorted = [...arr].sort();
 ### Callback function
 The sort method can be used with an optional callback function to specify the type of sorting operation you want to perform: `sort(compare(a, b){});`. If no comparison function is given, each array value will be type coerced into a string and the sorting is done according to the Unicode point value.
 
-Thus simple string comparison without an explitely defined compare function may work as expected but a numbers array without a compare function does not produce an array in ascending order because you end up comparing string values, not number values:
+Thus simple string comparison without an explicitly defined compare function may work as expected but a numbers array without a compare function does not produce an array in ascending order because you end up comparing string values, not number values:
 ```js
 const arr = [1, 4, 3, 22, 12, 44, 6];
 arr.sort() 

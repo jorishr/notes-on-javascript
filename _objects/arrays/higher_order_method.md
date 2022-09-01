@@ -13,7 +13,7 @@ Table of contents
 		- [Example](#example)
 
 ## Overview
-Higher order functions trully shine once you have to compose operations that are like a pipeline of computation. For example, start with all scripts, filter out the living (or dead) ones, take the years from those, average them, and round the result.  
+Higher order functions truly shine once you have to compose operations that are like a pipeline of computation. For example, start with all scripts, filter out the living (or dead) ones, take the years from those, average them, and round the result.  
 
 In general the higher order functions are going to be better readable for human eyes but may result in more use of computational power. If speed with huge datasets is an issue, you have to evaluate the approach: higher order functions with better readable code or faster code that may be more difficult to debug.
 
@@ -114,7 +114,7 @@ allNegative(arr);
 ```
 
 ## Reduce
-Basic idea behind reduce method is to turn an array into a another datastructure: a number, an object, an array of arrays, etc.
+Basic idea behind reduce method is to turn an array into a another data structure: a number, an object, an array of arrays, etc.
 
 The reduce function has an optional starting value parameter in addition to the callback function: 
 `arr.reduce(cb(acc, next, i, arr), accStartVal);`
@@ -124,7 +124,7 @@ If no parameter is passed on to reduce method the starting value argument become
 ### Callback parameters
 - Accumulator: the first parameter is called the accumulator and starts as the optional starting value argument in the outer reduce function.
 
-The return value from the callback  functio becomes the new value of the accumulator for each new iteration of the loop over the original array. Thus the end result of the reduce function will be the end value of the accumulator once the looping is done.
+The return value from the callback function becomes the new value of the accumulator for each new iteration of the loop over the original array. Thus the end result of the reduce function will be the end value of the accumulator once the looping is done.
 
 - The second parameter is the `nextValue`. If an accumulator starting value is specified as an argument, the nextValue is equal to  index[0]. If no optional argument is given, the nextValue is the second position in the array at index[1].
 
@@ -137,7 +137,7 @@ const arrSum = arr.reduce((acc, next) => {
 })
 //-> 6
 /*
-No starting value is sepecified thus acc = index[0] and next = index[1]
+No starting value is specified thus acc = index[0] and next = index[1]
 For each iteration you add the next value to acc
 Loop:
 0	acc = 1 + 2

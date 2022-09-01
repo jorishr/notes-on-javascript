@@ -2,7 +2,7 @@
 Table of contents
 - [Iterators and generators](#iterators-and-generators)
 	- [Iterators](#iterators)
-		- [For...of loop](#forof-loop)
+		- ['For...of' loop](#forof-loop)
 	- [Extract the iterator](#extract-the-iterator)
 	- [Generator functions](#generator-functions)
 		- [Combine generators](#combine-generators)
@@ -11,7 +11,7 @@ Table of contents
 ## Iterators
 Arrays are easily iterable because of their ordered structured with an index based positioning. Objects however are more difficult to iterate over because the key-value pairs don't come in a specific order.
 
-How to find if a datastructure is iterable? Modern JS has introduced the Symbol iterator object which is present in datastructures that are iterable only.
+How to find if a data structure is iterable? Modern JS has introduced the Symbol iterator object which is present in data structures that are iterable only.
 ```js
 let arr = [1,2,3];
 let obj = {`a`: 1, `b`: 2, `c`: 3};
@@ -20,14 +20,14 @@ console.dir(arr)
 console.dir(obj)	
 //-> 	No Symbol object
 ```
-Iterable datastrures
+Iterable data structures
 - strings,
 - arrays,
 - sets and weak sets,
 - maps and weak maps
 
-### For...of loop
-The symbol iterator allows us to use a new sort of loop on iterable datastructures.
+### 'For...of' loop
+The symbol iterator allows us to use a new sort of loop on iterable data structures.
 ```js
 let mySet = new Set[1,2,3,4,4,4,5];
 mySet	
@@ -53,7 +53,7 @@ iterator.next()	//-> {value:2, done: false}
 iterator.next()	//-> {value:3, done: false}
 iterator.next()	//-> {value:undefined, done: true}
 ```
-The ITERATOR has a NEXT function that will allow you to obtain the next value in the iterating process.If you call that method, you get an object with two key-value pairs: the next value in the datastructure and a boolean that indicates whether or not the iteration has ended.
+The ITERATOR has a NEXT function that will allow you to obtain the next value in the iterating process.If you call that method, you get an object with two key-value pairs: the next value in the data structure and a boolean that indicates whether or not the iteration has ended.
 
 ## Generator functions
 A generator function builds on top of the Symbol.iterator implementation. 
@@ -115,7 +115,7 @@ generate.next()	//-> {value:undefined, done: true}
 ```
 
 ### Use case: dependant async http request
-If you have multiple http requests that depend on the data that is retrieved by a previous ajax call, generators are very useful because that pauses the execution untill the data is returned.
+If you have multiple http requests that depend on the data that is retrieved by a previous ajax call, generators are very useful because that pauses the execution until the data is returned.
 ```js
 function* generator(){
 	yield request('url1');

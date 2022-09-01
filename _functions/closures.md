@@ -124,7 +124,7 @@ With var defined as a global variable, i is 3 after one second. Since `console.l
 
 And after three iterations of the loop, the value of `var i = 3` because that is when the loop condition is met.
 
-To 'fix' this, you would have to invoke the setTimeout function immediately by wrapping it in another function. This way the value of the closure in the inner function gets stored correclty because a block scope is created.
+To 'fix' this, you would have to invoke the setTimeout function immediately by wrapping it in another function. This way the value of the closure in the inner function gets stored correctly because a block scope is created.
 ```js
 for(var i = 0; i < 3; i++){
 	((i) => {setTimeout(() => console.log(i), 1000);})(i)

@@ -11,7 +11,7 @@ Table of contents
 ## What is hoisting
 During compile phase, just microseconds before your code is executed, the JS code is scanned for function and variable declarations.
 
-All the functions and variable declarations are added to the memory inside a data structure called the LEXICAL ENVIRONMENT.
+All the functions and variable declarations are added to the memory inside a data structure called the *lexical environment*.
 
 Because those functions and declaration are present inside the memory before they are executed, they could be accessed and used before the actual declaration in the source code.
 
@@ -39,10 +39,10 @@ lexicalEnvironment = {
 ```
 
 ## What is hoisted and what not
-JavaScript hoists all DECLARATIONS (functions, var, let, const and class). Variables declared with VAR also get INITIALIZED with UNDEFINED. 
+JavaScript hoists all *declarations* (functions, var, let, const and class). Variables declared with `var` also get *initialized* with *undefined*. 
 
 ### Variables
-- VAR KEYWORD
+- the `var` keyword
 ```js
 console.log(a);
 var a = 3;

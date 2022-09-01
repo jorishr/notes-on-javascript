@@ -33,7 +33,7 @@ object {
 	'_privateData': []
 } 	
 ```
-Seperating the internal implementation from the external interface is called encapsulation.Public properties and methods can easily be get/set from the outside to any value. The distinction is not enforced by Javascript itself but it is a good guideline for writing code.
+Separating the internal implementation from the external interface is called encapsulation.Public properties and methods can easily be get/set from the outside to any value. The distinction is not enforced by Javascript itself but it is a good guideline for writing code.
 
 The importance of encapsulation:
 - prevent users from modifying core functionality

@@ -34,7 +34,7 @@ Person.prototype.multiplyFavoriteNumber = function(number){
 
 person1.multiplyFavoriteNumber(2); //54
 person1.multiplyFavoriteNumber(3); //30
-/* NOTE: the method does not have to be created as seperate declaration on the
+/* NOTE: the method does not have to be created as separate declaration on the
 prototype of the constructor function, although this is considered the most
 efficient if you want the method to be shared by multiply objects, you only 
 put the methods and properties inside the constructor function if you want 
@@ -79,7 +79,7 @@ function Child(firstName, lastName, favoriteColor, favoriteFood){
 let child1 = new Child("", "", "", "")
 /*
 NOTE: we refactor by using the Parent constructor function inside the 
-the second constructor function but we explicitely change the execution 
+the second constructor function but we explicitly change the execution 
 context through the keyword this and the the apply method.
 
 KEYWORD arguments
@@ -93,7 +93,7 @@ arguments.
 This takes the arguments from Parent constructor function and puts them into
 an array-like collection. NOTE: Technically it is NOT an array. 
 
-So you can even ommit the arguments in the Child constructor function:*/
+So you can even omit the arguments in the Child constructor function:*/
 function Child(){
     Parent.apply(this, arguments);
 } 
@@ -127,7 +127,7 @@ This will result in an array-like object that can be stored in a binding:
 To convert this into a REAL workable array follow the steps:
 - declare a empty array: var divArray = [];
 - on that empty array copy its content by using [].slice()
-- BUT use call and set the keyword this explicitely to the array-like object
+- But, use call and set the keyword this explicitly to the array-like object
 - we now have a real array and the content will be all the div elements
 - use the filter method and define a function to filter for the specific
 elements we want.*/
@@ -183,7 +183,7 @@ newB.getY()     //-> 'y'
 IV. CONSTRUCTOR FUNCTIONS WITH SIMILAR PROPERTIES
 #################################################
 
-Car and Motorcycle: make, model, year, BUT numWheels is a preset value
+Car and Motorcycle: make, model, year, but numWheels is a preset value
 that is different for each execution context(newCar/newMoto) but fixed
 for each object created by those respective function. It is a shared 
 property.

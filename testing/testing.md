@@ -11,6 +11,6 @@ Automated testing for Javascript  code is done with the help of frameworks like 
 
 - Integration testing builds on top the unit testing and looks the integration of the various parts. Thus you test more than one unit and how the units work together.
 
-- Acceptance testing is testing the entire app how it behaves on a device or whether it satifies the specs provided.
+- Acceptance testing is testing the entire app how it behaves on a device or whether it satisfies the specs provided.
 
-- Stress testing is meant for evaluating how the app behavios under adverse conditions. For example, a very slow device or slow internet access, high traffic, interruptions, etc.
+- Stress testing is meant for evaluating how the app behavior under adverse conditions. For example, a very slow device or slow internet access, high traffic, interruptions, etc.

@@ -7,7 +7,7 @@ Table of contents
 	- [Let](#let)
 	- [Scope examples](#scope-examples)
 		- [Block scope](#block-scope)
-		- [Shorthand variable declaration](#shorthand-variable-declaration)
+		- [Short hand variable declaration](#short-hand-variable-declaration)
 ## Var
 The var keyword creates variables which have a function scope. This means that any variable created with var is available anywhere in the function in which it is defined.
 
@@ -25,9 +25,9 @@ One of the major differences is that the variables defined by var are hoisted wh
 Just like in most other programming languages, a variable declared with let/const must be defined before it is used the first time.
 
 ## Const
-Allows you to create bindings that cannot be redeclared. Note that when using `var arr = [1, 2]`, this can be easily REASSIGNED to hold a different value by simply declaring arr again: `arr = "string";`.
+Allows you to create bindings that cannot be re-declared. Note that when using `var arr = [1, 2]`, this can be easily REASSIGNED to hold a different value by simply declaring arr again: `arr = "string";`.
 
-This cannot be done when `const arr = [1, 2]` is used. Changing to `arr = "string"` will return a `TypeError: constant variable`. And REDECLARING `const arr = "string"` gets a syntax Error. Thus you cannot redeclare a binding with the same name. 
+This cannot be done when `const arr = [1, 2]` is used. Changing to `arr = "string"` will return a `TypeError: constant variable`. And *re-declaring* `const arr = "string"` gets a syntax Error. Thus you cannot redeclare a binding with the same name. 
 
 The value of bindings declared with const can only be changed through the properties that are defined on that value. For example, object and array methods. 
 ```js
@@ -45,7 +45,7 @@ A block scope is created by keywords such as IF, FOR, WHILE, DO, TRY and CATCH. 
 
 The var binding declaration in a function is always hoisted to the top of the (local) scope: 
 
-The let keyword also hoists the binding but it behaves differently and is put into a temporal deadzone where variables are declared but we cannot access their values. It does produces a reference error when you declare it after the use of it.
+The let keyword also hoists the binding but it behaves differently and is put into a temporal dead zone where variables are declared but we cannot access their values. It does produces a reference error when you declare it after the use of it.
 
 Each time you have a block and you don't need the binding outside that block, use LET. Thus in loops, for example.
 
@@ -82,8 +82,8 @@ function log(){
 log()
 //-> Reference error
 ```
-### Shorthand variable declaration
-The declaration `var a = b = 3;` is shorthand for:
+### Short hand variable declaration
+The declaration `var a = b = 3;` is short hand for:
 ```js
 b = 3;
 var a = b;

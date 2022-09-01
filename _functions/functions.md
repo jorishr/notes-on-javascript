@@ -43,7 +43,7 @@ kwadraat(10);	//-> 100
 If you define a function with two arguments or parameters but CALL the functions with more than two, the additional ones will be ignored by JS. If you have missing arguments, the parameter binding remains undefined.
 
 #### Default parameter
-If you add `= <value>` to a function parameter then the argument will be replaced by the `<value>` if you  ommit an argument for that parameter in the function call.
+If you add `= <value>` to a function parameter then the argument will be replaced by the `<value>` if you  omit an argument for that parameter in the function call.
 ```js
 function power(base, exponent = 2){
 	//calculation
@@ -77,20 +77,20 @@ hello.call("Yehuda", "world");
 hello.call("world");
 //-> world says hello undefined
 ```
-Knowing the core primitive call function we can now elaborate the more common shorthand function call with just parentheses. The same function from above can be called as: `hello("world")` which compiles to: `hello.call(<thisValue>, "world")`. Whereby the `<thisValue>` depends on the execution context. In the global scope it will default to `window || undefined (in strict mode)` and inside an object it will take on the value of nearest enclosing object.
+Knowing the core primitive call function we can now elaborate the more common short hand function call with just parentheses. The same function from above can be called as: `hello("world")` which compiles to: `hello.call(<thisValue>, "world")`. Whereby the `<thisValue>` depends on the execution context. In the global scope it will default to `window || undefined (in strict mode)` and inside an object it will take on the value of nearest enclosing object.
 ```js
-//the example above with the symplified syntax:
+//the example above with the simplified syntax:
 hello('world');
 //compiles to...
 hello(window, 'world');
-//-> [object Winodw] says hello world
+//-> [object Window] says hello world
 
 //thus: fn(...arg) becomes fn.call(window [ES5-strict: undefined], ...args)
 ```
 The keyword this does not have a persistent value. It will always take on the thisValue that is present upon the actual function call.
 
 ##### A wrapper, apply and bind
-To explicitely set the value of the keyword this to a fixed value, the `call()`, `.bind()` or `apply()` methods can be used or a closure trick with a wrapper function:
+To explicitly set the value of the keyword this to a fixed value, the `call()`, `.bind()` or `apply()` methods can be used or a closure trick with a wrapper function:
 ```js
 var person = {
   name: "J R",
@@ -100,7 +100,7 @@ var person = {
 }
 /*
 Wrapper function that calls the instance method hello with the call method
-that explicitely sets the this value to the person object 
+that explicitly sets the this value to the person object 
 */
 var boundHello = function(thing) { return person.hello.call(person, thing); }
 
@@ -188,7 +188,7 @@ Function are objects in JS. The function object can be examined with `console.di
 
 Some native methods are also accessible through the prototype of the function constructor object. For example, tp get the name of the function:
 ```js
-function doSomthing(){}	
+function doSomething(){}	
 doSomething.name	 	
 //-> 'doSomething'
 
@@ -229,7 +229,7 @@ if (function f(){}){
 console.log(y);
 //-> 1undefined;
 ```
-The function declarion `function f(){}` is a value, thus in a boolean context it returns true and the if block is executed.
+The function declaration `function f(){}` is a value, thus in a boolean context it returns true and the if block is executed.
 
 However, the `typeof f` is not 'function' but `undefined` because of a scoping issue. The function f is declared inside the if condition and is not visible outside that limited scope. The result is thus a string concatenation of 1 + undefined.
 
@@ -256,7 +256,7 @@ A function binding or expression acts as a name for a specific piece of the prog
 
 You can pass on the value of the function (the right part, that contain the code) onto another binding. Or you can change the value of the binding from a function to another function or a number.
 
-This also means that the function expression is NOT hoisted and thus not avaibable before it is declared. This is an important difference with a fn declaration.
+This also means that the function expression is NOT hoisted and thus not available before it is declared. This is an important difference with a fn declaration.
 
 Also, a function expression is expected to resolve to a value, even if that value is undefined. A declaration or definition on the other hand is merely a reference.
 
@@ -273,7 +273,7 @@ When using variable computations inside the template string the regular string c
 ```js
 const one = 1;
 const two = 2;
-const thre = 3;
+const three = 3;
 const tagged = function(strArr, ...vals){
 	console.log(strArr);
 	console.log(vals);	
@@ -323,5 +323,5 @@ console.log(a)
 //however
 console.log(b) = 100 	//-> 100 
 
-//because b is not defined with the let keyword explicitely and therefore it becomes a global variable.
+//because b is not defined with the let keyword explicitly and therefore it becomes a global variable.
 ```

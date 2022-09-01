@@ -1,7 +1,7 @@
 /* 
     COMPUTING CORRELATION
 
-    Phi coeficient: n11xn00-n10xn01 divided by square root of n1.xn0.xn.1xn.0 
+    Phi co-efficient: n11xn00-n10xn01 divided by square root of n1.xn0.xn.1xn.0 
     taken from a frequency table. 
     n11 * n00 - n10 * n01 / n1• * n0• * n•1 * n•0
 
@@ -17,7 +17,7 @@ let tableObject = {11: 1, 00: 76, 01: 9, 10: 4};
 
 /* 
     Important for the computation in JS in the way to interpret the indices: 
-    1-0 is a two-bit binary number whereby the left digit refers to the squirel
+    1-0 is a two-bit binary number whereby the left digit refers to the squirrel
     (true) and the right digit to the other variable/event (e.g. pizza: false).
     
     Since the binary 10 represent the decimal number two(2) we store 10 at

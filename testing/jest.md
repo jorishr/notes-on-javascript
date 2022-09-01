@@ -5,10 +5,10 @@ Table of contents
   - [Writing tests](#writing-tests)
   - [Express integration testing](#express-integration-testing)
 ## Install and setup
-```
+```bash
 npm i -D jest
 
-//update the package.json:
+# update the package.json:
 	
 "test": "jest"
 "test": "jest --coverage"
@@ -16,7 +16,7 @@ npm i -D jest
 jest --init
 
 jest --watch
-//watch mode will detect changes and run the test immediately.
+# watch mode will detect changes and run the test immediately.
 ```
 The coverage flag will generate a new folder with an html file that visually indicates what has been tested.
 

@@ -1,12 +1,12 @@
 # Object enhancements
 Table of contents
 - [Object enhancements](#object-enhancements)
-  - [Shorthand notations](#shorthand-notations)
-  - [Computed property names](#computed-property-names)
+	- [Short hand notations](#short-hand-notations)
+	- [Computed property names](#computed-property-names)
 
 Update to the Javascript language brought various enhancements for working with object.
 
-## Shorthand notations
+## Short hand notations
 - When declaring an object and the object property and object value have the same name you only have to write the name once (if they exist as variables).
 ```js
 let firstName = "#me";

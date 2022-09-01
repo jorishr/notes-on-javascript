@@ -16,7 +16,7 @@ genObj.next(); //-> {value: 4, done: false}
 genObj.next(); //-> {value: undefined, done: true} 
                // NOTE: last iteration does not yield a result because i < num
 
-// mulitple yield statements
+// multiple yield statements
 function* printStrings(){
     yield "first";
     yield "second";
@@ -49,7 +49,7 @@ getMovieData("titanic").next().value.then(val => console.log(val));
             Released: "19 Dec 1997", Runtime: "194 min", …}
 
 We access the unresolved promise that is stored inside .value property of
-the generator object. Then we resolve that promuse with .then and the
+the generator object. Then we resolve that promise with .then and the
 callback function we use logs the value of the resolved promise, which
 is an object containing all the info of the respective movie.
 */

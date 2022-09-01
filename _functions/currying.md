@@ -20,7 +20,7 @@ function add(x, y){
 }
 ```
 ## Use cases in NodeJs
-FS Module readfile:
+FS Module readFile:
 ```js
 //fs.readFile(path, encoding, cb)
 fs.readFile('hello.txt', 'utf8', 

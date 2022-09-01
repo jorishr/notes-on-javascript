@@ -27,11 +27,11 @@ Unary operators operate on just one value. Example are `typeof`, `!` or `-` as i
 ### The + operator
 The `+` operator performs polymorphism, as it can adapt to the situation it encounters:
 - with 2 numbers it performs a calculation
-- when it encounters a string on the left or right side, it tries to convert the other value into a string to perfrom string concatenation. Strings always take precedence over numbers.
+- when it encounters a string on the left or right side, it tries to convert the other value into a string to perform string concatenation. Strings always take precedence over numbers.
 
 ### The - operator
-As a binary operator it performs a substraction.
-As a unary operator it converts a postive integer into a negative integer:`console.log(- (10 + 2))` returns -12.
+As a binary operator it performs a subtraction.
+As a unary operator it converts a positive integer into a negative integer:`console.log(- (10 + 2))` returns -12.
 
 ### The typeof operator
 Return the data-type of the value it operates on.
@@ -43,7 +43,7 @@ console.log(typeof 10) 		//-> number
 console.log(typeof true) 	//-> boolean
 ```
 ### The ternary operator
-The TERNARY or CONDITIONAL operator operates on three values: It has a conditional statement and based on the outcomes returns the first or the second value. The conditional operator can be a useful replacement for and if/else statement.
+The *ternary* or conditional operator operates on three values: It has a conditional statement and based on the outcomes returns the first or the second value. The conditional operator can be a useful replacement for and if/else statement.
 ```javascript	
 console.log(true ? 1 : 2); 	//-> 1
 console.log(false ? 1 : 2); //-> 2
@@ -66,7 +66,7 @@ console.log(7 > 6 > 5);	//-> true > 5 -> 1 > 5 -> false
 When comparing strings like `"abc" < "Abc"` Javascript compares the unicode code values one by one from left to right whereby Uppercase is less than lowercase.
 
 ### The == and != operators
-The base equality operators check the whether two values are equal. If those values are not of the same datatype, the type conversion algortihm kicks in to try and convert the values into datatypes that can be compared. This can lead to unexpected outcomes. It is therefore recommended to use the strict equality operators `===` and `!==` that do not perform type coercion.
+The base equality operators check the whether two values are equal. If those values are not of the same datatype, the type conversion algorithm kicks in to try and convert the values into datatypes that can be compared. This can lead to unexpected outcomes. It is therefore recommended to use the strict equality operators `===` and `!==` that do not perform type coercion.
 ```javascript
 "apple" != "orange" //-> true
 "apple" == "orange" //-> false
@@ -96,7 +96,7 @@ console.log(!!'false')	//-> !!true -> !false -> true
 ```
 
 ## Operator precedence
-In mathematics BODMAS is used:
+In mathematics 'BODMAS' is used:
 - B: Brackets first
 - O: Orders (i.e. Powers and Square Roots, etc.)
 - DM: Division and Multiplication (left-to-right)

@@ -116,7 +116,7 @@ Math.max.__proto__ === Function.prototype
 ```
 
 ## Example
-Create a constructor function for verhicles with properties: make, model, year and isRunning set to false. Also, create a method that works on all object instances and that changes the value of of the isRunning property.
+Create a constructor function for vehicles with properties: make, model, year and isRunning set to false. Also, create a method that works on all object instances and that changes the value of of the isRunning property.
 ```js
 function CreateVehicle(make, model, year){
 	this.make = make;

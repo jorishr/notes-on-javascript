@@ -28,7 +28,7 @@ colors.unshift("#fff"); //-> ["#fff" "green", "yellow", "red"]
 
 var removedColor = colors.shift(); //-> "#fff"
 
-//in ES6 adding a value to an exisiting array can also be done with the spread operator 
+//in ES6 adding a value to an existing array can also be done with the spread operator 
 const arr = [1,2,3];
 //add at beginning
 arr = [0, ...arr];
@@ -39,7 +39,7 @@ arr = [0, ...arr, 4];
 ```
 
 ## Slice
-The `slice()` nethod is used to copy or extract different portions of an array without changing the original array by creating a new array with different identity.
+The `slice()` method is used to copy or extract different portions of an array without changing the original array by creating a new array with different identity.
 ```js
 //copy entire array, no arguments given
 var colors = ["#fff" "green", "yellow", "red"];

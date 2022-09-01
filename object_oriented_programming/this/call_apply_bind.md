@@ -22,7 +22,7 @@ Call and bind can take an infinite number of parameters whereas apply on accepts
 - an array
 
 ## Call and apply
-The call method invokes a function immediatly with a different execution context set. It can be used to 'borrow' a function defined in another object and call that function within the current execution context: `call(this)`
+The call method invokes a function immediately with a different execution context set. It can be used to 'borrow' a function defined in another object and call that function within the current execution context: `call(this)`
 
 The only difference between call and apply is the parameter structure whereby apply accepts an optional array:
 `apply(this, arr)`.
@@ -89,6 +89,7 @@ The setTimeout function, however, operates on the global object (browser window)
 There are two solutions:
 - use the bind method
 - use an arrow function
+- 
 #### setTimeout and bind
 Use the bind method on the callback function inside setTimeout. At the time of this function declaration the keyword this references to the enclosing person object and we bind the callback function to that object.
 ```js
@@ -117,7 +118,7 @@ person.sayHi() // "Hi Joris" after 2000ms
 ```
 
 ### Get property value
-By creating a new variable the execution context can chang and the value of this can become undefined.
+By creating a new variable the execution context can change and the value of this can become undefined.
 ```js
 var hero = {
 	name: 'john doe',
@@ -137,7 +138,7 @@ console.log(identity());
 //-> john doe
 ```
 ### This inside a function expression (variable)
-The this keyword is unbound inside the function expression. Thereby refering to the global object.
+The this keyword is unbound inside the function expression. Thereby referring to the global object.
 ```js
 const a = {
 	x: 1, 

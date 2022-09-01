@@ -5,7 +5,7 @@ PROMISES EXERCISES
 I.      MANUAL PROMISE
 II.     PAUSE AN APP
 III.    GITHUB FOLLOWERS
-IV.     STARWARS STRING
+IV.     STAR WARS STRING
 ########################
 
 ##################
@@ -24,7 +24,7 @@ async function myPromise(){
             resolve(successObject); 
         } else {
             const errorObject = {
-                msg: 'An error occured',
+                msg: 'An error occurred',
                 error: 'Test', //...some error we got back
             }
             reject(errorObject);
@@ -80,14 +80,14 @@ function myPromise(cb){
 #####################
 II. PAUSE AN APP X MS
 #####################
-To pause a function executio in an ASYNCHRONOUS MANNER use a combination of a
+To pause a function execution in an ASYNCHRONOUS MANNER use a combination of a
 promise and setTimeout fn.
 
-SetTimeout will call the resolve function after x miliseconds.
+SetTimeout will call the resolve function after x milliseconds.
 */
-function wait(miliseconds){
+function wait(milliseconds){
     return new Promise(resolve => {
-        setTimeout(resolve, miliseconds);
+        setTimeout(resolve, milliseconds);
     })
 }
 
@@ -124,7 +124,7 @@ function getMostFollowers(...names){
 }
 getMostFollowers("ellie", "colt").then(function(data){console.log(data)});
 /* 
-LOCIC
+LOGIC
 
 - working with a baseUrl cleans up the code, to it you can concatenate
 whatever you need
@@ -177,7 +177,7 @@ getMostFollowers("jorishr", "tigarcia", "colt").then(function(data){console.log(
 
 /*  
 ######################
-IV.    STARWARS STRING
+IV.    STAR WARS STRING
 ######################
 
 Write a function called starWarsString, which accepts a number. You 
@@ -227,7 +227,7 @@ function starWarsString(id){
 
 starWarsString(1).then(function(data){console.log(data)});
 /* 
--> Luke Skywalkeris featured in The Empire Strikes Back, directed by Irvin 
+-> Luke Skywalker is featured in The Empire Strikes Back, directed by Irvin 
 Kershner and it takes place on Hoth.
 
 LOGIC 

@@ -12,7 +12,7 @@ I.  EXAMPLE OBJECTS
 ###################
 
 We create an array of posts and each post be an object with various properties
-inside. This is an example of a complete but simple datastructure.
+inside. This is an example of a complete but simple data structure.
 */
 var posts = [
   { 
@@ -20,14 +20,14 @@ var posts = [
     subtitle: "at index position 0 in the array",
     author: "JR",
     comments: ["an array of comments", "inside an object property",
-      "complicate it futher by making each an object!"]
+      "complicate it further by making each an object!"]
   }, 
   {
     title: "post number two",
     subtitle: "at index position 1 in the array",
     author: "JR",
     comments: ["an array of comments", "inside an object property",
-      "complicate it futher by making each an object!" ]
+      "complicate it further by making each an object!" ]
   }
 ]
 
@@ -38,7 +38,7 @@ posts[0].subtitle; //subtitle post 1
 
 /*
 IMPORTANT
-Practice reading the code and accessing these type of datastructures because
+Practice reading the code and accessing these type of data structures because
 in real world examples you'll work with 5 or 6 levels deep of nested ARRAYS
 and OBJECTS.
 */
@@ -74,7 +74,7 @@ createStudentObj('Elie', 'Schoppik')
 // {firstName: 'Elie', lastName: 'Schoppik'}
 
 /* 
-BUT if you want to have the really short version, the following does not work
+But, if you want to have the really short version, the following does not work
 because the {} gets mistaken for function block and not the object we want to
 create.*/ 
 let createStudentObj = (firstName, lastName) => {firstName: firstName, lastName: lastName};
@@ -147,7 +147,7 @@ let till = {
   cents5: 20
 }
 
-//Give het exacte bedrag van 20.75 terug met zo weining mogelijk muntjes. 
+//Give het exacte bedrag van 20.75 terug met zo weinig mogelijk muntjes. 
 
 let value = {
   euro10: 1000,

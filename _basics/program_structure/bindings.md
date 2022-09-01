@@ -28,12 +28,12 @@ console.log(debt); //65
 
 const surname = "Raymaekers";  
 let debt = 100, paid = 5, netDebt = 20; 
-//define mulitple var in one statement with comma seperation
+//define multiple var in one statement with comma separation
 ```
 Binding names: do not start with a number and mind reserved keywords. `$` or `_` is allowed. Uppercase only for constructor functions.
 
 ## Hoisting
-The `var` keyword for variable definition also means the variable gets hoisted to the top and can be referenced from the beginning of the program, BEFORE its value is declared. Hoisting happens inside each scope. Thus inside the scope of a function, code block or global scope. The practical implication of hoisting is that there is no reference error for a variable that receives its value later on in the program. Untill it gets assigned a value, the variable is initialized with a value `undefined`.
+The `var` keyword for variable definition also means the variable gets hoisted to the top and can be referenced from the beginning of the program, BEFORE its value is declared. Hoisting happens inside each scope. Thus inside the scope of a function, code block or global scope. The practical implication of hoisting is that there is no reference error for a variable that receives its value later on in the program. Until it gets assigned a value, the variable is initialized with a value `undefined`.
 Consider the example below:
 ```js
 function f(){
@@ -64,7 +64,7 @@ function(){
 }
 //-> undefined
 ```
-Because the `y` variable inside the functions has the same name as the global variable and will override the exisiting value. Inside the function `y` gets hoisted to the top of the function as `var y;` declared with a value of `undefined`.
+Because the `y` variable inside the functions has the same name as the global variable and will override the existing value. Inside the function `y` gets hoisted to the top of the function as `var y;` declared with a value of `undefined`.
 
 ## Updating binding values shortcodes
 ```js
@@ -80,7 +80,7 @@ count++;
 count = count + x;
 count += x;
 
-//substract 1
+//subtract 1
 count = count - 1;
 count -= 1; 
 count--

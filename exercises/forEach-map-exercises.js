@@ -172,7 +172,7 @@ evaluate them
 - you need a control variable: the vowels. vowels = "aeoui"
 - to evaluate if a character is present in an array or string you can use
  indexOf() === -1 (not present) OR !== -1 (present)
-- to check for uppercase/lowecase, you have to convert all characters into
+- to check for uppercase/lowercase, you have to convert all characters into
 lowercase
 - you need to construct an object  
 Note: again note that we use obj[val] to have JS evaluate the value parameter
