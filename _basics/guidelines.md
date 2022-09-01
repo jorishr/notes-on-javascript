@@ -13,6 +13,16 @@ See websites documentation of Eslint and Prettier websites for install guides.
 - Naming conventions
 The crucial part here is to be consistent. Don't mix styles.
 
+- Once the code works, the basic job is done. *But*, always take the time to refactor and clean up. This will save you time in the long run and others that have to read the code.
+
+- Work on a piece of code or user story from zero till it’s completely finished. This includes refactoring. The cost of having to re-familiarize yourself with the code later is too high. 
+
+- Write documentation immediately when dealing with complex tasks and code.
+
+- Use small commits with descriptive and specific language.
+
+- Use small commits!
+
 ## Loading and executing JavaScript files
 When the `<script>` tag is put between the `<head>` tags of an HTML tag *without attributes*, the JS file is downloaded and executed BEFORE the rest of the HTML content is parsed and rendered by the browser. This is problematic because most of the js code will depend on html elements for its execution. The simple work around is to put the `<script>` tags at the bottom of the `<body>` tag so that the js files get downloaded and executed after the other HTML content is loaded.
 
